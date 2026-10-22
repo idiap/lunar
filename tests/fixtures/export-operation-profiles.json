@@ -1,0 +1,805 @@
+[
+  {
+    "profile": {
+      "authority": {
+        "separate_from_computational_character": true
+      },
+      "capability_profile_digest": "sha256:a04b68cf46f84c7cbf5f33b01547d9e9e4f6dc719aaed3859026355de4293bee",
+      "derived_posture": "deterministic",
+      "extensions": {
+        "audit_class": "non_generative",
+        "capability_claims": [
+          {
+            "claim": "Render an admitted project-scoped Codex, Claude Code, or OpenCode skill from a frozen portable workflow package. Use for one exact Agent Skills target profile; do not use for MCP export or unversioned host generation.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "Compile the portable common core for exactly one Agent Skills target identity from a frozen `PortableWorkflowPackage@1`.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "`compile-common` \u2192 validated `SKILL.md` and `references/workflow.md` bytes plus the deterministic skill ID.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "`render-codex-project` \u2192 the complete `.agents/skills/<id>/` projection plus the packaged CLI and installation instructions.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "`render-claude-code-project` \u2192 the complete `.claude/skills/<id>/` projection with exactly admitted Claude-only frontmatter.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "`render-opencode-project` \u2192 the complete `.opencode/skills/<id>/` projection plus fixed project `opencode.json` permissions.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "Use only to compile the host-neutral subset or render one exact versioned project target for a frozen `PortableWorkflowPackage@1`.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          },
+          {
+            "claim": "Do not overwrite unmanaged paths, embed the DAG as prose, invoke `accept`, or render an unadmitted target.",
+            "operation_ids": [
+              "agent-skill-workflow-exporter:compile-common",
+              "agent-skill-workflow-exporter:render-opencode-project"
+            ]
+          }
+        ],
+        "classification_basis": "reviewed exhaustive audit with operation decomposition recorded as migration inference",
+        "execution_metadata_normalization": {
+          "grants_decision_authority": false,
+          "grants_runtime_binding": false,
+          "hybrid_posture_preserved": true,
+          "normalized_kernel_execution_character": "exact_deterministic",
+          "normalized_kernel_execution_characters": [
+            "exact_deterministic"
+          ],
+          "normalized_kernel_reasoning_role": "exact_transform",
+          "normalized_kernel_reasoning_roles": [
+            "exact_transform"
+          ],
+          "operation_normalizations": [
+            {
+              "normalization_applied": false,
+              "normalized_execution_character": "exact_deterministic",
+              "normalized_reasoning_role": "exact_transform",
+              "operation_id": "agent-skill-workflow-exporter:compile-common",
+              "source_execution_character": "exact_deterministic",
+              "source_reasoning_role": "exact_transform"
+            },
+            {
+              "normalization_applied": false,
+              "normalized_execution_character": "exact_deterministic",
+              "normalized_reasoning_role": "exact_transform",
+              "operation_id": "agent-skill-workflow-exporter:render-opencode-project",
+              "source_execution_character": "exact_deterministic",
+              "source_reasoning_role": "exact_transform"
+            }
+          ],
+          "provenance": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/skill.yaml#execution.implementation.operations",
+          "provider_mode_preserved": false,
+          "source_execution_characters": [
+            "exact_deterministic"
+          ],
+          "source_reasoning_roles": [
+            "exact_transform"
+          ]
+        },
+        "prism_authoritative": false,
+        "rollout_wave": "wave-5-report-and-semantic-synthesis",
+        "runtime_binding_crosswalk": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json",
+        "scope": "scientific",
+        "skill_name": "agent-skill-workflow-exporter",
+        "source_path": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/SKILL.md"
+      },
+      "operations": [
+        {
+          "abstention": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "assumptions": [
+            "All material inputs, versions, and claim boundaries are explicit."
+          ],
+          "binding_status": "bound",
+          "epistemic_ceiling": "Derived values and structure only; no unsupported scientific promotion.",
+          "epistemic_class": "derived",
+          "evidence_inputs": [],
+          "execution_character": "exact_deterministic",
+          "failure_states": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "field_provenance": {
+            "binding_status": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#agent-skill-workflow-exporter:compile-common",
+              "source": "static_analysis"
+            },
+            "epistemic_ceiling": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "epistemic_class": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "execution_character": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/skill.yaml#execution.implementation.operations/agent-skill-workflow-exporter:compile-common",
+              "source": "author"
+            },
+            "generation_requirement": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "operation_role": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "reasoning_role": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/skill.yaml#execution.implementation.operations/agent-skill-workflow-exporter:compile-common",
+              "source": "author"
+            },
+            "runtime_binding_ids": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#agent-skill-workflow-exporter:compile-common",
+              "source": "static_analysis"
+            },
+            "verification": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            }
+          },
+          "generation_requirement": "prohibited",
+          "inputs": [
+            {
+              "name": "request",
+              "required": true,
+              "type": "bioagents.capability-request/v1"
+            }
+          ],
+          "operation_id": "agent-skill-workflow-exporter:compile-common",
+          "operation_role": "kernel",
+          "outputs": [
+            {
+              "name": "result",
+              "required": true,
+              "type": "bioagents.skill-result/v1"
+            }
+          ],
+          "purpose": "Perform the compile-common operation for Render an admitted project-scoped Codex, Claude Code, or OpenCode skill from a frozen portable workflow package. Use for one exact Agent Skills target profile; do not use for MCP export or unversioned host generation.",
+          "reasoning_role": "exact_transform",
+          "runtime_binding_ids": [
+            "binding.skill-source.agent-skill-workflow-exporter.v1"
+          ],
+          "verification": [
+            "exact_comparison",
+            "schema_validation"
+          ]
+        },
+        {
+          "abstention": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "assumptions": [
+            "All material inputs, versions, and claim boundaries are explicit."
+          ],
+          "binding_status": "bound",
+          "epistemic_ceiling": "Derived values and structure only; no unsupported scientific promotion.",
+          "epistemic_class": "derived",
+          "evidence_inputs": [],
+          "execution_character": "exact_deterministic",
+          "failure_states": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "field_provenance": {
+            "binding_status": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#agent-skill-workflow-exporter:render-opencode-project",
+              "source": "static_analysis"
+            },
+            "epistemic_ceiling": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "epistemic_class": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "execution_character": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/skill.yaml#execution.implementation.operations/agent-skill-workflow-exporter:render-opencode-project",
+              "source": "author"
+            },
+            "generation_requirement": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "operation_role": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "reasoning_role": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter/skill.yaml#execution.implementation.operations/agent-skill-workflow-exporter:render-opencode-project",
+              "source": "author"
+            },
+            "runtime_binding_ids": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#agent-skill-workflow-exporter:render-opencode-project",
+              "source": "static_analysis"
+            },
+            "verification": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/agent-skill-workflow-exporter",
+              "source": "migration_inference"
+            }
+          },
+          "generation_requirement": "prohibited",
+          "inputs": [
+            {
+              "name": "request",
+              "required": true,
+              "type": "bioagents.capability-request/v1"
+            }
+          ],
+          "operation_id": "agent-skill-workflow-exporter:render-opencode-project",
+          "operation_role": "kernel",
+          "outputs": [
+            {
+              "name": "result",
+              "required": true,
+              "type": "bioagents.skill-result/v1"
+            }
+          ],
+          "purpose": "Perform the render-opencode-project operation for Render an admitted project-scoped Codex, Claude Code, or OpenCode skill from a frozen portable workflow package. Use for one exact Agent Skills target profile; do not use for MCP export or unversioned host generation.",
+          "reasoning_role": "exact_transform",
+          "runtime_binding_ids": [
+            "binding.skill-source.agent-skill-workflow-exporter.v1"
+          ],
+          "verification": [
+            "exact_comparison",
+            "schema_validation"
+          ]
+        }
+      ],
+      "review_status": "reviewed",
+      "reviewed_by": [
+        "docs/skill-operation-recovery-plan.md",
+        "docs/reference/skill-generative-operation-inventory.json"
+      ],
+      "schema_version": "bioagents.skill-capability-profile/v1",
+      "skill_digest": "sha256:35d8a163e8427475f4d5bb7f4fd3d7a0bb02b8640b4c565e62c3053466e7cea4",
+      "skill_id": "scientific:agent-skill-workflow-exporter"
+    },
+    "operations": [
+      "agent-skill-workflow-exporter:compile-common",
+      "agent-skill-workflow-exporter:render-opencode-project"
+    ],
+    "bindings": {
+      "agent-skill-workflow-exporter:compile-common": {
+        "schema_version": "bioagents.runtime-binding/v1",
+        "binding_id": "binding.skill-source.agent-skill-workflow-exporter.v1",
+        "skill_id": "scientific:agent-skill-workflow-exporter",
+        "operation_id": "agent-skill-workflow-exporter:compile-common",
+        "binding_kind": "package_local",
+        "entrypoint": {
+          "callable": "compile_common",
+          "locator": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter",
+          "module": "agent_skill_workflow_exporter.runtime",
+          "protocol": "skill_source",
+          "shared_dependencies": [
+            "catalog/workflows/public/dependencies/workflow_export"
+          ],
+          "source_root": "src"
+        },
+        "source_digest": "sha256:111b861118acdf9550e6daa251b9452ef0cbef2cc7e7da0b3f7ad31064c7910e",
+        "version": "v1",
+        "environment": {
+          "lock_path": "uv.lock",
+          "lock_digest": "sha256:752b55af01cf46802aa6945da96afa8c7c09343d637f0831793e5717fae42875"
+        },
+        "availability": {
+          "status": "available",
+          "checked": true,
+          "reason": "exact binding and source are available"
+        },
+        "permissions": [
+          "repository_read"
+        ],
+        "privacy_boundary": "repository",
+        "network_required": true,
+        "reproducibility": {
+          "execution_character": "exact_deterministic",
+          "seed": null,
+          "tolerance": null,
+          "nondeterminism": "declared by operation envelope; no semantic fallback"
+        },
+        "license": {
+          "spdx": "NOASSERTION",
+          "redistribution": "unknown"
+        },
+        "fallback": {
+          "mode": "none"
+        },
+        "invalidation": [
+          "source_digest_mismatch",
+          "environment_lock_change",
+          "entrypoint_unavailable"
+        ],
+        "extensions": {
+          "engine_operation_id": "agent-skill-workflow-exporter:compile-common",
+          "crosswalk_disposition": "exactly_bound",
+          "generative_fallback_allowed": false
+        },
+        "binding_digest": "sha256:baf08d03f86ea6ba99b4a791d59499dfeef0eb1852c0aa7b80a586a8573eeda3"
+      },
+      "agent-skill-workflow-exporter:render-opencode-project": {
+        "schema_version": "bioagents.runtime-binding/v1",
+        "binding_id": "binding.skill-source.agent-skill-workflow-exporter.v1",
+        "skill_id": "scientific:agent-skill-workflow-exporter",
+        "operation_id": "agent-skill-workflow-exporter:render-opencode-project",
+        "binding_kind": "package_local",
+        "entrypoint": {
+          "callable": "render_opencode_project",
+          "locator": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/agent-skill-workflow-exporter",
+          "module": "agent_skill_workflow_exporter.runtime",
+          "protocol": "skill_source",
+          "shared_dependencies": [
+            "catalog/workflows/public/dependencies/workflow_export"
+          ],
+          "source_root": "src"
+        },
+        "source_digest": "sha256:111b861118acdf9550e6daa251b9452ef0cbef2cc7e7da0b3f7ad31064c7910e",
+        "version": "v1",
+        "environment": {
+          "lock_path": "uv.lock",
+          "lock_digest": "sha256:752b55af01cf46802aa6945da96afa8c7c09343d637f0831793e5717fae42875"
+        },
+        "availability": {
+          "status": "available",
+          "checked": true,
+          "reason": "exact binding and source are available"
+        },
+        "permissions": [
+          "repository_read"
+        ],
+        "privacy_boundary": "repository",
+        "network_required": true,
+        "reproducibility": {
+          "execution_character": "exact_deterministic",
+          "seed": null,
+          "tolerance": null,
+          "nondeterminism": "declared by operation envelope; no semantic fallback"
+        },
+        "license": {
+          "spdx": "NOASSERTION",
+          "redistribution": "unknown"
+        },
+        "fallback": {
+          "mode": "none"
+        },
+        "invalidation": [
+          "source_digest_mismatch",
+          "environment_lock_change",
+          "entrypoint_unavailable"
+        ],
+        "extensions": {
+          "engine_operation_id": "agent-skill-workflow-exporter:render-opencode-project",
+          "crosswalk_disposition": "exactly_bound",
+          "generative_fallback_allowed": false
+        },
+        "binding_digest": "sha256:5f23650245111a7dd47ea9a973a0f172d0d539a1f0ba82179b0fc15156316a0a"
+      }
+    }
+  },
+  {
+    "profile": {
+      "authority": {
+        "separate_from_computational_character": true
+      },
+      "capability_profile_digest": "sha256:34c027d7a513b2fb212d315f5dcf67af9e73f668f2134cbb5d049d9f8bb00119",
+      "derived_posture": "deterministic",
+      "extensions": {
+        "audit_class": "non_generative",
+        "capability_claims": [
+          {
+            "claim": "Render one admitted portable workflow package as a self-contained local MCP server when an end user requests stdio or authenticated loopback Streamable HTTP delivery.",
+            "operation_ids": [
+              "local-mcp-workflow-exporter:render-stdio",
+              "local-mcp-workflow-exporter:render-http"
+            ]
+          },
+          {
+            "claim": "Render exactly one frozen `PortableWorkflowPackage@1`; do not expose catalog-wide dispatch or reinterpret its workflow, gates, authority, bindings, or claim ceiling.",
+            "operation_ids": [
+              "local-mcp-workflow-exporter:render-stdio",
+              "local-mcp-workflow-exporter:render-http"
+            ]
+          },
+          {
+            "claim": "Use `render-stdio` for the default local stdio target and `render-http` only for",
+            "operation_ids": [
+              "local-mcp-workflow-exporter:render-stdio",
+              "local-mcp-workflow-exporter:render-http"
+            ]
+          },
+          {
+            "claim": "The registered `render-stdio` operation targets only `local-mcp-python-stdio-v1`.",
+            "operation_ids": [
+              "local-mcp-workflow-exporter:render-stdio",
+              "local-mcp-workflow-exporter:render-http"
+            ]
+          },
+          {
+            "claim": "Use `src/local_mcp_workflow_exporter/renderer.py` to copy the owned `mcp-python` template and write its canonical `workflow-package.json`.",
+            "operation_ids": [
+              "local-mcp-workflow-exporter:render-stdio",
+              "local-mcp-workflow-exporter:render-http"
+            ]
+          }
+        ],
+        "classification_basis": "reviewed exhaustive audit with operation decomposition recorded as migration inference",
+        "execution_metadata_normalization": {
+          "grants_decision_authority": false,
+          "grants_runtime_binding": false,
+          "hybrid_posture_preserved": true,
+          "normalized_kernel_execution_character": "exact_deterministic",
+          "normalized_kernel_execution_characters": [
+            "exact_deterministic"
+          ],
+          "normalized_kernel_reasoning_role": "exact_transform",
+          "normalized_kernel_reasoning_roles": [
+            "exact_transform"
+          ],
+          "operation_normalizations": [
+            {
+              "normalization_applied": false,
+              "normalized_execution_character": "exact_deterministic",
+              "normalized_reasoning_role": "exact_transform",
+              "operation_id": "local-mcp-workflow-exporter:render-stdio",
+              "source_execution_character": "exact_deterministic",
+              "source_reasoning_role": "exact_transform"
+            },
+            {
+              "normalization_applied": false,
+              "normalized_execution_character": "exact_deterministic",
+              "normalized_reasoning_role": "exact_transform",
+              "operation_id": "local-mcp-workflow-exporter:render-http",
+              "source_execution_character": "exact_deterministic",
+              "source_reasoning_role": "exact_transform"
+            }
+          ],
+          "provenance": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/skill.yaml#execution.implementation.operations",
+          "provider_mode_preserved": false,
+          "source_execution_characters": [
+            "exact_deterministic"
+          ],
+          "source_reasoning_roles": [
+            "exact_transform"
+          ]
+        },
+        "prism_authoritative": false,
+        "rollout_wave": "wave-5-report-and-semantic-synthesis",
+        "runtime_binding_crosswalk": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json",
+        "scope": "scientific",
+        "skill_name": "local-mcp-workflow-exporter",
+        "source_path": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/SKILL.md"
+      },
+      "operations": [
+        {
+          "abstention": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "assumptions": [
+            "All material inputs, versions, and claim boundaries are explicit."
+          ],
+          "binding_status": "bound",
+          "epistemic_ceiling": "Derived values and structure only; no unsupported scientific promotion.",
+          "epistemic_class": "derived",
+          "evidence_inputs": [],
+          "execution_character": "exact_deterministic",
+          "failure_states": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "field_provenance": {
+            "binding_status": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#local-mcp-workflow-exporter:render-stdio",
+              "source": "static_analysis"
+            },
+            "epistemic_ceiling": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "epistemic_class": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "execution_character": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/skill.yaml#execution.implementation.operations/local-mcp-workflow-exporter:render-stdio",
+              "source": "author"
+            },
+            "generation_requirement": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "operation_role": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "reasoning_role": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/skill.yaml#execution.implementation.operations/local-mcp-workflow-exporter:render-stdio",
+              "source": "author"
+            },
+            "runtime_binding_ids": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#local-mcp-workflow-exporter:render-stdio",
+              "source": "static_analysis"
+            },
+            "verification": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            }
+          },
+          "generation_requirement": "prohibited",
+          "inputs": [
+            {
+              "name": "request",
+              "required": true,
+              "type": "bioagents.capability-request/v1"
+            }
+          ],
+          "operation_id": "local-mcp-workflow-exporter:render-stdio",
+          "operation_role": "kernel",
+          "outputs": [
+            {
+              "name": "result",
+              "required": true,
+              "type": "bioagents.skill-result/v1"
+            }
+          ],
+          "purpose": "Perform the render-stdio operation for Render one admitted portable workflow package as a self-contained local MCP server when an end user requests stdio or authenticated loopback Streamable HTTP delivery.",
+          "reasoning_role": "exact_transform",
+          "runtime_binding_ids": [
+            "binding.skill-source.local-mcp-workflow-exporter.v1"
+          ],
+          "verification": [
+            "exact_comparison",
+            "schema_validation"
+          ]
+        },
+        {
+          "abstention": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "assumptions": [
+            "All material inputs, versions, and claim boundaries are explicit."
+          ],
+          "binding_status": "bound",
+          "epistemic_ceiling": "Derived values and structure only; no unsupported scientific promotion.",
+          "epistemic_class": "derived",
+          "evidence_inputs": [],
+          "execution_character": "exact_deterministic",
+          "failure_states": [
+            "invalid_input",
+            "out_of_scope",
+            "unavailable_binding"
+          ],
+          "field_provenance": {
+            "binding_status": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#local-mcp-workflow-exporter:render-http",
+              "source": "static_analysis"
+            },
+            "epistemic_ceiling": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "epistemic_class": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "execution_character": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/skill.yaml#execution.implementation.operations/local-mcp-workflow-exporter:render-http",
+              "source": "author"
+            },
+            "generation_requirement": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "operation_role": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            },
+            "reasoning_role": {
+              "evidence": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter/skill.yaml#execution.implementation.operations/local-mcp-workflow-exporter:render-http",
+              "source": "author"
+            },
+            "runtime_binding_ids": {
+              "evidence": "catalog/runtime_bindings/skill-operation-binding-crosswalk.json#local-mcp-workflow-exporter:render-http",
+              "source": "static_analysis"
+            },
+            "verification": {
+              "evidence": "docs/reference/skill-generative-operation-inventory.json#non_generative/local-mcp-workflow-exporter",
+              "source": "migration_inference"
+            }
+          },
+          "generation_requirement": "prohibited",
+          "inputs": [
+            {
+              "name": "request",
+              "required": true,
+              "type": "bioagents.capability-request/v1"
+            }
+          ],
+          "operation_id": "local-mcp-workflow-exporter:render-http",
+          "operation_role": "kernel",
+          "outputs": [
+            {
+              "name": "result",
+              "required": true,
+              "type": "bioagents.skill-result/v1"
+            }
+          ],
+          "purpose": "Perform the render-http operation for Render one admitted portable workflow package as a self-contained local MCP server when an end user requests stdio or authenticated loopback Streamable HTTP delivery.",
+          "reasoning_role": "exact_transform",
+          "runtime_binding_ids": [
+            "binding.skill-source.local-mcp-workflow-exporter.v1"
+          ],
+          "verification": [
+            "exact_comparison",
+            "schema_validation"
+          ]
+        }
+      ],
+      "review_status": "reviewed",
+      "reviewed_by": [
+        "docs/skill-operation-recovery-plan.md",
+        "docs/reference/skill-generative-operation-inventory.json"
+      ],
+      "schema_version": "bioagents.skill-capability-profile/v1",
+      "skill_digest": "sha256:37335cccdeed098d0cdae21bea3671f14de25c5b083ff22c9602bc716d217e1b",
+      "skill_id": "scientific:local-mcp-workflow-exporter"
+    },
+    "operations": [
+      "local-mcp-workflow-exporter:render-stdio",
+      "local-mcp-workflow-exporter:render-http"
+    ],
+    "bindings": {
+      "local-mcp-workflow-exporter:render-stdio": {
+        "schema_version": "bioagents.runtime-binding/v1",
+        "binding_id": "binding.skill-source.local-mcp-workflow-exporter.v1",
+        "skill_id": "scientific:local-mcp-workflow-exporter",
+        "operation_id": "local-mcp-workflow-exporter:render-stdio",
+        "binding_kind": "package_local",
+        "entrypoint": {
+          "callable": "render_mcp_stdio_target",
+          "locator": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter",
+          "module": "local_mcp_workflow_exporter.renderer",
+          "protocol": "skill_source",
+          "shared_dependencies": [],
+          "source_root": "src"
+        },
+        "source_digest": "sha256:49bfddf55d7cb8c4daba8223722d9ab8cdbdf393f8c67604088dbe4ea9dcee1e",
+        "version": "v1",
+        "environment": {
+          "lock_path": "uv.lock",
+          "lock_digest": "sha256:752b55af01cf46802aa6945da96afa8c7c09343d637f0831793e5717fae42875"
+        },
+        "availability": {
+          "status": "available",
+          "checked": true,
+          "reason": "exact binding and source are available"
+        },
+        "permissions": [
+          "repository_read"
+        ],
+        "privacy_boundary": "repository",
+        "network_required": true,
+        "reproducibility": {
+          "execution_character": "exact_deterministic",
+          "seed": null,
+          "tolerance": null,
+          "nondeterminism": "declared by operation envelope; no semantic fallback"
+        },
+        "license": {
+          "spdx": "NOASSERTION",
+          "redistribution": "unknown"
+        },
+        "fallback": {
+          "mode": "none"
+        },
+        "invalidation": [
+          "source_digest_mismatch",
+          "environment_lock_change",
+          "entrypoint_unavailable"
+        ],
+        "extensions": {
+          "engine_operation_id": "local-mcp-workflow-exporter:render-stdio",
+          "crosswalk_disposition": "exactly_bound",
+          "generative_fallback_allowed": false
+        },
+        "binding_digest": "sha256:fe04d1bf325e3b308891bba13f068bc54e0d9903a05f5d0f4f2bf877035a3924"
+      },
+      "local-mcp-workflow-exporter:render-http": {
+        "schema_version": "bioagents.runtime-binding/v1",
+        "binding_id": "binding.skill-source.local-mcp-workflow-exporter.v1",
+        "skill_id": "scientific:local-mcp-workflow-exporter",
+        "operation_id": "local-mcp-workflow-exporter:render-http",
+        "binding_kind": "package_local",
+        "entrypoint": {
+          "callable": "render_http_target",
+          "locator": "catalog/agents/writers/documentation-and-packaging/reporting-visualization-and-packaging/local-mcp-workflow-exporter",
+          "module": "local_mcp_workflow_exporter.renderer",
+          "protocol": "skill_source",
+          "shared_dependencies": [],
+          "source_root": "src"
+        },
+        "source_digest": "sha256:49bfddf55d7cb8c4daba8223722d9ab8cdbdf393f8c67604088dbe4ea9dcee1e",
+        "version": "v1",
+        "environment": {
+          "lock_path": "uv.lock",
+          "lock_digest": "sha256:752b55af01cf46802aa6945da96afa8c7c09343d637f0831793e5717fae42875"
+        },
+        "availability": {
+          "status": "available",
+          "checked": true,
+          "reason": "exact binding and source are available"
+        },
+        "permissions": [
+          "repository_read"
+        ],
+        "privacy_boundary": "repository",
+        "network_required": true,
+        "reproducibility": {
+          "execution_character": "exact_deterministic",
+          "seed": null,
+          "tolerance": null,
+          "nondeterminism": "declared by operation envelope; no semantic fallback"
+        },
+        "license": {
+          "spdx": "NOASSERTION",
+          "redistribution": "unknown"
+        },
+        "fallback": {
+          "mode": "none"
+        },
+        "invalidation": [
+          "source_digest_mismatch",
+          "environment_lock_change",
+          "entrypoint_unavailable"
+        ],
+        "extensions": {
+          "engine_operation_id": "local-mcp-workflow-exporter:render-http",
+          "crosswalk_disposition": "exactly_bound",
+          "generative_fallback_allowed": false
+        },
+        "binding_digest": "sha256:959fe2d786af357b41edc860d2c0df91d265063020628dcbdb1d08b5ea56bb80"
+      }
+    }
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-w3c-provenance-export-v1.schema.json",
+  "title": "Lunar W3C provenance export receipt v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "format",
+    "media_type",
+    "standard",
+    "prospective_is_observation",
+    "document",
+    "digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.w3c-provenance-export/v1"
+    },
+    "format": {
+      "enum": ["prov-json", "json-ld"]
+    },
+    "media_type": {
+      "enum": ["application/provenance+json", "application/ld+json"]
+    },
+    "standard": {
+      "const": "W3C PROV"
+    },
+    "prospective_is_observation": {
+      "const": false
+    },
+    "document": {
+      "type": "object"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

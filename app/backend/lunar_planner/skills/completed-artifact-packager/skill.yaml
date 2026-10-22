@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+{
+  "cluster": "planner",
+  "execution": {
+    "availability": "requires-runtime-binding",
+    "implementation": {
+      "module": "completed_artifact_packager",
+      "operations": [
+        {
+          "callable": "build_delivery_package",
+          "execution_character": "exact_deterministic",
+          "module": "completed_artifact_packager",
+          "name": "build_delivery_package",
+          "operation_id": "completed-artifact-packager:compute"
+        }
+      ],
+      "ownership_declaration": "src/OWNERSHIP.yaml",
+      "shared_dependencies": [
+        "app/backend"
+      ],
+      "source_root": "src"
+    },
+    "mode": "deterministic",
+    "posture": "reviewed_owned_source"
+  },
+  "role": "planner",
+  "schema_version": "bioagents.skill-metadata/v1",
+  "scope": "planner",
+  "skill_id": "completed-artifact-packager",
+  "structure": {
+    "owned_python_package": "completed_artifact_packager",
+    "owned_source_declaration": "src/OWNERSHIP.yaml",
+    "references_index": "references/INDEX.md",
+    "source_posture": "reviewed_owned_source",
+    "source_root": "src",
+    "template_version": "bioagents.skill-package-template/v1",
+    "test_contract": "tests/contract.yaml",
+    "tests_root": "tests"
+  },
+  "theme": "planner",
+  "version": "1.0.0"
+}

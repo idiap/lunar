@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.dev/schemas/quality-policy-freeze-v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "criterion_reviewer", "artifact_judge", "repeat_policy", "uncertainty_threshold", "risk_tiers", "human_adjudication", "budget", "timeout_seconds_per_case", "validation_corpus_digest", "known_limitations", "digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.benchmark.quality-policy-freeze/v1"},
+    "status": {"const": "frozen_on_independent_validation_fixture"},
+    "criterion_reviewer": {"type": "object"},
+    "artifact_judge": {"type": "object"},
+    "repeat_policy": {"type": "string"},
+    "uncertainty_threshold": {"type": "string"},
+    "risk_tiers": {"type": "array", "items": {"type": "string"}},
+    "human_adjudication": {"type": "string"},
+    "budget": {"type": "object"},
+    "timeout_seconds_per_case": {"type": "integer", "minimum": 1},
+    "validation_corpus_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "known_limitations": {"type": "array", "items": {"type": "string"}},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

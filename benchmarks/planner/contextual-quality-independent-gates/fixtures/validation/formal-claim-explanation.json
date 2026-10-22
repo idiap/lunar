@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for formal biomedical claim explanation",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:5918fcce3661c920778b14ac1a68e345dfe3a0e4af9af63e7e42899f9915006c",
+  "family_id": "formal-claim-explanation",
+  "governing_boundary": "state premises, conclusion, and whether the proof obligation is discharged",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "formal biomedical claim explanation",
+  "snapshot_id": "snapshot-validation-formal-claim-explanation-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

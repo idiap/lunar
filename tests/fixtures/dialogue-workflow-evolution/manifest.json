@@ -1,0 +1,23 @@
+{
+  "benchmark_id": "biomedical-expert-dialogue-workflow-evolution-v1",
+  "case_count": 20,
+  "digest": "sha256:3c609e52838ea2e92948612238e24cb699c69a41d877f5e58a739b2968e1a9a2",
+  "family_count": 10,
+  "oracle_isolation": "open only after all five planner receipts are sealed",
+  "partition_counts": {
+    "development": 10,
+    "sealed_certification": 6,
+    "validation": 4
+  },
+  "planner_entrypoint": "catalog.workflows.public.dependencies.planner.run_planner_request",
+  "private_oracles": {
+    "digest": "sha256:b8e957057f1e52390c9e63984ab118dad853136e5d2d8e5689ed20242e40be25",
+    "path": "oracles.jsonl"
+  },
+  "public_cases": {
+    "digest": "sha256:9bae6ef0d97c55a6058c1a662975dc7bfb71d1b396acdf4db8f4272732624e42",
+    "path": "cases.jsonl"
+  },
+  "schema_version": "bioagents.planner.dialogue-benchmark/v1",
+  "user_turn_count": 100
+}

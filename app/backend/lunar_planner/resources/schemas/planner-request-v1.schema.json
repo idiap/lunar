@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-request-v1.schema.json",
+  "title": "Lunar planner request v1",
+  "type": "object",
+  "required": ["schema_version", "request_id", "objective", "inputs", "constraints", "authority"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.request/v1"},
+    "request_id": {"$ref": "#/$defs/id"},
+    "objective": {"type": "string", "minLength": 1},
+    "inputs": {"type": "object"},
+    "constraints": {"type": "object"},
+    "authority": {
+      "type": "object",
+      "required": ["mode", "execution", "external_actions", "mutation"],
+      "properties": {
+        "mode": {"const": "planning_only"},
+        "execution": {"const": "forbidden"},
+        "external_actions": {"const": "forbidden"},
+        "mutation": {"const": "forbidden"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {"id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}}
+}

@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+# Dedicated Linux shell runner: Docker daemon sees the same absolute workspace/tmp
+# paths as pytest. Do not move E0/E1 into an unshared Docker-in-Docker filesystem.
+stages: [verify, e2e]
+default:
+  tags: [lunar-docker-host]
+  before_script:
+    - uv sync --locked --group mcp-backend
+    - npm --prefix app/frontend ci
+    - uv run --group mcp-backend playwright install chromium
+variables:
+  LUNAR_PACKAGE_STORAGE_ROOT: /tmp/lunar-ci-config-only
+verify:
+  stage: verify
+  resource_group: lunar-integration-database
+  script:
+    - test -n "$LUNAR_TEST_DATABASE_URL"
+    - uv run --locked --group mcp-backend ./check.sh
+    - npm --prefix app/frontend run build
+    - uv run --group mcp-backend pytest --run-expensive tests/planner tests/mcp_backend
+    - uv run --group mcp-backend python planner/testing/verify_module.py
+    - docker compose -f app/docker-compose.yml config --quiet
+    - terraform -chdir=app/infra init -backend=false
+    - terraform -chdir=app/infra fmt -check
+    - terraform -chdir=app/infra validate
+portability:
+  stage: e2e
+  resource_group: lunar-e2e-database
+  script:
+    - test -n "$LUNAR_E2E_DATABASE_URL"
+    - test -f "$LUNAR_E2E_BIOAGENTS_ZIP"
+    - test -f "$LUNAR_E2E_BIOAGENTS_REPORT_ZIP"
+    - python3 scripts/build_worker_image.py --tag "lunar-worker:$CI_COMMIT_SHA"
+    - export LUNAR_WORKER_IMAGE="lunar-worker:$CI_COMMIT_SHA"
+    - docker compose -f app/docker-compose.yml build
+    - uv run --group mcp-backend pytest --run-e2e tests/e2e
+    - uv run --group mcp-backend pytest --run-e2e --run-prism-llm-e2e tests/e2e/test_prism_llm_workflows.py

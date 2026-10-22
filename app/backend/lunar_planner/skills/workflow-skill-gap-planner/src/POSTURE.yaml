@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: bioagents.skill-source-posture/v1
+skill_id: workflow-skill-gap-planner
+posture: instruction_or_orchestration_only
+owned_python_package: null
+scientific_code_added_by_harmonizer: false
+notes: No skill-owned deterministic runtime is currently declared.

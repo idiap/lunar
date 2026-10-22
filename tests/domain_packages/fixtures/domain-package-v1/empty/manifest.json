@@ -1,0 +1,21 @@
+{
+  "format_version": 1,
+  "package": {
+    "key": "warehouse",
+    "display_name": "Warehouse operations"
+  },
+  "runtime": {
+    "contract_version": 1,
+    "python": ">=3.12,<3.14",
+    "requirements_lock": null,
+    "entrypoints": [],
+    "planning_hooks": []
+  },
+  "collections": {
+    "repository": [],
+    "reports": [],
+    "skills": [],
+    "data-sources": []
+  },
+  "files": []
+}

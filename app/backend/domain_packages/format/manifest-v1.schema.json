@@ -1,0 +1,472 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lunar:domain-package:manifest-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format_version": {
+      "const": 1
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "key",
+        "display_name"
+      ]
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": 1
+        },
+        "python": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirements_lock": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entrypoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "operation": {
+                "enum": [
+                  "prepare",
+                  "plan",
+                  "verify",
+                  "execute"
+                ]
+              },
+              "file": {
+                "type": "string",
+                "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+              },
+              "callable": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+              }
+            },
+            "required": [
+              "id",
+              "operation",
+              "file",
+              "callable"
+            ]
+          }
+        },
+        "planning_hooks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+          }
+        }
+      },
+      "required": [
+        "contract_version",
+        "python",
+        "requirements_lock",
+        "entrypoints",
+        "planning_hooks"
+      ]
+    },
+    "collections": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "document": {
+                "type": "string",
+                "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+                }
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "collection": {
+                      "enum": [
+                        "repository",
+                        "reports",
+                        "skills",
+                        "data-sources"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  },
+                  "required": [
+                    "collection",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "document",
+              "files",
+              "references"
+            ]
+          }
+        },
+        "reports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "document": {
+                "type": "string",
+                "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+                }
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "collection": {
+                      "enum": [
+                        "repository",
+                        "reports",
+                        "skills",
+                        "data-sources"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  },
+                  "required": [
+                    "collection",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "document",
+              "files",
+              "references"
+            ]
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "document": {
+                "type": "string",
+                "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+                }
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "collection": {
+                      "enum": [
+                        "repository",
+                        "reports",
+                        "skills",
+                        "data-sources"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  },
+                  "required": [
+                    "collection",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "document",
+              "files",
+              "references"
+            ]
+          }
+        },
+        "data-sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              },
+              "document": {
+                "type": "string",
+                "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+                }
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "collection": {
+                      "enum": [
+                        "repository",
+                        "reports",
+                        "skills",
+                        "data-sources"
+                      ]
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  },
+                  "required": [
+                    "collection",
+                    "id"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "id",
+              "document",
+              "files",
+              "references"
+            ]
+          }
+        }
+      },
+      "required": [
+        "repository",
+        "reports",
+        "skills",
+        "data-sources"
+      ]
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "size",
+          "media_type",
+          "sha256"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format_version",
+    "package",
+    "runtime",
+    "collections",
+    "files"
+  ],
+  "$defs": {
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "repository_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entry_file": {
+          "type": "string",
+          "pattern": "^(repository|reports|skills|data-sources)/[^\\\\\\x00]+$"
+        },
+        "entry_argument": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_schema": {
+          "type": "object"
+        },
+        "output_schema": {
+          "type": "object"
+        },
+        "prepare_hook": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        "verify_hook": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "execute_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "repository_id",
+        "name",
+        "entry_file",
+        "entry_argument",
+        "input_schema",
+        "output_schema",
+        "prepare_hook",
+        "verify_hook",
+        "metadata"
+      ]
+    }
+  }
+}

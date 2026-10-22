@@ -1,0 +1,107 @@
+{
+  "format_version": 1,
+  "package": {
+    "key": "warehouse",
+    "display_name": "Warehouse operations"
+  },
+  "runtime": {
+    "contract_version": 1,
+    "python": ">=3.12,<3.14",
+    "requirements_lock": null,
+    "entrypoints": [],
+    "planning_hooks": []
+  },
+  "collections": {
+    "repository": [
+      {
+        "id": "warehouse",
+        "document": "repository/warehouse.json",
+        "files": [],
+        "references": []
+      }
+    ],
+    "reports": [
+      {
+        "id": "stock",
+        "document": "reports/stock.json",
+        "files": [
+          "reports/original-prov.json",
+          "reports/plot.svg"
+        ],
+        "references": [
+          {
+            "collection": "data-sources",
+            "id": "stock"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "stock",
+        "document": "skills/stock.json",
+        "files": [],
+        "references": [
+          {
+            "collection": "data-sources",
+            "id": "stock"
+          }
+        ]
+      }
+    ],
+    "data-sources": [
+      {
+        "id": "stock",
+        "document": "data-sources/stock.json",
+        "files": [
+          "data-sources/shared.csv"
+        ],
+        "references": []
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "data-sources/shared.csv",
+      "size": 17,
+      "media_type": "text/csv",
+      "sha256": "3bb6c66fd16d8aa1a5e80d971cf489dd975c96d6b49d2a2662509d6c5519257b"
+    },
+    {
+      "path": "data-sources/stock.json",
+      "size": 281,
+      "media_type": "application/json",
+      "sha256": "231151d172392bfc7d411834c1268318d1c9cd0ac7c800df320345afdc433946"
+    },
+    {
+      "path": "skills/stock.json",
+      "size": 194,
+      "media_type": "application/json",
+      "sha256": "a3e1d5972733aecebb40a9bed0371bd3dab1880577d1e82a206e6061e4a98bb4"
+    },
+    {
+      "path": "repository/warehouse.json",
+      "size": 75,
+      "media_type": "application/json",
+      "sha256": "62de02dcdb1d942ac1927f9f9478fff0933e2a175ead8de51b5421fbcc78e0ea"
+    },
+    {
+      "path": "reports/original-prov.json",
+      "size": 52,
+      "media_type": "application/json",
+      "sha256": "4de45e8efe694d189e5846ec499480bd09b67ea0321fcd24cddb2907075d6300"
+    },
+    {
+      "path": "reports/plot.svg",
+      "size": 228,
+      "media_type": "image/svg+xml",
+      "sha256": "473eeea9a5a81592b6221b70acd5db6c221d1ab126ddeac8ef1dbcefe416ca69"
+    },
+    {
+      "path": "reports/stock.json",
+      "size": 792,
+      "media_type": "application/json",
+      "sha256": "fdbbc0f51e5ba79a465da2082720491a2d02f4b9f4a89d63b62781d260eb67fc"
+    }
+  ]
+}

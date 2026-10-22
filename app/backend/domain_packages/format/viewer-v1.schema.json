@@ -1,0 +1,344 @@
+{
+  "type": "object",
+  "properties": {
+    "kind": {
+      "const": "prism-viewer-bundle"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "workflows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "graph": {
+                  "type": "object",
+                  "properties": {
+                    "schema_version": {
+                      "const": 1
+                    },
+                    "source": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "reasoning": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "topology": {
+                      "enum": [
+                        "Group",
+                        "Sequence",
+                        "Parallel",
+                        "Choice",
+                        "Repeat",
+                        "NodeOccurrence"
+                      ]
+                    },
+                    "input": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "type"
+                        ]
+                      },
+                      "minItems": 0
+                    },
+                    "output": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "label": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "method": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "output_type": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "enum": [
+                              "input",
+                              "occurrence",
+                              "result",
+                              "topology",
+                              "exit"
+                            ]
+                          },
+                          "source_span": {
+                            "type": "object",
+                            "properties": {
+                              "line": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "column": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "end_line": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "end_column": {
+                                "type": "integer",
+                                "minimum": 1
+                              }
+                            },
+                            "required": [
+                              "line",
+                              "column",
+                              "end_line",
+                              "end_column"
+                            ]
+                          },
+                          "input_type": {
+                            "type": "string"
+                          },
+                          "relation": {
+                            "type": "string"
+                          },
+                          "certificate": {
+                            "type": "string"
+                          },
+                          "commentary": {
+                            "type": "string"
+                          },
+                          "output_example": {
+                            "type": "string"
+                          },
+                          "skills": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "path": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "role": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "path",
+                                "role"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "label",
+                          "method",
+                          "output_type"
+                        ]
+                      },
+                      "minItems": 2
+                    },
+                    "edges": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "source": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "target": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "kind": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "label": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "source",
+                          "target",
+                          "kind"
+                        ]
+                      },
+                      "minItems": 1
+                    },
+                    "scope": {
+                      "const": "reasoning"
+                    }
+                  },
+                  "required": [
+                    "schema_version",
+                    "source",
+                    "reasoning",
+                    "topology",
+                    "input",
+                    "output",
+                    "nodes",
+                    "edges"
+                  ]
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "file_type": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "content": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "file_type",
+                      "content"
+                    ]
+                  },
+                  "minItems": 1
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "scope": {
+                  "const": "reasoning"
+                },
+                "skill_metadata": {
+                  "type": "string"
+                },
+                "source_text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "source",
+                "graph",
+                "sources"
+              ]
+            },
+            "minItems": 1
+          },
+          "slides": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "file_name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "content_base64": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "media_type": {
+                  "const": "application/pdf"
+                },
+                "pages_base64": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "file_name",
+                "media_type",
+                "content_base64",
+                "pages_base64"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "workflows"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "kind",
+    "schema_version",
+    "projects"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Derived API response; never supplied as an authoritative package resource."
+}

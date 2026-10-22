@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.1"
+workflow_id: problem_driven_existing_workflow_refinement
+kind: planner_profile
+status: planning_only_non_executing
+mode: refine_output_problem
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [workflow_reference, output_problem, expected_behavior, authority_envelope]
+release_stage_id: release_review
+stages:
+  - id: run_inspection
+    owner_skill: pipeline-design-refinement-planner
+    owner_scope: planner
+    inputs: [workflow_reference, output_problem]
+    outputs: [run_inspection]
+    dependencies: []
+    rule: Do not infer observed execution from a planned route.
+  - id: artifact_inspection
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [output_problem, run_inspection]
+    outputs: [artifact_inspection]
+    dependencies: [run_inspection]
+    rule: Localize the visible symptom and evidence boundary.
+  - id: refinement_plan
+    owner_skill: pipeline-design-refinement-planner
+    owner_scope: planner
+    inputs: [workflow_reference, output_problem, expected_behavior, run_inspection, artifact_inspection]
+    outputs: [pipeline_design_refinement_plan]
+    dependencies: [artifact_inspection]
+    rule: Repair the earliest evidenced responsible surface.
+  - id: semantic_reuse_review
+    owner_skill: skill-reuse-critical-reasoner
+    owner_scope: planner
+    inputs: [pipeline_design_refinement_plan, artifact_inspection]
+    outputs: [reuse_critical_packet]
+    dependencies: [refinement_plan]
+    rule: Compare the proposed repair against every relevant current skill and workflow.
+  - id: capability_plan
+    owner_skill: workflow-skill-gap-planner
+    owner_scope: planner
+    inputs: [pipeline_design_refinement_plan, reuse_critical_packet]
+    outputs: [workflow_capability_plan]
+    dependencies: [semantic_reuse_review]
+    rule: Ignore missing archive owners; no placeholder skill may satisfy a gap.
+  - id: post_plan_reasoning_verification
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [pipeline_design_refinement_plan, workflow_capability_plan, authority_envelope]
+    outputs: [post_plan_evidence_verification]
+    dependencies: [refinement_plan, capability_plan]
+    rule: Bind a planning-only lunar.planner.post-plan-evidence-verification/v1 sidecar to the exact initial-plan digest; maximize deterministic and symbolic checks, preserve proportionate exploratory reasoning, and propose local repairs without mutating or rerouting the plan.
+  - id: health_review
+    owner_skill: closure-readiness-assessor
+    owner_scope: planner
+    inputs: [workflow_reference, workflow_capability_plan, post_plan_evidence_verification]
+    outputs: [workflow_health_audit]
+    dependencies: [capability_plan, post_plan_reasoning_verification]
+    rule: Check leakage, prompts, mocks, orphan surfaces, test coverage, and every blocking or repair-required post-plan verification obligation.
+  - id: release_review
+    owner_skill: closure-readiness-assessor
+    owner_scope: planner
+    inputs: [workflow_capability_plan, post_plan_evidence_verification, workflow_health_audit, authority_envelope]
+    outputs: [planning_release_decision]
+    dependencies: [capability_plan, post_plan_reasoning_verification, health_review]
+    rule: Planning release consumes the additive verification sidecar but does not mutate the target workflow or claim that prospective evidence was executed.

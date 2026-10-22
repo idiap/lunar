@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-todo-event-v1.schema.json",
+  "title": "Lunar planner TODO event v1",
+  "type": "object",
+  "required": ["schema_version", "event_id", "run_id", "todo_id", "operation", "sequence", "timestamp", "idempotency_key", "payload"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.todo-event/v1"},
+    "event_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "todo_id": {"type": "string", "minLength": 1},
+    "operation": {"enum": ["created", "updated", "completed", "reopened", "invalidated"]},
+    "sequence": {"type": "integer", "minimum": 0},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "payload": {"type": "object"}
+  },
+  "additionalProperties": false
+}

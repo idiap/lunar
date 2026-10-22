@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-instantiation-v1.schema.json",
+  "title": "Lunar final workflow instantiation v1",
+  "type": "object",
+  "required": ["schema_version", "dialogue_id", "turn_index", "status", "requirement_coverage_complete", "nodes", "edges", "terminal_artifact", "blockers", "mapping_review_edge_ids", "proposed_skill_test_plan_ids", "route_only", "execution_authorized", "structure_digest", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-instantiation/v1"},
+    "dialogue_id": {"type": "string", "pattern": "^dialogue-[a-z0-9]+$"},
+    "turn_index": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["instantiated_ready", "instantiated_with_blockers"]},
+    "requirement_coverage_complete": {"type": "boolean"},
+    "nodes": {"type": "array", "items": {"type": "object"}},
+    "edges": {"type": "array", "items": {"type": "object"}},
+    "terminal_artifact": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+    "blockers": {"type": "array", "items": {"type": "object"}},
+    "mapping_review_edge_ids": {"type": "array", "items": {"type": "string"}},
+    "proposed_skill_test_plan_ids": {"type": "array", "items": {"type": "string"}},
+    "route_only": {"const": true},
+    "execution_authorized": {"const": false},
+    "report_workflow_inheritance": {"$ref": "planner-report-workflow-inheritance-v1.schema.json"},
+    "inheritance_sources": {"type": "array", "items": {"type": "object"}},
+    "section_plan": {"type": "array", "items": {"type": "object"}},
+    "control_plan": {"type": "array", "items": {"type": "object"}},
+    "critic_plan": {"type": "array", "items": {"type": "object"}},
+    "release_gate_plan": {"type": "array", "items": {"type": "object"}},
+    "adaptation_decisions": {"type": "array", "items": {"type": "object"}},
+    "communication_plan": {"type": "array", "items": {"type": "object"}},
+    "structure_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

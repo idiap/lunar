@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for adverse-event report lineage",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:06da38f4dc269c057e87f85e167b5087bff93dff4523d8c2aee6e642371e1c95",
+  "family_id": "adverse-event-lineage",
+  "governing_boundary": "retain report provenance, seriousness, and uncertainty",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "adverse-event report lineage",
+  "snapshot_id": "snapshot-sealed_rehearsal-adverse-event-lineage-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

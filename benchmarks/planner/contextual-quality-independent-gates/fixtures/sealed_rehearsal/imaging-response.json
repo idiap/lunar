@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for longitudinal imaging response summary",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:40c5ff06187bb6ddf531f70e073265af2da39c37f5f0a6e748ab5ddfc92519a9",
+  "family_id": "imaging-response",
+  "governing_boundary": "preserve lesion identity, date, modality, and measurement uncertainty",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "longitudinal imaging response summary",
+  "snapshot_id": "snapshot-sealed_rehearsal-imaging-response-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

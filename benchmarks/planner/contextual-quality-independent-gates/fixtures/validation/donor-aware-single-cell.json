@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for single-cell donor integration",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:f34b8d0f655da02ae01523256c2423d89953bf076b7c04e5a0a25b289208598f",
+  "family_id": "donor-aware-single-cell",
+  "governing_boundary": "donor as the biological replicate; cells are nested observations",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "single-cell donor integration",
+  "snapshot_id": "snapshot-validation-donor-aware-single-cell-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

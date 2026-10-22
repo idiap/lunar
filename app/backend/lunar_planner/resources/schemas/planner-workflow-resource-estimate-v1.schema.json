@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-resource-estimate-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_digest", "seed", "resource_profile_digest", "lines", "assumptions", "estimate_digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-resource-estimate/v1"},
+    "plan_digest": {"type": "string"},
+    "seed": {"type": "integer", "minimum": 0},
+    "resource_profile_digest": {"type": ["string", "null"]},
+    "lines": {"type": "array", "items": {"type": "object"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "estimate_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

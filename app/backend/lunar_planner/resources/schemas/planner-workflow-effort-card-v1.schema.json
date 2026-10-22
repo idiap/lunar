@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-effort-card-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "estimate_digest", "status", "evidence_state", "headline", "clocks", "top_sensitivity_drivers", "component_count", "caveat", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-effort-card/v1"},
+    "estimate_digest": {"$ref": "#/$defs/digest"},
+    "status": {"type": "string"},
+    "evidence_state": {"type": "string"},
+    "headline": {"type": ["object", "null"]},
+    "clocks": {"type": ["object", "null"]},
+    "top_sensitivity_drivers": {"type": "array", "items": {"type": "object"}},
+    "component_count": {"type": "integer", "minimum": 0},
+    "caveat": {"type": "string", "minLength": 1},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,601 @@
+{
+  "schema_version": "lunar.planner.answer-trust-backlog/v1",
+  "status": "implemented",
+  "implementation_authorized": true,
+  "objective": "Add a planner-governed, answer-specific trust assessment that detects generative masking, rewards observed evidence lineage and preservation, and never mistakes a planned control for executed evidence.",
+  "design": "planner/governance/answer-trust-and-generative-masking.md",
+  "scope": {
+    "owner": "planner governance and post-execution assessment",
+    "prospective_artifact": "lunar.planner.answer-control-readiness/v1",
+    "realized_artifact": "lunar.planner.answer-trust-assessment/v1",
+    "default_enabled": false,
+    "prohibited_changes_during_design": [
+      "existing scientific skills",
+      "existing hooks",
+      "existing workflows",
+      "Prism files",
+      "route selection",
+      "workflow execution"
+    ]
+  },
+  "implementation_receipt": {
+    "implemented_todo_ids": [
+      "ATS-001", "ATS-002", "ATS-003", "ATS-004", "ATS-005", "ATS-006",
+      "ATS-010", "ATS-011", "ATS-012", "ATS-013", "ATS-014",
+      "ATS-020", "ATS-021", "ATS-022", "ATS-023",
+      "ATS-030", "ATS-031", "ATS-032", "ATS-033", "ATS-034", "ATS-035", "ATS-036", "ATS-037", "ATS-038", "ATS-039",
+      "ATS-040", "ATS-041", "ATS-042", "ATS-043", "ATS-044",
+      "ATS-050", "ATS-051", "ATS-052"
+    ],
+    "runtime": [
+      "app/backend/lunar_planner/answer_trust.py",
+      "app/backend/lunar_planner/answer_trust_calibration.py"
+    ],
+    "contracts": "app/backend/lunar_planner/contracts.py",
+    "authorization_and_delivery": "app/backend/lunar_planner/quality_authorization.py",
+    "planning_integration": "app/backend/lunar_planner/staged_routing.py",
+    "public_boundary": "app/backend/lunar_planner/entrypoint.py",
+    "policy": "app/backend/lunar_planner/resources/policies/answer-trust-policy-v1.json",
+    "profile": "app/backend/lunar_planner/resources/profiles/answer-control-readiness.yaml",
+    "benchmark": "benchmarks/planner/answer-trust-generative-masking/manifest.json",
+    "tests": [
+      "tests/planner/test_answer_trust.py",
+      "tests/planner/test_answer_trust_contracts.py",
+      "tests/planner/test_answer_trust_generative_masking_benchmark.py",
+      "tests/planner/test_answer_trust_lifecycle_integration.py"
+    ],
+    "rollout_state": "off",
+    "enforcement_authorized": false,
+    "enforcement_condition": "A frozen, blinded biomedical expert calibration and all policy promotion metrics must pass; disclosed synthetic fixtures are not certification evidence.",
+    "validation": {
+      "focused_and_quality_integration_tests": "71 passed",
+      "planner_suite": "430 passed after deterministic surface-index regeneration",
+      "standalone_distribution": "wheel and sdist built, installed, and exercised successfully",
+      "schema_meta_validation": "Draft 2020-12 schemas valid"
+    }
+  },
+  "invariants": [
+    "planned-only input never produces a realized answer trust score",
+    "the score measures evidence and control posture, not probability of truth",
+    "model memory and generated material are never classified as real evidence",
+    "every realized assessment is bound to the exact answer and observed receipt digests",
+    "hard provenance, preservation, authority, and claim-ceiling failures cannot be averaged away",
+    "properly labeled hypotheses, unknowns, user constraints, and prospective actions are not treated as unsupported facts",
+    "disabled mode preserves current planner outputs and digests",
+    "the assessment may narrow release but cannot override an existing must-pass failure or broaden authority"
+  ],
+  "phases": [
+    {
+      "id": "P0",
+      "name": "semantics and threat model",
+      "promotion_gate": "terminology, non-goals, evidence origins, claim denominator, criticality, and hard failure semantics are frozen"
+    },
+    {
+      "id": "P1",
+      "name": "contracts and policy",
+      "promotion_gate": "strict schemas reject planned-as-observed evidence and generated-evidence laundering"
+    },
+    {
+      "id": "P2",
+      "name": "prospective readiness",
+      "promotion_gate": "the additive readiness sidecar is non-mutating, score-free, deterministic, and actionable"
+    },
+    {
+      "id": "P3",
+      "name": "realized deterministic assessment",
+      "promotion_gate": "claim scores, answer aggregation, intervals, gates, diagnostics, and invalidation replay exactly"
+    },
+    {
+      "id": "P4",
+      "name": "benchmarks and calibration",
+      "promotion_gate": "adversarial escapes and benign false blocks meet declared thresholds on disclosed and sealed cases"
+    },
+    {
+      "id": "P5",
+      "name": "shadow rollout and enforcement",
+      "promotion_gate": "compatibility, reproducibility, calibration, and rollback gates pass before any release effect"
+    }
+  ],
+  "todos": [
+    {
+      "id": "ATS-001",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "planner governance",
+      "action": "Freeze the meaning of answer trust as auditable grounding and hallucination-control strength for one exact answer, plus explicit non-goals.",
+      "dependencies": [],
+      "acceptance": [
+        "documentation states that trust is not truth probability, fluency, confidence, citation count, or model prestige",
+        "planned control readiness and realized answer trust are different contract types",
+        "all user-facing labels use control-posture language"
+      ],
+      "example": "A polished plan promising retrieval has strong readiness but no realized score before a run and answer exist.",
+      "rollback": "documentation-only removal"
+    },
+    {
+      "id": "ATS-002",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "threat model",
+      "action": "Define and version the generative-masking taxonomy, including memory substitution, generated-evidence laundering, transitive contamination, citation laundering, protected-field drift, missingness masking, compression masking, corroboration inflation, execution-state hallucination, self-verification, contradiction suppression, denominator gaming, and evidence cycles.",
+      "dependencies": ["ATS-001"],
+      "acceptance": [
+        "every threat has a minimal biomedical fixture and required disposition",
+        "multi-hop generated ancestry cannot disappear at a downstream handoff",
+        "real citations without claim lineage are explicitly classified as evidence decoration"
+      ],
+      "example": "An imputed plasma value consumed by a second agent remains derived and can never become an observed measurement.",
+      "rollback": "remove the unreferenced taxonomy version"
+    },
+    {
+      "id": "ATS-003",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "claim policy",
+      "action": "Define claim classes, materiality, decision risk, release-criticality, exemptions, and a denominator-freeze rule before answer scoring.",
+      "dependencies": ["ATS-001"],
+      "acceptance": [
+        "facts, computations, causal claims, recommendations, hypotheses, unknowns, user constraints, and prospective actions remain distinct",
+        "omitting or splitting a difficult claim after the freeze cannot increase the answer score",
+        "every answer component maps to a scored claim or a typed exemption"
+      ],
+      "example": "A methods sentence is prospective and exempt; a sentence claiming that the analysis completed is factual and scored.",
+      "rollback": "disable claim inventory generation"
+    },
+    {
+      "id": "ATS-004",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "evidence origin policy",
+      "action": "Define evidence-origin and access classes that prohibit model memory, generated text, search hints, inaccessible links, and plans from becoming observed evidence.",
+      "dependencies": ["ATS-002", "ATS-003"],
+      "acceptance": [
+        "each evidence atom has origin, authorization, digest, locator, access class, and observed-consumption state",
+        "generated outputs can be representations or hypotheses but never evidence for themselves",
+        "metadata, snippet, abstract, full text, primary data, and authenticated run artifacts retain different ceilings"
+      ],
+      "example": "A search snippet can nominate a study but cannot support an exact sample size absent a resolvable source location.",
+      "rollback": "retain existing evidence vocabulary and omit the new origin projection"
+    },
+    {
+      "id": "ATS-005",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "score policy",
+      "action": "Specify six claim dimensions, versioned weights, geometric aggregation, score bands, hard gates, caps, and policy precedence.",
+      "dependencies": ["ATS-003", "ATS-004"],
+      "acceptance": [
+        "zero grounding or preservation cannot be offset by high scores elsewhere",
+        "kernel and host policy can narrow but domain or request policy cannot raise a hard ceiling",
+        "all displayed scores replay from emitted dimension grades and the policy digest"
+      ],
+      "example": "Excellent uncertainty prose cannot rescue a factual claim whose only origin is model memory.",
+      "rollback": "policy remains unused data"
+    },
+    {
+      "id": "ATS-006",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "anti-paranoia policy",
+      "action": "Define proportionate handling for exploratory hypotheses, deterministic derivations, declared unknowns, user constraints, redaction, and prospective actions.",
+      "dependencies": ["ATS-003", "ATS-005"],
+      "acceptance": [
+        "a bounded hypothesis can receive high control credit without confirmatory proof",
+        "arithmetic from grounded inputs needs recomputation and lineage rather than an unnecessary citation",
+        "redacted evidence produces unknown bounds rather than an assumed failure or pass"
+      ],
+      "example": "A mechanistic hypothesis with rivals and a discriminating experiment is assessed for calibration, not mistaken for an asserted mechanism.",
+      "rollback": "fall back to typed claim classes without scoring"
+    },
+    {
+      "id": "ATS-010",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "planner schemas",
+      "action": "Define strict v1 schemas for answer-control readiness, realized answer trust assessment, per-claim assessment, and generative transformation receipts.",
+      "dependencies": ["ATS-001", "ATS-005"],
+      "acceptance": [
+        "unknown critical fields are rejected",
+        "prospective_only and observed_only polarity is explicit",
+        "answer, base-plan, evidence-manifest, policy, provenance, and assessment digests are required where applicable",
+        "realized assessment rejects absent answer or retrospective evidence identity"
+      ],
+      "example": "A readiness record cannot validate against the realized-assessment schema merely by adding a numeric score.",
+      "rollback": "remove unregistered schema resources"
+    },
+    {
+      "id": "ATS-011",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "epistemic model reuse",
+      "action": "Project the existing post-plan ClaimAtom, EvidenceAtom, ComputationAtom, DerivationEdge, authority, grounding, and uncertainty vocabulary into the new contracts instead of creating parallel concepts.",
+      "dependencies": ["ATS-010"],
+      "acceptance": [
+        "stable identifiers remain joinable across planning and realized assessment",
+        "existing post-plan verification contracts remain unchanged",
+        "no claim can receive inconsistent origin or ceiling classifications in two models"
+      ],
+      "example": "The same claim ID links its prospective evidence obligation to its observed answer component and evidence path.",
+      "rollback": "drop the additive projection adapters"
+    },
+    {
+      "id": "ATS-012",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "generative transformation contract",
+      "action": "Require receipts for every generative or lossy edge, including provider/version, exact input and output digests, allowed evidence IDs, protected fields, missingness, lossy fields, abstention, violations, and independent verifier identity.",
+      "dependencies": ["ATS-002", "ATS-010", "ATS-011"],
+      "acceptance": [
+        "numbers, units, entities, negation, direction, population, specimen, comparator, endpoint, time, uncertainty, missingness, contradiction, and claim ceiling are individually checkable",
+        "producer-only review is distinguishable from independent review",
+        "generated ancestry survives arbitrary downstream depth"
+      ],
+      "example": "A summary changing 'not associated' to 'associated' fails the protected-negation check.",
+      "rollback": "receipt remains optional and therefore caps affected claims"
+    },
+    {
+      "id": "ATS-013",
+      "phase": "P1",
+      "priority": "P1",
+      "owner_surface": "policy resource",
+      "action": "Define a packaged, digest-bound answer-trust policy resource containing weights, evidence grades, caps, tiers, applicability, and policy-version compatibility.",
+      "dependencies": ["ATS-005", "ATS-010"],
+      "acceptance": [
+        "policy data contains no executable payload or dynamic import",
+        "same inputs and policy digest produce byte-identical assessment",
+        "unsupported policy majors fail visibly"
+      ],
+      "example": "Calibration may publish v1.1 thresholds without silently changing existing v1 assessments.",
+      "rollback": "pin the previous known-good policy digest"
+    },
+    {
+      "id": "ATS-014",
+      "phase": "P1",
+      "priority": "P1",
+      "owner_surface": "contract validation",
+      "action": "Add semantic validation for digest binding, acyclic evidence lineage, observed/planned polarity, evidence authorization, source independence, and score arithmetic.",
+      "dependencies": ["ATS-010", "ATS-012", "ATS-013"],
+      "acceptance": [
+        "self-supporting or cyclic evidence is rejected deterministically",
+        "generated material cannot be recast as an external evidence origin",
+        "reported totals, intervals, caps, and tiers must match their inputs"
+      ],
+      "example": "Claim A generated from claim B cannot support claim B through a later citation wrapper.",
+      "rollback": "leave schemas unregistered and the feature disabled"
+    },
+    {
+      "id": "ATS-020",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "post-plan readiness",
+      "action": "Design a pure answer-control-readiness builder after the existing immutable post-plan evidence verification sidecar and before refinement.",
+      "dependencies": ["ATS-010", "ATS-011", "ATS-013"],
+      "acceptance": [
+        "base plan and post-plan verification digests remain unchanged",
+        "the sidecar performs no network, execution, installation, persistence, or route mutation",
+        "it emits an attainable control band and never a realized numeric trust score",
+        "disabled mode is byte-equivalent to current planning"
+      ],
+      "example": "A plan with unverified semantic extraction receives a preservation TODO and a lower attainable band, not a score for an answer that does not exist.",
+      "rollback": "disable the additive readiness builder"
+    },
+    {
+      "id": "ATS-021",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "readiness compiler",
+      "action": "Compile real-evidence, exact-locator, deterministic-verifier, generative-envelope, preservation, counterevidence, uncertainty, independence, and human-review obligations for each planned material claim.",
+      "dependencies": ["ATS-020"],
+      "acceptance": [
+        "every planned factual claim names the receipts required for later scoring",
+        "every generative or lossy step has an explicit preservation obligation",
+        "model-memory and generated-intermediate risk is visible at exact plan locations"
+      ],
+      "example": "A report synthesis node must retain evidence IDs and exact source spans for all planned numerical statements.",
+      "rollback": "omit readiness findings from refinement inputs"
+    },
+    {
+      "id": "ATS-022",
+      "phase": "P2",
+      "priority": "P1",
+      "owner_surface": "refinement bridge",
+      "action": "Translate readiness defects into local, owned, dependency-aware proposed TODOs through the existing refinement lifecycle without mutating the initial plan.",
+      "dependencies": ["ATS-021"],
+      "acceptance": [
+        "unrelated nodes survive a local defect",
+        "route-critical propagation follows explicit dependencies only",
+        "each proposed repair states the receipt and acceptance evidence it must produce"
+      ],
+      "example": "Missing span verification repairs the synthesis node and its dependent claim, not an unrelated preprocessing node.",
+      "rollback": "retain readiness as advisory reporting only"
+    },
+    {
+      "id": "ATS-023",
+      "phase": "P2",
+      "priority": "P1",
+      "owner_surface": "reasoning communication",
+      "action": "Specify a pre-execution user-facing readiness card describing evidence routes, generative boundaries, preservation checks, critical claims, gaps, and required receipts.",
+      "dependencies": ["ATS-021"],
+      "acceptance": [
+        "the card never implies execution or evidence validation",
+        "methodological controls are understandable without hidden chain-of-thought",
+        "users can identify what prevents the highest attainable band"
+      ],
+      "example": "The card says that primary-study retrieval is planned and unobserved, with exact verification required after retrieval.",
+      "rollback": "suppress the optional readiness card"
+    },
+    {
+      "id": "ATS-030",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "observed input adapter",
+      "action": "Accept only authenticated and authorized retrospective evidence, computation, transformation, human-review, answer-component, and provenance-reconciliation receipts for realized assessment.",
+      "dependencies": ["ATS-010", "ATS-012", "ATS-014"],
+      "acceptance": [
+        "prospective records are rejected as realized inputs",
+        "all receipts bind to the exact answer or an observed ancestor",
+        "redacted or inaccessible content reduces coverage and widens the interval rather than receiving assumed credit"
+      ],
+      "example": "A workflow plan saying 'retrieve PubMed' is rejected; a retrieval receipt with source digest and consumed locator is accepted.",
+      "rollback": "do not expose the realized assessment constructor"
+    },
+    {
+      "id": "ATS-031",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "lineage verifier",
+      "action": "Implement exact evidence-to-claim path closure, observed-versus-planned reconciliation, citation-decoration detection, and generated-ancestry closure.",
+      "dependencies": ["ATS-030"],
+      "acceptance": [
+        "post-hoc citations without a consumed or derived-from path give zero grounding credit",
+        "each material claim resolves to exact answer components and evidence locators",
+        "evidence cycles and ancestry discontinuities block affected claims"
+      ],
+      "example": "A citation added after drafting cannot rescue a claim if the cited table was never extracted or verified against it.",
+      "rollback": "keep scoring disabled"
+    },
+    {
+      "id": "ATS-032",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "preservation verifier",
+      "action": "Evaluate protected-field and claim-ceiling preservation across every lossy and generative derivation edge.",
+      "dependencies": ["ATS-012", "ATS-031"],
+      "acceptance": [
+        "single-character changes to sign, value, unit, negation, denominator, cohort, endpoint, or time point are detected",
+        "association-to-causality and preclinical-to-clinical promotions fail",
+        "missing, failed, no-hit, censored, and not-estimable states cannot become positive findings"
+      ],
+      "example": "Dropping 'in vitro' from a drug-response claim triggers a scope and ceiling failure.",
+      "rollback": "cap all unverified generative edges and keep release integration off"
+    },
+    {
+      "id": "ATS-033",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "deterministic scorer",
+      "action": "Implement deterministic per-claim dimension grades, weighted geometric scoring, and non-compensatory hard gates and caps.",
+      "dependencies": ["ATS-005", "ATS-013", "ATS-031", "ATS-032"],
+      "acceptance": [
+        "memory-only material facts and evidence decoration score zero",
+        "a semantic evaluator cannot override an exact failure",
+        "score replay is byte-deterministic and order-invariant for unordered evidence"
+      ],
+      "example": "A claim with strong authority but no observed lineage remains zero rather than averaging to a moderate score.",
+      "rollback": "remove scorer from the public assessment surface"
+    },
+    {
+      "id": "ATS-034",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "answer aggregation",
+      "action": "Aggregate claims using a materiality- and decision-risk-weighted harmonic mean, frozen coverage multiplier, critical-claim floor, and answer-level gates.",
+      "dependencies": ["ATS-003", "ATS-033"],
+      "acceptance": [
+        "one unsupported headline conclusion cannot be averaged away by many grounded minor facts",
+        "claim-local failures do not alter unrelated claims",
+        "critical score below 70 prevents the high-control band"
+      ],
+      "example": "Ten grounded background facts cannot hide an unsupported treatment recommendation.",
+      "rollback": "emit claim assessments without an answer aggregate"
+    },
+    {
+      "id": "ATS-035",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "uncertainty and status",
+      "action": "Compute lower and upper score bounds for unassessed dimensions and define not_calculable, insufficient_evidence, assessed, and blocked states.",
+      "dependencies": ["ATS-030", "ATS-034"],
+      "acceptance": [
+        "planned-only input returns not_calculable",
+        "interval width above 20 or incomplete claim coverage returns insufficient_evidence",
+        "the display never presents a crisp score whose inputs are materially unknown"
+      ],
+      "example": "An inaccessible source behind a redaction produces a visible score range rather than inferred verification.",
+      "rollback": "return only per-claim unknown states"
+    },
+    {
+      "id": "ATS-036",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "anti-masking diagnostics",
+      "action": "Emit grounded coverage, memory-only rate, unsupported generative addition rate, citation-lineage mismatch rate, preservation failure rate, observed-versus-planned lineage coverage, evidence composition, weakest claims, and repair actions.",
+      "dependencies": ["ATS-031", "ATS-032", "ATS-035"],
+      "acceptance": [
+        "every cap and gate points to exact claims, answer components, and evidence or missing receipts",
+        "adding verbosity or irrelevant citations cannot improve diagnostics or score",
+        "repairs state the minimum evidence or control needed for reassessment"
+      ],
+      "example": "The assessment reports that two of eight material claims use post-hoc citations with no observed derivation path.",
+      "rollback": "retain machine-readable findings without a summary"
+    },
+    {
+      "id": "ATS-037",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "invalidation",
+      "action": "Invalidate selectively when the answer, material-claim inventory, source/version, evidence content, transformation, model/provider, envelope, verifier, provenance reconciliation, quality assessment, or policy changes.",
+      "dependencies": ["ATS-014", "ATS-035"],
+      "acceptance": [
+        "stale assessments cannot be attached to a changed answer",
+        "unaffected claims retain valid receipts",
+        "invalidation reasons and re-entry owners are explicit"
+      ],
+      "example": "Changing one cited table invalidates dependent claims without discarding an unrelated deterministic calculation.",
+      "rollback": "require full reassessment rather than selective reuse"
+    },
+    {
+      "id": "ATS-038",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "user-facing assessment",
+      "action": "Define a concise final trust card with status, interval, band, coverage, critical weaknesses, gates, evidence composition, policy version, and concrete remediation.",
+      "dependencies": ["ATS-036"],
+      "acceptance": [
+        "the card distinguishes fact, derivation, hypothesis, unknown, and recommendation",
+        "it communicates methodological rigor without hidden chain-of-thought",
+        "the full claim ledger remains available as a linked machine-readable artifact"
+      ],
+      "example": "The card explains that the answer is guarded because one critical full-text extraction lacks exact span verification.",
+      "rollback": "suppress the optional card while retaining the assessment artifact"
+    },
+    {
+      "id": "ATS-039",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "post-execution integration",
+      "action": "Add an opt-in assessment seam after observed component provenance reconciliation and quality assessment but before final delivery authorization.",
+      "dependencies": ["ATS-030", "ATS-035", "ATS-037"],
+      "acceptance": [
+        "realized trust is never calculated inside route-only plan_stages or run_planner_request",
+        "the trust result cannot override existing must-pass gates or authorize execution",
+        "legacy final-delivery signatures and default behavior remain unchanged"
+      ],
+      "example": "The assessment may hold a masked critical claim after execution, but it cannot convert a failed quality authorization into a pass.",
+      "rollback": "disable the opt-in post-execution seam"
+    },
+    {
+      "id": "ATS-040",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "unit and property tests",
+      "action": "Test schema strictness, arithmetic, boundedness, digest replay, ordering invariance, duplicate-source invariance, denominator freeze, monotonicity, critical floors, and selective invalidation.",
+      "dependencies": ["ATS-014", "ATS-033", "ATS-034", "ATS-037"],
+      "acceptance": [
+        "adding irrelevant or duplicate evidence never increases trust",
+        "removing a valid provenance edge never increases trust",
+        "adding valid independent evidence does not reduce trust unless it exposes a retained contradiction",
+        "identical receipts and policy replay byte-identically"
+      ],
+      "example": "Permuting evidence atoms changes neither claim scores nor the canonical assessment digest.",
+      "rollback": "no promotion beyond fixture mode"
+    },
+    {
+      "id": "ATS-041",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "adversarial benchmark",
+      "action": "Create an answer-trust generative-masking benchmark with disclosed development cases and sealed validation cases.",
+      "dependencies": ["ATS-002", "ATS-032", "ATS-036"],
+      "acceptance": [
+        "cases cover model-memory facts, post-hoc citation laundering, source swap, generated numbers, synthetic data as raw data, qualifier and negation loss, missingness masking, abstract/full-text confusion, mirrored sources, hidden contradictions, self-review, evidence cycles, prompt injection, and one weak critical claim among strong minor claims",
+        "each case provides exact oracle gates, caps, score ordering, and expected diagnostics",
+        "biomedical fixtures include plasma multiomics, literature synthesis, deterministic derivation, and clinical-claim boundaries"
+      ],
+      "example": "A real trial citation with the wrong endpoint must score below the same claim with an exact table locator and verified endpoint.",
+      "rollback": "benchmark remains non-authoritative"
+    },
+    {
+      "id": "ATS-042",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "anti-paranoia benchmark",
+      "action": "Create benign controls for user constraints, prospective methods, explicit unknowns, deterministic calculations, legitimate imputation, bounded hypotheses, narrow cohorts, preprints, and visible disagreement.",
+      "dependencies": ["ATS-006", "ATS-041"],
+      "acceptance": [
+        "properly typed non-factual content is not counted as an unsupported factual claim",
+        "legitimate derived data remains derived and can receive proportionate credit",
+        "single-source or exploratory evidence receives caveats rather than automatic blocking"
+      ],
+      "example": "A declared multiple-imputation sensitivity analysis is not confused with an invented observed value.",
+      "rollback": "block threshold calibration until benign controls exist"
+    },
+    {
+      "id": "ATS-043",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "execution polarity and non-interference tests",
+      "action": "Prove planned-versus-observed polarity and disabled-mode non-interference across planner routes, continuation, quality, provenance, standalone distribution, skills, hooks, workflows, and Prism artifacts.",
+      "dependencies": ["ATS-020", "ATS-030", "ATS-039"],
+      "acceptance": [
+        "planned-only cases never emit a realized score",
+        "default-disabled planner outputs and digests are unchanged",
+        "no test requires modifying a scientific skill, hook, workflow, or Prism file",
+        "wheel and source distribution package the schemas and policy consistently"
+      ],
+      "example": "Running an existing planner golden fixture with trust disabled is byte-identical to its baseline.",
+      "rollback": "remove profile registration and packaged resources"
+    },
+    {
+      "id": "ATS-044",
+      "phase": "P4",
+      "priority": "P1",
+      "owner_surface": "human calibration",
+      "action": "Calibrate weights, caps, intervals, and bands against blinded biomedical expert review on a frozen corpus while retaining deterministic gate oracles.",
+      "dependencies": ["ATS-040", "ATS-041", "ATS-042"],
+      "acceptance": [
+        "report unsupported-escape recall, fabricated-value detection, citation-lineage mismatch detection, false-block rate, interval coverage, band confusion matrices, and inter-reviewer disagreement",
+        "weights are not tuned on release candidates",
+        "deterministic and semantic performance are reported separately"
+      ],
+      "example": "Expert disagreement widens confidence or triggers review; it is not silently averaged into false certainty.",
+      "rollback": "retain the previous policy version and shadow-only status"
+    },
+    {
+      "id": "ATS-050",
+      "phase": "P5",
+      "priority": "P0",
+      "owner_surface": "rollout",
+      "action": "Roll out through off, fixture, shadow, audit, advisory, and policy-selected enforcement states with a pinned rollback switch.",
+      "dependencies": ["ATS-043", "ATS-044"],
+      "acceptance": [
+        "fixture and shadow states have no delivery or user-visible authority",
+        "advisory state exposes trust cards without blocking",
+        "enforcement is limited to policy-selected high-impact gates after published thresholds pass",
+        "rollback leaves existing behavior and stored artifacts readable"
+      ],
+      "example": "Citation-lineage mismatch can be observed in shadow telemetry before it is allowed to hold delivery.",
+      "rollback": "return immediately to off while preserving assessment artifacts for audit"
+    },
+    {
+      "id": "ATS-051",
+      "phase": "P5",
+      "priority": "P1",
+      "owner_surface": "release governance",
+      "action": "Define promotion and stop criteria for each rollout state, including escape rates, false blocks, reproducibility, latency, artifact size, compatibility, and human-review capacity.",
+      "dependencies": ["ATS-044", "ATS-050"],
+      "acceptance": [
+        "fabricated exact values and citation-lineage mismatches are detected in all disclosed fixtures before advisory promotion",
+        "high-control status requires all critical gates and critical claim scores at or above 70",
+        "any planned-as-observed regression, score nondeterminism, or legacy incompatibility triggers rollback"
+      ],
+      "example": "A lower aggregate disagreement rate cannot compensate for one reproducible planned-as-observed escape.",
+      "rollback": "freeze promotion and pin the last passing state and policy"
+    },
+    {
+      "id": "ATS-052",
+      "phase": "P5",
+      "priority": "P1",
+      "owner_surface": "documentation and operations",
+      "action": "Document lifecycle placement, artifacts, provenance joins, policy interpretation, user trust cards, operator diagnostics, calibration limits, and reassessment procedures.",
+      "dependencies": ["ATS-038", "ATS-050"],
+      "acceptance": [
+        "documentation states which outputs are prospective and realized",
+        "operators can trace every displayed number to claim inputs and policy",
+        "users receive methodological explanation without chain-of-thought or unsupported assurance"
+      ],
+      "example": "A user can follow a guarded score to the exact unverified claim, missing receipt, applicable cap, and repair.",
+      "rollback": "remove links to disabled surfaces while retaining design history"
+    }
+  ]
+}

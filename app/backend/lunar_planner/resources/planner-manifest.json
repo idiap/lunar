@@ -1,0 +1,61 @@
+{
+  "schema_version": "lunar-planner-package/v1",
+  "package": "lunar-planner",
+  "planner_skill_root": "skills",
+  "resource_roots": {
+    "schemas": "resources/schemas",
+    "profiles": "resources/profiles",
+    "hooks": "resources/hooks",
+    "lineage": "resources/lineage",
+    "policies": "resources/policies"
+  },
+  "planner_skill_count": 10,
+  "host_ports_version": "lunar-planner-ports/v1",
+  "post_plan_verification": {
+    "profile": "resources/profiles/post-plan-reasoning-verification.yaml",
+    "hook": "resources/hooks/planner-hooks.yaml#verification_overlays/post_plan_reasoning_verification",
+    "schema_version": "lunar.planner.post-plan-evidence-verification/v1",
+    "schema": "resources/schemas/planner-post-plan-evidence-verification-v1.schema.json",
+    "applies_to": [
+      "new_workflow",
+      "extend_existing_workflow",
+      "refine_output_problem"
+    ],
+    "excluded_modes": [
+      "direct_use"
+    ],
+    "authority": "planning_only_non_executing"
+  },
+  "answer_trust": {
+    "readiness_profile": "resources/profiles/answer-control-readiness.yaml",
+    "policy": "resources/policies/answer-trust-policy-v1.json",
+    "policy_version": "1.0.0",
+    "readiness_schema_version": "lunar.planner.answer-control-readiness/v1",
+    "readiness_schema": "resources/schemas/planner-answer-control-readiness-v1.schema.json",
+    "assessment_schema_version": "lunar.planner.answer-trust-assessment/v1",
+    "assessment_schema": "resources/schemas/planner-answer-trust-assessment-v1.schema.json",
+    "claim_schema_version": "lunar.planner.claim-trust-assessment/v1",
+    "claim_schema": "resources/schemas/planner-claim-trust-assessment-v1.schema.json",
+    "generative_receipt_schema_version": "lunar.planner.generative-transformation-receipt/v1",
+    "generative_receipt_schema": "resources/schemas/planner-generative-transformation-receipt-v1.schema.json",
+    "default_enabled": false,
+    "authority": "planner-governed-additive-assessment"
+  },
+  "workflow_economics": {
+    "profile": "resources/profiles/workflow-economics.yaml",
+    "policy": "resources/policies/workflow-economics-policy-v1.json",
+    "policy_version": "1.0.0",
+    "effort_estimate_schema": "resources/schemas/planner-workflow-effort-estimate-v1.schema.json",
+    "effort_assessment_schema": "resources/schemas/planner-workflow-effort-assessment-v1.schema.json",
+    "resource_estimate_schema": "resources/schemas/planner-workflow-resource-estimate-v1.schema.json",
+    "resource_usage_schema": "resources/schemas/planner-workflow-resource-usage-v1.schema.json",
+    "cost_reconciliation_schema": "resources/schemas/planner-workflow-cost-reconciliation-v1.schema.json",
+    "report_schema": "resources/schemas/planner-workflow-economics-report-v1.schema.json",
+    "price_book_schema": "resources/schemas/planner-price-book-v1.schema.json",
+    "default_enabled": false,
+    "default_mode": "off",
+    "authority": "advisory-non-executing-no-scientific-release-effect"
+  },
+  "requires_parent_framework_manifest": false,
+  "authority": "planning_only_non_executing"
+}

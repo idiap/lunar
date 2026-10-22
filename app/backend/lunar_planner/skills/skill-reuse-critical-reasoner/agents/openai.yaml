@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Skill Reuse Critical Reasoner
+  short_description: Run content-based Lunar reuse orchestration.
+  default_prompt: Use $skill-reuse-critical-reasoner to critically audit and orchestrate
+    Lunar skill reuse before workflow planning, external evidence selection, manuscript
+    updates, or new skill creation from the contract-defined inputs, producing the
+    documented output artifact; do not substitute generated content for failed or
+    unavailable computation, and return the documented typed failure or abstention
+    when prerequisites are absent.

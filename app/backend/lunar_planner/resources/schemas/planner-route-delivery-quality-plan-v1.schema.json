@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-route-delivery-quality-plan-v1.schema.json",
+  "title": "Route delivery quality plan v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "plan_id",
+    "version",
+    "lifecycle",
+    "root_interaction_id",
+    "operation_role",
+    "parent_digest",
+    "principal",
+    "canonical_serialization",
+    "evidence_manifest_digest",
+    "outcome_contract_digest",
+    "outcome_contract_lifecycle",
+    "selected_target",
+    "criteria",
+    "criterion_consumer_trace",
+    "evidence_whitelist",
+    "evaluator_plan",
+    "release_policy",
+    "risk_tier",
+    "review_status",
+    "digest",
+    "presentable_as_user_answer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.route-delivery-quality-plan/v1"
+    },
+    "plan_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lifecycle": {
+      "enum": [
+        "provisional",
+        "frozen",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "root_interaction_id": {
+      "type": "string"
+    },
+    "operation_role": {
+      "const": "criterion_synthesis"
+    },
+    "parent_digest": {
+      "type": "string"
+    },
+    "principal": {
+      "type": "object"
+    },
+    "canonical_serialization": {
+      "const": "canonical-json-v1"
+    },
+    "evidence_manifest_digest": {
+      "type": "string"
+    },
+    "outcome_contract_digest": {
+      "type": "string"
+    },
+    "outcome_contract_lifecycle": {
+      "enum": ["provisional", "frozen", "superseded", "withdrawn"]
+    },
+    "selected_target": {
+      "type": "object"
+    },
+    "requirement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "planner-contextual-quality-criterion-v1.schema.json"
+      }
+    },
+    "criterion_consumer_trace": {
+      "type": "object"
+    },
+    "evidence_whitelist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evaluator_plan": {
+      "type": "object"
+    },
+    "release_policy": {
+      "type": "object"
+    },
+    "risk_tier": {
+      "enum": [
+        "control",
+        "ordinary",
+        "complex",
+        "human_authority"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "pending",
+        "passed",
+        "failed",
+        "inconclusive"
+      ]
+    },
+    "reviewed_plan_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "digest": {
+      "type": "string"
+    },
+    "presentable_as_user_answer": {
+      "const": false
+    },
+    "invalidated_by": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": false
+}

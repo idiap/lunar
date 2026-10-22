@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-report-workflow-inheritance-v1.schema.json",
+  "title": "Lunar controlled report workflow inheritance v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "blueprint_id",
+    "blueprint_version",
+    "status",
+    "request",
+    "inheritance_boundary",
+    "request_boundary_status",
+    "request_boundary_violations",
+    "source_workflows",
+    "inheritance_sources",
+    "scaffold_binding",
+    "missing_promoted_subworkflow_ids",
+    "missing_source_workflow_ids",
+    "mandatory_control_bindings",
+    "control_plan",
+    "adaptation_decisions",
+    "missing_mandatory_control_ids",
+    "stages",
+    "section_critiques",
+    "section_plan",
+    "critic_plan",
+    "cross_artifact_gates",
+    "release_gate_plan",
+    "researcher_communication_contract",
+    "communication_plan",
+    "completion_invariants",
+    "selection_boundary",
+    "route_only",
+    "digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.report-workflow-inheritance/v1"},
+    "blueprint_id": {"type": "string", "minLength": 1},
+    "blueprint_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["complete_candidate", "incomplete_candidate", "blocked_unsafe_request"]},
+    "request": {
+      "type": "object",
+      "required": ["command_text", "references", "desired_outputs"],
+      "properties": {
+        "command_text": {"type": "string", "minLength": 1},
+        "references": {"type": "array", "items": {"type": "string"}},
+        "desired_outputs": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "inheritance_boundary": {
+      "type": "object",
+      "required": ["inherit", "never_inherit_without_revalidation"],
+      "properties": {
+        "inherit": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "never_inherit_without_revalidation": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "request_boundary_status": {"enum": ["accepted_structure_only_inheritance", "blocked_prohibited_scientific_content_inheritance"]},
+    "request_boundary_violations": {"type": "array", "items": {"type": "string", "minLength": 20}, "uniqueItems": true},
+    "source_workflows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["workflow_id", "source_id", "source_kind", "inheritance_scope", "priority"],
+        "properties": {
+          "workflow_id": {"type": "string", "minLength": 1},
+          "source_id": {"type": "string", "minLength": 1},
+          "source_kind": {"const": "workflow_package"},
+          "source_path": {"type": ["string", "null"]},
+          "content_digest": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}]},
+          "inheritance_scope": {"const": "structure_controls_and_review_patterns_only"},
+          "priority": {"type": "integer", "minimum": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "inheritance_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "source_kind", "source_path", "content_digest", "inheritance_scope", "priority"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "workflow_id": {"type": "string", "minLength": 1},
+          "source_kind": {"enum": ["versioned_control_blueprint", "workflow_package", "prior_report_artifact"]},
+          "source_path": {"type": ["string", "null"]},
+          "content_digest": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}]},
+          "inheritance_scope": {"const": "structure_controls_and_review_patterns_only"},
+          "priority": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "scaffold_binding": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["subworkflow_id", "source_kind", "source_path", "content_digest", "execution_posture", "binding_status"],
+          "properties": {
+            "subworkflow_id": {"type": "string", "minLength": 1},
+            "source_kind": {"const": "promoted_planning_subworkflow"},
+            "source_path": {"type": ["string", "null"]},
+            "content_digest": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}]},
+            "execution_posture": {"const": "planning_only"},
+            "binding_status": {"const": "candidate_requires_full_contract_review"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "missing_promoted_subworkflow_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "missing_source_workflow_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "mandatory_control_bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["control_id", "binding_status"],
+        "properties": {
+          "control_id": {"type": "string", "minLength": 1},
+          "source_path": {"type": ["string", "null"]},
+          "content_digest": {"type": ["string", "null"]},
+          "binding_status": {"const": "candidate_requires_full_body_semantic_review"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "control_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["control_id", "disposition", "source_path", "content_digest", "stage_ids", "monotonicity_rule"],
+        "properties": {
+          "control_id": {"type": "string", "minLength": 1},
+          "disposition": {"enum": ["retain", "adapt", "replace_with_stricter", "not_applicable_with_reason", "blocked_missing"]},
+          "source_path": {"type": ["string", "null"]},
+          "content_digest": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}]},
+          "stage_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "monotonicity_rule": {"const": "may_be_replaced_only_by_an_explicit_stricter_control"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "adaptation_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["control_id", "disposition", "reason", "weakening_allowed"],
+        "properties": {
+          "control_id": {"type": "string", "minLength": 1},
+          "disposition": {"enum": ["retain", "adapt", "replace_with_stricter", "not_applicable_with_reason", "blocked_missing"]},
+          "reason": {"type": "string", "minLength": 20},
+          "weakening_allowed": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "missing_mandatory_control_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "stages": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["stage_id", "responsibility", "outputs", "control_ids", "gate"],
+        "properties": {
+          "stage_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "responsibility": {"type": "string", "minLength": 20},
+          "outputs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "control_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "gate": {"type": "string", "minLength": 20}
+        },
+        "additionalProperties": false
+      }
+    },
+    "section_critiques": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["section_id", "critic_questions", "required_evidence", "critic_control_ids", "prohibited_claim", "release_consequence"],
+        "properties": {
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "critic_questions": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 20}},
+          "required_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "critic_control_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "prohibited_claim": {"type": "string", "minLength": 20},
+          "release_consequence": {"type": "string", "minLength": 20}
+        },
+        "additionalProperties": false
+      }
+    },
+    "section_plan": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["section_id", "required_evidence", "claim_boundary", "release_consequence"],
+        "properties": {
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "required_evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "claim_boundary": {"type": "string", "minLength": 20},
+          "release_consequence": {"type": "string", "minLength": 20}
+        },
+        "additionalProperties": false
+      }
+    },
+    "critic_plan": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["section_id", "critic_skill_ids", "reader_questions", "required_evidence", "concrete_failure_modes", "claim_boundary", "severity", "repair", "acceptance_assertions"],
+        "properties": {
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "critic_skill_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+          "reader_questions": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 20}},
+          "required_evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "concrete_failure_modes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 20}},
+          "claim_boundary": {"type": "string", "minLength": 20},
+          "severity": {"enum": ["critical", "high", "medium", "low"]},
+          "repair": {"type": "string", "minLength": 20},
+          "acceptance_assertions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 10}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "cross_artifact_gates": {"type": "array", "minItems": 6, "items": {"type": "string", "minLength": 20}},
+    "release_gate_plan": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "assertion", "failure_behavior"],
+        "properties": {
+          "gate_id": {"type": "string", "pattern": "^report-release-[1-9][0-9]*$"},
+          "assertion": {"type": "string", "minLength": 20},
+          "failure_behavior": {"const": "block_release_and_repair_earliest_responsible_surface"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "researcher_communication_contract": {
+      "type": "object",
+      "required": ["audience_default", "purpose", "delivery_principles", "required_deliverables", "criteria"],
+      "properties": {
+        "audience_default": {"type": "string", "minLength": 20},
+        "purpose": {"type": "string", "minLength": 50},
+        "delivery_principles": {"type": "array", "minItems": 6, "items": {"type": "string", "minLength": 30}, "uniqueItems": true},
+        "required_deliverables": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["deliverable_id", "timing", "purpose"],
+            "properties": {
+              "deliverable_id": {"enum": ["pre_execution_methodological_briefing", "execution_methodological_updates", "post_execution_methodological_account"]},
+              "timing": {"type": "string", "minLength": 10},
+              "purpose": {"type": "string", "minLength": 50}
+            },
+            "additionalProperties": false
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 16,
+          "items": {"$ref": "#/$defs/communicationCriterion"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "communication_plan": {
+      "type": "array",
+      "minItems": 16,
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/communicationCriterion"},
+          {
+            "type": "object",
+            "required": ["required", "verification_status"],
+            "properties": {
+              "required": {"const": true},
+              "verification_status": {"const": "planned_requires_execution_evidence"}
+            }
+          }
+        ]
+      }
+    },
+    "completion_invariants": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 20}},
+    "selection_boundary": {"type": "string", "minLength": 20},
+    "route_only": {"const": true},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "communicationCriterion": {
+      "type": "object",
+      "required": ["criterion_id", "phase", "researcher_question", "required_content", "acceptance_assertion", "failure_consequence"],
+      "properties": {
+        "criterion_id": {"type": "string", "pattern": "^(pre|during|post)_[a-z0-9_]+$"},
+        "phase": {"enum": ["pre_execution", "during_execution", "post_execution"]},
+        "researcher_question": {"type": "string", "minLength": 30},
+        "required_content": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 10}, "uniqueItems": true},
+        "acceptance_assertion": {"type": "string", "minLength": 40},
+        "failure_consequence": {"type": "string", "minLength": 40},
+        "required": {"const": true},
+        "verification_status": {"const": "planned_requires_execution_evidence"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

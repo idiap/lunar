@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-claim-trust-assessment-v1.schema.json",
+  "title": "Lunar realized per-claim trust assessment v1",
+  "type": "object",
+  "required": ["claim_id", "claim_class", "component_ids", "release_critical", "materiality_weight", "decision_risk_weight", "dimensions", "score", "score_interval", "gates", "caps", "evidence_ids", "grounded", "memory_only", "citation_lineage_mismatch", "unsupported_generative_additions", "preservation_failures", "remediation"],
+  "properties": {
+    "claim_id": {"type": "string", "minLength": 1}, "claim_class": {"type": "string", "minLength": 1}, "component_ids": {"$ref": "#/$defs/stringArray"}, "release_critical": {"type": "boolean"},
+    "materiality_weight": {"type": "number", "minimum": 0}, "decision_risk_weight": {"type": "number", "minimum": 0},
+    "dimensions": {"type": "object", "required": ["external_grounding", "lineage_closure", "preservation_fidelity", "authority_directness_applicability", "generative_containment", "uncertainty_conflict_control"], "properties": {"external_grounding": {"$ref": "#/$defs/dimension"}, "lineage_closure": {"$ref": "#/$defs/dimension"}, "preservation_fidelity": {"$ref": "#/$defs/dimension"}, "authority_directness_applicability": {"$ref": "#/$defs/dimension"}, "generative_containment": {"$ref": "#/$defs/dimension"}, "uncertainty_conflict_control": {"$ref": "#/$defs/dimension"}}, "additionalProperties": false},
+    "score": {"type": ["number", "null"], "minimum": 0, "maximum": 100}, "score_interval": {"$ref": "#/$defs/interval"},
+    "gates": {"type": "array", "items": {"$ref": "#/$defs/gate"}}, "caps": {"type": "array", "items": {"$ref": "#/$defs/cap"}}, "evidence_ids": {"$ref": "#/$defs/stringArray"},
+    "grounded": {"type": "boolean"}, "memory_only": {"type": "boolean"}, "citation_lineage_mismatch": {"type": "boolean"},
+    "unsupported_generative_additions": {"type": "integer", "minimum": 0}, "preservation_failures": {"type": "integer", "minimum": 0}, "remediation": {"$ref": "#/$defs/stringArray"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stringArray": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}, "dimension": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "interval": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 100}},
+    "gate": {"type": "object", "required": ["code", "consequence", "claim_id"], "properties": {"code": {"type": "string", "minLength": 1}, "consequence": {"const": "score_zero"}, "claim_id": {"type": "string", "minLength": 1}, "evidence_id": {"type": "string", "minLength": 1}, "edge_id": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "cap": {"type": "object", "required": ["code", "maximum"], "properties": {"code": {"type": "string", "minLength": 1}, "maximum": {"type": "number", "minimum": 0, "maximum": 100}, "evidence_id": {"type": "string", "minLength": 1}, "edge_id": {"type": "string", "minLength": 1}}, "additionalProperties": false}
+  }
+}

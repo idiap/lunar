@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lunar:domain-package:repository-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "project",
+        "workflow",
+        "policy",
+        "runtime",
+        "asset"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "kind",
+    "metadata"
+  ]
+}

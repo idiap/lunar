@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-contextual-quality-criterion-v1.schema.json",
+  "title": "Contextual quality criterion v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "criterion_id",
+    "lifecycle",
+    "created_in_version",
+    "requirement_ids",
+    "consumer",
+    "source",
+    "observable",
+    "required_anchors",
+    "allowed_evidence",
+    "evaluator_mode",
+    "separation_required",
+    "severity",
+    "pass_condition",
+    "failure_consequence",
+    "allowed_variability",
+    "prohibited_outcomes",
+    "authority_ceiling",
+    "examples",
+    "invalidation_inputs",
+    "user_confirmable"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.contextual-quality-criterion/v1"
+    },
+    "criterion_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle": {
+      "enum": [
+        "provisional",
+        "frozen",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "created_in_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "requirement_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "consumer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "kind",
+        "pointer"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "user",
+            "user_feedback",
+            "supplied_evidence",
+            "component_contract",
+            "domain_rule",
+            "consumer_contract",
+            "planner_inference"
+          ]
+        },
+        "pointer": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "observable": {
+      "type": "string",
+      "minLength": 8
+    },
+    "required_anchors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evaluator_mode": {
+      "enum": [
+        "deterministic",
+        "generative",
+        "hybrid",
+        "human"
+      ]
+    },
+    "separation_required": {
+      "type": "boolean"
+    },
+    "severity": {
+      "enum": [
+        "must_pass",
+        "should_pass"
+      ]
+    },
+    "pass_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "failure_consequence": {
+      "enum": [
+        "revise",
+        "needs_input",
+        "inconclusive",
+        "block"
+      ]
+    },
+    "allowed_variability": {
+      "type": "string"
+    },
+    "prohibited_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority_ceiling": {
+      "type": "string",
+      "minLength": 1
+    },
+    "examples": {
+      "type": "object",
+      "required": [
+        "positive",
+        "negative",
+        "edge"
+      ],
+      "properties": {
+        "positive": {
+          "type": "string"
+        },
+        "negative": {
+          "type": "string"
+        },
+        "edge": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "invalidation_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "user_confirmable": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

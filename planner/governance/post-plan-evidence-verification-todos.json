@@ -1,0 +1,217 @@
+{
+  "schema_version": "lunar.planner.post-plan-evidence-verification-backlog/v1",
+  "status": "implemented",
+  "implementation_authorized": true,
+  "objective": "Add a digest-bound, route-only verification sidecar after immutable workflow instantiation that maximizes deterministic and symbolic controls while preserving bounded exploratory reasoning.",
+  "attachment_point": {
+    "module": "app/backend/lunar_planner/staged_routing.py",
+    "after": "instantiate_workflow",
+    "before": "build_workflow_refinement_cycle",
+    "base_digest": "workflow_instantiation.digest",
+    "mutation_allowed": false
+  },
+  "implementation_receipt": {
+    "implemented_todo_ids": ["PPEV-001", "PPEV-002", "PPEV-003", "PPEV-004", "PPEV-005", "PPEV-006", "PPEV-007", "PPEV-008", "PPEV-009", "PPEV-010", "PPEV-011", "PPEV-012", "PPEV-013", "PPEV-014", "PPEV-015", "PPEV-016", "PPEV-017", "PPEV-020", "PPEV-021", "PPEV-022", "PPEV-023", "PPEV-024", "PPEV-025", "PPEV-026"],
+    "runtime": "app/backend/lunar_planner/post_plan_verification.py",
+    "schema": "app/backend/lunar_planner/resources/schemas/planner-post-plan-evidence-verification-v1.schema.json",
+    "integration": "app/backend/lunar_planner/staged_routing.py",
+    "public_boundary": "app/backend/lunar_planner/entrypoint.py",
+    "profile": "app/backend/lunar_planner/resources/profiles/post-plan-reasoning-verification.yaml",
+    "benchmark": "benchmarks/planner/post-plan-evidence-grounding/manifest.json",
+    "tests": ["tests/planner/test_post_plan_verification.py", "tests/planner/test_post_plan_evidence_grounding_benchmark.py", "tests/planner/test_post_plan_verification_profile_integration.py"]
+  },
+  "todos": [
+    {
+      "id": "PPEV-001",
+      "priority": "P0",
+      "owner_surface": "planner contracts",
+      "action": "Define versioned overlay, atom, authority, uncertainty, obligation, grounding-matrix, assessment, and proposed-repair schemas.",
+      "dependencies": [],
+      "acceptance": ["all schemas reject unknown critical fields", "every claim and derivation has stable plan provenance", "verification_ready is distinct from evidence_validated"]
+    },
+    {
+      "id": "PPEV-002",
+      "priority": "P0",
+      "owner_surface": "planner runtime",
+      "action": "Implement a pure build_post_plan_verification function after immutable workflow instantiation.",
+      "dependencies": ["PPEV-001"],
+      "acceptance": ["canonical initial-plan digest is unchanged", "no store, network, filesystem, execution, installation, or route mutation occurs", "disabled mode preserves the existing planner result"]
+    },
+    {
+      "id": "PPEV-003",
+      "priority": "P0",
+      "owner_surface": "claim compiler",
+      "action": "Compile material outputs into typed ClaimAtoms with requirement, consumer, node, source-turn, and terminal-artifact traceability.",
+      "dependencies": ["PPEV-001"],
+      "acceptance": ["facts, derivations, hypotheses, user constraints, future actions, execution states, and unknowns remain distinct", "incidental prose does not become a material claim"]
+    },
+    {
+      "id": "PPEV-004",
+      "priority": "P0",
+      "owner_surface": "method router",
+      "action": "Assign deterministic, symbolic, statistical, generative, or human verification using the least-flexible adequate method.",
+      "dependencies": ["PPEV-003"],
+      "acceptance": ["exact-oracle cases never require a generative judge", "every flexible-method assignment records why stricter methods are inadequate", "no silent provider substitution"]
+    },
+    {
+      "id": "PPEV-005",
+      "priority": "P0",
+      "owner_surface": "source authority policy",
+      "action": "Compile claim-relative inclusion, exclusion, role, directness, currency, authority, conflict-search, and stop policies before retrieval.",
+      "dependencies": ["PPEV-003"],
+      "acceptance": ["authority is assertion-specific rather than globally ranked", "source snapshot and policy digests are frozen", "abstract-only and metadata-only ceilings are explicit"]
+    },
+    {
+      "id": "PPEV-006",
+      "priority": "P0",
+      "owner_surface": "grounding compiler",
+      "action": "Implement exact locator validation, derivation closure, grounding matrix construction, and claim-ceiling propagation.",
+      "dependencies": ["PPEV-003", "PPEV-005"],
+      "acceptance": ["no material released claim is orphaned", "contradictions remain represented", "every promotion beyond evidence directness is rejected"]
+    },
+    {
+      "id": "PPEV-007",
+      "priority": "P0",
+      "owner_surface": "refinement bridge",
+      "action": "Emit local dispositions and JSON-Patch-like proposed repairs without mutating the initial plan.",
+      "dependencies": ["PPEV-002", "PPEV-006"],
+      "acceptance": ["unrelated verified nodes survive a local failure", "route-critical failures are explicit", "repairs require the existing versioned refinement lifecycle"]
+    },
+    {
+      "id": "PPEV-008",
+      "priority": "P0",
+      "owner_surface": "reuse-critical binding",
+      "action": "Map semantic obligations to existing evidence, provenance, fidelity, directness, sufficiency, formal-grounding, and claim-ceiling skills.",
+      "dependencies": ["PPEV-004"],
+      "acceptance": ["existing skills are composed rather than duplicated", "the deterministic kernel remains runtime code", "unavailable instruction-only skills cannot advertise execution"]
+    },
+    {
+      "id": "PPEV-009",
+      "priority": "P0",
+      "owner_surface": "planner ports",
+      "action": "Define immutable verification_context ports for already-produced external-source, framework, and package-search planning receipts.",
+      "dependencies": ["PPEV-001"],
+      "acceptance": ["receipt digests are bound into the overlay", "no network or retrieval is moved into verification", "standalone wheel has no host catalog import"]
+    },
+    {
+      "id": "PPEV-010",
+      "priority": "P1",
+      "owner_surface": "deterministic adapters",
+      "action": "Implement schema, registry, hash, version, identity, join, unit, arithmetic, set, DAG, artifact, extraction, and evidence-completeness checks.",
+      "dependencies": ["PPEV-004"],
+      "acceptance": ["deterministic cases are repeatable and order invariant", "failures identify exact claim/node/field", "no semantic score overrides an exact failure"]
+    },
+    {
+      "id": "PPEV-011",
+      "priority": "P1",
+      "owner_surface": "computation receipts",
+      "action": "Add environment/provider preflight, input/output digests, estimand, parameters, seed, tolerance, replication, and fixtures.",
+      "dependencies": ["PPEV-004", "PPEV-010"],
+      "acceptance": ["provider unavailable is typed", "seeded and stochastic methods remain distinguishable", "reproducibility is not promoted to empirical truth"]
+    },
+    {
+      "id": "PPEV-012",
+      "priority": "P1",
+      "owner_surface": "evidence conflict handling",
+      "action": "Cluster source independence and retain contradictions so mirrored records cannot masquerade as corroboration.",
+      "dependencies": ["PPEV-005", "PPEV-006"],
+      "acceptance": ["duplicate sources contribute one independence cluster", "high-authority conflict remains visible", "source count never resolves truth automatically"]
+    },
+    {
+      "id": "PPEV-013",
+      "priority": "P1",
+      "owner_surface": "bounded generative verifier",
+      "action": "Add an allowed-evidence envelope for paraphrase, synthesis, rival explanations, and hypotheses plus independent claim-fidelity review.",
+      "dependencies": ["PPEV-004", "PPEV-006"],
+      "acceptance": ["new factual specifics outside allowed evidence IDs are rejected", "candidate extraction requires exact-anchor verification", "the producer is not the sole evaluator of a material output"]
+    },
+    {
+      "id": "PPEV-014",
+      "priority": "P1",
+      "owner_surface": "risk and exploration policy",
+      "action": "Implement risk-proportional exploratory/confirmatory templates, anti-paranoia exemptions, bounded search, and local failure propagation.",
+      "dependencies": ["PPEV-003", "PPEV-006"],
+      "acceptance": ["approved hypotheses survive as proposed", "user constraints, future actions, deterministic derivations, placeholders, and unknowns are not falsely blocked", "claim strength and impact drive severity"]
+    },
+    {
+      "id": "PPEV-015",
+      "priority": "P1",
+      "owner_surface": "invalidation engine",
+      "action": "Invalidate only dependent assessments when the plan, requirement, source release/content, method/version, parameter, authority, or source policy changes.",
+      "dependencies": ["PPEV-006", "PPEV-007"],
+      "acceptance": ["unchanged findings retain digests", "changed dependencies cannot reuse stale passes", "invalidation is transitive and local"]
+    },
+    {
+      "id": "PPEV-016",
+      "priority": "P1",
+      "owner_surface": "reasoning log",
+      "action": "Add user-facing verification summaries and normalized reasoning-log events.",
+      "dependencies": ["PPEV-007"],
+      "acceptance": ["summary reports what was checked and remaining uncertainty", "no hidden chain-of-thought is exposed", "verification readiness is not described as executed evidence"]
+    },
+    {
+      "id": "PPEV-017",
+      "priority": "P1",
+      "owner_surface": "workflow refinement",
+      "action": "Make refinement and release consume overlay findings/test specifications without granting the overlay new planning authority.",
+      "dependencies": ["PPEV-007", "PPEV-015"],
+      "acceptance": ["blocking findings enter existing gates", "advisories do not globally block exploration", "the initial plan remains immutable"]
+    },
+    {
+      "id": "PPEV-020",
+      "priority": "P2",
+      "owner_surface": "symbolic adapters",
+      "action": "Add ontology, namespace, temporal, protocol, scope, premise, and claim-ceiling constraint contracts.",
+      "dependencies": ["PPEV-004", "PPEV-010"],
+      "acceptance": ["results are entailed, contradicted, or unknown", "unsat cores or counterexamples are returned", "formal conclusions remain bounded to premises"]
+    },
+    {
+      "id": "PPEV-021",
+      "priority": "P2",
+      "owner_surface": "planner benchmark",
+      "action": "Build 24 paired disclosed post-plan grounding cases, mutation probes, and a separately governed sealed corpus.",
+      "dependencies": ["PPEV-010", "PPEV-013", "PPEV-014", "PPEV-020"],
+      "acceptance": ["cases cover exact extraction, authority, symbolic constraints, exploration, claims, unknowns, prompt injection, and non-interference", "oracles are versioned and withheld where required"]
+    },
+    {
+      "id": "PPEV-022",
+      "priority": "P2",
+      "owner_surface": "integration tests",
+      "action": "Prove non-interference when verification is disabled, passed, caveated, repair-required, or locally blocked.",
+      "dependencies": ["PPEV-002", "PPEV-017"],
+      "acceptance": ["base plan bytes/canonical digest remain identical", "only additive sidecar and proposed repair surfaces differ", "repeated receipts are deterministic"]
+    },
+    {
+      "id": "PPEV-023",
+      "priority": "P2",
+      "owner_surface": "adversarial tests",
+      "action": "Test fabricated citations, source swaps, unit/value mismatch, access-level confusion, duplicate corroboration, prompt injection, overpromotion, stale authority, denied sources, and execution-state hallucination.",
+      "dependencies": ["PPEV-021"],
+      "acceptance": ["zero fabricated specifics escape", "prompt injection is inert", "mutations change only logically affected findings"]
+    },
+    {
+      "id": "PPEV-024",
+      "priority": "P2",
+      "owner_surface": "anti-paranoia tests",
+      "action": "Test benign user constraints, prospective actions, hypotheses, deterministic transformations, generic methods, placeholders, and unknowns.",
+      "dependencies": ["PPEV-014", "PPEV-021"],
+      "acceptance": ["zero blocking false positives on explicit benign controls", "broader benign specificity is at least 0.95", "only unsupported factual promotion is blocked"]
+    },
+    {
+      "id": "PPEV-025",
+      "priority": "P2",
+      "owner_surface": "evaluation metrics",
+      "action": "Report grounding, anchor fidelity, unsupported escape, claim-ceiling, routing, conflict, repair-locality, false-positive, latency, and cost metrics.",
+      "dependencies": ["PPEV-021", "PPEV-023", "PPEV-024"],
+      "acceptance": ["deterministic and semantic metrics are separate", "family-level strict pass is reported", "lexical checks are not presented as semantic certification"]
+    },
+    {
+      "id": "PPEV-026",
+      "priority": "P2",
+      "owner_surface": "planner release",
+      "action": "Update packaged schemas, persistent-change profiles, hook invariants, README, lifecycle docs, standalone verifier, capability maps, and release checks.",
+      "dependencies": ["PPEV-017", "PPEV-022", "PPEV-025"],
+      "acceptance": ["new/extend/refine profiles include the post-plan stage", "direct-use/control routes remain not applicable", "standalone wheel and route-only boundaries pass"]
+    }
+  ]
+}

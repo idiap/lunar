@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-effort-invalidation-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "estimate_digest", "changed_artifact_digests", "invalidated_work_unit_ids", "retained_work_unit_ids", "headline_invalidated", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-effort-invalidation/v1"},
+    "estimate_digest": {"$ref": "#/$defs/digest"},
+    "changed_artifact_digests": {"type": "array", "items": {"type": "string"}},
+    "invalidated_work_unit_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "retained_work_unit_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "headline_invalidated": {"type": "boolean"},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

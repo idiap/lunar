@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.0"
+workflow_id: external_data_source_planning
+kind: planner_profile
+status: planning_only_non_executing
+mode: external_data_source_planning
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [verbatim_request, problem_frame, authority_envelope, pinned_resource_snapshot]
+release_stage_id: external_source_plan
+stages:
+  - id: external_source_plan
+    owner_skill: external-source-registry-builder
+    inputs: [verbatim_request, problem_frame, authority_envelope, pinned_resource_snapshot]
+    outputs: [external_source_planning_packet]
+    dependencies: []
+    rule: Infer typed needs and return dry-run source plans with complete candidate receipts; network, installation, mutation, and execution remain forbidden.

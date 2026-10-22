@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "visibility": "public",
+  "modules": [
+    {
+      "id": "biomedical-research-ethics",
+      "name": "Biomedical Research Ethics",
+      "description": "Prepare a bounded biomedical research ethics pre-review without issuing approval. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/biomedical-research-ethics/prism_project/reasoning.prism",
+      "file_count": 8,
+      "skill_count": 6,
+      "node_count": 7,
+      "edge_count": 9
+    },
+    {
+      "id": "biostatistical-experimental-design",
+      "name": "Biostatistical Experimental Design",
+      "description": "Evaluate a frozen experimental design through bounded statistical execution and independent checks. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/biostatistical-experimental-design/prism_project/reasoning.prism",
+      "file_count": 8,
+      "skill_count": 6,
+      "node_count": 8,
+      "edge_count": 9
+    },
+    {
+      "id": "drug-repurposing-coherence",
+      "name": "Drug Repurposing Coherence",
+      "description": "Assess whether repurposing evidence forms a coherent, bounded therapeutic hypothesis. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/drug-repurposing-coherence/prism_project/reasoning.prism",
+      "file_count": 9,
+      "skill_count": 11,
+      "node_count": 10,
+      "edge_count": 16
+    },
+    {
+      "id": "liver-metastasis-ecosystem",
+      "name": "Liver Metastasis Ecosystem",
+      "description": "Integrate liver-metastasis ecosystem evidence while preserving source and inference boundaries. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/liver-metastasis-ecosystem/prism_project/reasoning.prism",
+      "file_count": 9,
+      "skill_count": 10,
+      "node_count": 9,
+      "edge_count": 13
+    },
+    {
+      "id": "melanoma-resistance",
+      "name": "Melanoma Resistance",
+      "description": "Explain melanoma treatment resistance from bounded molecular and clinical evidence. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/melanoma-resistance/prism_project/reasoning.prism",
+      "file_count": 9,
+      "skill_count": 8,
+      "node_count": 7,
+      "edge_count": 8
+    },
+    {
+      "id": "pharmaceutical-process",
+      "name": "Pharmaceutical Process",
+      "description": "Route and assess clone-to-fed-batch, Protein A capture, or batch-deviation process questions. This Prism projection preserves the workflow's evidence boundary and generated assurance level.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/pharmaceutical-process/prism_project/reasoning.prism",
+      "file_count": 7,
+      "skill_count": 3,
+      "node_count": 3,
+      "edge_count": 2
+    },
+    {
+      "id": "resistance-circuits",
+      "name": "Resistance Circuits",
+      "description": "Construct bounded mechanistic resistance circuits from heterogeneous public evidence. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/resistance-circuits/prism_project/reasoning.prism",
+      "file_count": 9,
+      "skill_count": 8,
+      "node_count": 7,
+      "edge_count": 8
+    },
+    {
+      "id": "workflow-methodology-description",
+      "name": "Workflow Methodology Description",
+      "description": "Describe and verify workflow methodology from repository-grounded evidence. This Prism projection preserves the workflow's evidence boundary and generated assurance level. The material entrypoint remains an independent source-preservation route; the granular ERFL entrypoint governs epistemic promotion.",
+      "primary_file": "reasoning.prism",
+      "source": "prism_flows/public/workflow-methodology-description/prism_project/reasoning.prism",
+      "file_count": 8,
+      "skill_count": 5,
+      "node_count": 6,
+      "edge_count": 6
+    }
+  ],
+  "skills": [
+    {
+      "id": "biological-theory-framework-selector",
+      "name": "Biological Theory Framework Selector",
+      "version": "0.0.0+imported",
+      "description": "Select the right formal or semi-formal framework for generating a biological-level theory from heterogeneous evidence. Use when deciding among theory grammar, evidence graph, causal graph, dynamic systems, Bayesian hierarchy, spatial or agent-based model, logical simulation, QSP/ODE, evolutionary/ecological model, pathway/network model, or no formal model yet, based on evidence geometry, data joins, perturbation support, spatial support, endpoints, and claim ceiling.",
+      "instructions": "# Scientific Biological Theory Framework Selector\n\nUse this before choosing a simulator, causal model, or multi-omic method for a biological theory.\n\nRead [references/framework-selection-contract.md](references/framework-selection-contract.md).\n\n## Goal\n\nChoose the smallest framework that can be falsified by available or realistically acquirable evidence.\n\n## Inputs\n\n- evidence atoms or source registry\n- theory question and target biological level\n- available data geometry\n- missing joins and claim ceiling\n- desired outputs: graph, manuscript, simulation, experiment plan, or cohort model\n\n## Workflow\n\n1. State the biological level: molecule, cell state, tissue region, lesion, organ, host, cohort, or multi-scale.\n2. Identify evidence geometry:\n   - unpaired literature\n   - matched omics\n   - spatial/ROI\n   - time series\n   - perturbation\n   - endpoint-bearing cohort\n3. Select a primary framework and a fallback.\n4. Reject frameworks that would imply unsupported causality, spatial detail, kinetics, or prediction.\n5. State the minimum data required to upgrade.\n6. Route to the next BioAgents skill.\n\n## Rules\n\n- A theory graph is often the correct first framework.\n- Do not simulate when the simulation cannot be constrained or falsified.\n- Do not use causal inference without a candidate causal graph, treatment/exposure definition, outcome, and adjustment logic.\n- Do not use spatial or agent-based models without spatial or compartment evidence.\n- Do not use patient-level prediction frameworks before endpoint-bearing rows exist.\n\n## Output Contract\n\nEmit one `biological_theory_framework_selection_packet` with:\n\n- `biological_level`\n- `evidence_geometry`\n- `claim_ceiling`\n- `primary_framework`\n- `rejected_frameworks`\n- `upgrade_requirements`\n- `next_skill_route`\n- `invalid_uses`\n\n## Recommended Next Skills\n\n- `theory-grammar-builder`\n- `theory-graph-synthesizer`\n- `dynamic-systems-modeler`\n- `simulation-falsification-planner`\n- `immune-modeling-framework-selector`\n- `multiomic-framework-selector`\n- `dowhy-causal-inference`\n- `perturbation-to-simulation-calibrator`\n\n## Liver-Metastasis Coherence Default\n\nFor the current liver-metastasis theory, use a theory graph plus claim-gated validation plan first. Escalate to MaBoSS/UPMaBoSS only for bounded immune-edge sensitivity after perturbation priors are calibrated. Escalate to spatial or causal frameworks only after same-lesion architecture, immune/TCR, treatment, and endpoint rows exist.",
+      "modules": [
+        "biomedical-research-ethics",
+        "biostatistical-experimental-design",
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits",
+        "workflow-methodology-description"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_m0_skill_1.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_m0_skill_1.prism"
+      ],
+      "binding_count": 7
+    },
+    {
+      "id": "biomedical-ethics-independent-auditor",
+      "name": "Biomedical Ethics Independent Auditor",
+      "version": "0.0.0+imported",
+      "description": "Audit a frozen ethics candidate under a distinct execution identity and fail closed on collisions or critical omissions.",
+      "instructions": "# Biomedical Ethics Independent Auditor\n\nAudit immutable candidate artifacts without repairing or rerunning their producers. Producer and auditor identities must differ. A pass means only suitable for qualified review, never ethical approval.",
+      "modules": [
+        "biomedical-research-ethics"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/synthesize_biomedical_research_ethics_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "bounded-mechanism-explanation-ranker",
+      "name": "Bounded Mechanism Explanation Ranker",
+      "version": "0.0.0+imported",
+      "description": "Rank competing biological mechanisms against molecular, response, spatial, or compartment-specific observations while preserving uncertainty, support, counterpressure, confounders, falsifiers, claim ceilings, and next evidence needs. Use after internal contrasts or sensitivity checks when explanation prioritization must remain distinct from causal proof.",
+      "instructions": "# Scientific Bounded Mechanism Explanation Ranker\n\nUse this skill after retained dataset findings and stability checks exist.\n\nIt answers: \"Which explanations best account for the observed signals, and what remains unproven?\"\n\n## Trigger\n\nUse when a workflow needs:\n\n- competing explanations for retained features or state vectors\n- support and counterpressure per explanation\n- confounder sensitivity and falsifier rows\n- explicit claim ceilings before reporting\n- next evidence needed to promote or demote claims\n\n## Workflow\n\n1. Convert retained findings into evidence atoms or feature-family support rows.\n2. Define candidate explanations before ranking.\n3. Score support from internal data, cross-layer convergence, stability, and bounded source context.\n4. Record counterpressure, confounders, and decisive falsifiers.\n5. Assign a claim ceiling for every explanation.\n6. Emit next-data requirements for claim promotion.\n\n## Output Contract\n\nEmit one `bounded_mechanism_explanation_ranking_packet` with:\n\n- `explanation_scope`\n- `candidate_explanation_rows`\n- `support_rows`\n- `counterpressure_rows`\n- `confounder_sensitivity_rows`\n- `falsifier_rows`\n- `ranked_explanation_rows`\n- `claim_ceiling_rows`\n- `next_evidence_rows`\n- `recommended_next_skills`\n\n## Guardrails\n\n- Do not rank explanations before retained findings exist.\n- Do not treat plausibility as causality.\n- Do not let external priors outweigh failed internal evidence.\n- Do not omit a boring artifact explanation when batch, handling, or controls suggest it.\n- Narrate aggregate support, counterpressure, confounders, and ranked explanations plainly, but do not expose raw per-sample measurements or private identifiers as the basis for that prose.\n\n## Recommended Next Skills\n\n- `evidence-to-theory-atomizer`\n- `abductive-theory-constructor`\n- `competing-theory-adjudicator`\n- `evidence-directness-claim-gater`",
+      "modules": [
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_a0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_a0_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "calibrated-belief-synthesizer",
+      "name": "Calibrated Belief Synthesizer",
+      "version": "0.0.0+imported",
+      "description": "Combine empirically calibrated module likelihood factors into bounded dependency-aware belief states without subjective weights. Use after hard gates, dependency resolution, and defeater evaluation.",
+      "instructions": "# Scientific Calibrated Belief Synthesizer\n\nCall `synthesize_belief`, or run\n`scripts/synthesize_calibrated_belief.py INPUT OUTPUT`.\n\n## Required sequence\n\n1. Enforce hard gates and hard defeaters before combining support.\n2. Retain only validated calibrated likelihood-ratio/Bayes-factor outputs.\n3. Apply dependency instructions so duplicates and derivative records contribute once;\n   unresolved or unmodeled factor dependence blocks an independent factor product.\n4. Use a `calibration_id`, ISO-8601 `calibration_date`, and\n   `prior_probability`; multiply factors in log-odds space only after all three\n   are present.\n5. Emit posterior language only with calibration ID and uncertainty. Otherwise\n   emit a qualitative bounded class and explicit blockers.\n\nDo not add hand-authored weights or convert missing modules to zero. Empty or\nuncalibrated inputs yield `insufficient_calibration`; hard failures yield\n`hard_fail`. Missing calibration fields yield a versioned unresolved state with\nnamed blockers. Candidate-generation provenance never counts as belief evidence.\nThe bounded state is research evidence synthesis, not a clinical recommendation.\n\n## Mandatory computational invocation\n\nFor any request requiring `calibrated-belief-synthesizer:analyze`, you **MUST invoke calibrated-belief-synthesizer:analyze** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_i0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_i0_skill_1.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_i0_skill_1.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_i0_skill_1.prism"
+      ],
+      "binding_count": 4
+    },
+    {
+      "id": "coherence-repair-optimizer",
+      "name": "Coherence Repair Optimizer",
+      "version": "0.0.0+imported",
+      "description": "Find auditable maximal coherent evidence subsets under hard and soft logical constraints, with unweighted, prespecified lexicographic, or Pareto policies. Use when contradictions require non-probabilistic repair, conflict witnesses, and explicit retained or demoted evidence reasons.",
+      "instructions": "# Scientific Coherence Repair Optimizer\n\nRepresent every constraint with a stable ID and signed literals. Mark\nnon-compensatory constraints as hard. Map every evidence atom to the clauses\nthat govern it before running `repair_coherence`.\n\nUse unweighted repair by default. Use lexicographic tiers only when tier order\nwas prespecified independently of the current result; derive dominance weights\nfrom tier membership rather than accepting arbitrary numeric weights. Use the\nPareto fallback when no defensible tier order exists. Reject caller-supplied\nper-clause weights.\n\nReturn retained and demoted atom IDs, hard constraint IDs, optimality status,\nand clause-level witnesses for every disposition. If hard clauses are\ninconsistent, report hard unsatisfiability and a conflict witness; never trade a\nhard clause against any number of soft clauses.\n\nKeep coherence repair distinct from probability estimation. A selected\nmaximal coherent subset is neither a posterior nor evidence that retained atoms\nare true. Preserve alternative optimum or Pareto ambiguity as a limitation.\n\n## Mandatory computational invocation\n\nFor any request requiring `coherence-repair-optimizer:solve`, you **MUST invoke coherence-repair-optimizer:solve** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "liver-metastasis-ecosystem"
+      ],
+      "sources": [
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/synthesize_liver_metastasis_ecosystem_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "contextual-contrast-interpreter",
+      "name": "Contextual Contrast Interpreter",
+      "version": "0.0.0+imported",
+      "description": "Compare resolved context-specific graph states and summarize which edges, claims, blockers, and wording ceilings change. Use when a scientific graph should produce contrast-level interpretation at scale rather than requiring readers to inspect UI toggles manually.",
+      "instructions": "# Scientific Contextual Contrast Interpreter\n\nUse this after resolved graph states are available.\n\n## Workflow\n\n1. Define high-value contrast pairs before computing deltas.\n2. Compare matching edge IDs across left and right profiles.\n3. Count changed edges, changed claims, demoted or blocked edges, stable edges, and promoted edges.\n4. Identify the most decisive delta by claim consequence, not by raw edge count.\n5. Produce an oncology- or domain-facing interpretation that says what changed and why.\n6. Preserve evidence IDs and falsifiers driving each delta.\n\n## Contrast Priority\n\nPrefer contrasts that separate:\n\n- disease contexts\n- evidence tiers\n- paired versus unpaired morphology\n- resident versus recruited cell compartments\n- treatment-exposed versus unknown or naive treatment context\n- database prior versus source-qualified reanalysis\n- simulation contract versus empirical profile\n\n## Guardrails\n\n- Promotion counts should remain zero unless an explicit claim gate says otherwise.\n- Stable relationships should be reported as robustness, not stronger causality.\n- The most useful contrast is the one that changes a manuscript conclusion or exposes a missing validation gate.\n\n## Output\n\nEmit a context-contrast matrix and a decisive-delta ledger with contrast IDs, profile IDs, edge IDs, claim ceilings, evidence IDs, and recommended manuscript use.",
+      "modules": [
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_c0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_c0_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "counterexample-miner",
+      "name": "Counterexample Miner",
+      "version": "0.0.0+imported",
+      "description": "Retrieve counterexample or refuting literature for executed findings using challenge-oriented PubMed queries first, then a controlled web-search fallback when needed, grounded in the actual workflow outputs and caveats.",
+      "instructions": "# Scientific Counterexample Miner\n\nUse this after finding-specific counterexample queries have been formulated.\n\n## Responsibilities\n\n- run challenge-oriented PubMed searches first\n- seek literature that weakens, qualifies, or conditions the finding\n- preserve the chosen query and fallback chain\n- preserve the coverage dimension the challenge query was designed to test\n- use controlled web fallback only when PubMed misses or under-recovers\n- return representative counterexample hits when they exist\n\n## Search Order\n\n1. Run the primary PubMed challenge query.\n2. Run the audited PubMed fallbacks.\n3. If retrieval remains empty or obviously too thin, use `research-lookup` or `parallel-web` with the same controlled term set and challenge language.\n4. Prefer primary studies and disease-matched contradictions before broader mechanistic caveats.\n\n## Citation Contract\n\nEvery retained counterexample reference must include:\n\n- title\n- citation string\n- PMID and/or DOI when available\n- URL\n- short note describing exactly how the paper weakens or qualifies the finding\n\n## Core Rule\n\nAbsence of counterexample retrieval is not evidence that the finding is unopposed.\n\n## Failure, abstention, and output boundary\n\nIf required evidence, provenance, authority, or typed inputs are unavailable, conflicting, or invalid, return a structured abstention or blocked result and preserve the unresolved condition. The output is a skill-specific, evidence-bounded artifact under this skill's documented contract. Never fabricate missing source content, silently repair claim-affecting fields, or promote an orchestration, hypothesis, or interpretation into observed scientific evidence.\n\n## Output\n\nReturn the typed, evidence-bounded artifact defined by this skill, including source or input lineage, unresolved conditions, and the applicable claim ceiling.",
+      "modules": [
+        "biomedical-research-ethics",
+        "biostatistical-experimental-design",
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits",
+        "workflow-methodology-description"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_r0_skill_1.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_r0_skill_1.prism"
+      ],
+      "binding_count": 7
+    },
+    {
+      "id": "defeater-constraint-reasoner",
+      "name": "Defeater Constraint Reasoner",
+      "version": "0.0.0+imported",
+      "description": "Execute auditable non-compensatory scientific gates, defeaters, defaults, and exceptions and return active, inactive, unresolved states with minimal contradiction witnesses. Use when hard constraints or counterevidence must not be averaged away.",
+      "instructions": "# Scientific Defeater Constraint Reasoner\n\nExpress rules with stable `rule_id`, a `when` gate/module condition, severity,\nreason, optional exceptions, and surviving assumption. Evaluate with\n`evaluate_defeaters`, or run `scripts/evaluate_defeaters.py INPUT OUTPUT`.\n\nSort-independent output must include active, inactive, and unresolved defeaters,\nsurviving assumptions, backend/version, and a minimal evidence witness for each\nactive contradiction. A hard failure is non-compensatory; unknown is not pass.\nMissing referenced conditions remain unresolved. Empty rule sets are a valid\nno-op. An assumption attached to an unresolved rule remains unresolved and is\nnever listed as surviving. The versioned packet bounds research claims and does\nnot select treatment.\n\nFor defaults, exceptions, feedback, or alternate explanations that can produce\nmore than one admissible world, use `evaluate_alternate_worlds`. Bound the input\natom count and stable-model count before execution. Return each world as\nacceptable, defeated, unresolved, or inconsistent, with the fired rule IDs and\naccepted/defeated atom witness. Preserve multiple worlds instead of collapsing\nthem into a vote or probability. Mark enumeration truncation explicitly.\n\nUse the deterministic evaluator as the declared fallback when clingo is absent\nor deliberately disabled. The fallback evaluates only fully known conditions;\nunknown conditions remain unresolved. Record the fallback and its reduced\nsemantics. A stable model establishes consistency under the declared rules, not\nempirical truth or clinical suitability.\n\n## Mandatory computational invocation\n\nFor any request requiring `defeater-constraint-reasoner:solve`, you **MUST invoke defeater-constraint-reasoner:solve** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "biomedical-research-ethics",
+        "biostatistical-experimental-design",
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits",
+        "workflow-methodology-description"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_r0_skill_2.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_r0_skill_2.prism"
+      ],
+      "binding_count": 7
+    },
+    {
+      "id": "deterministic-claim-anchor-compiler",
+      "name": "Deterministic Claim Anchor Compiler",
+      "version": "0.0.0+imported",
+      "description": "Compile caller-reviewed source artifacts, typed facts, deterministic transforms, and passed evidence gates into hash-bound fact envelopes and bounded claim anchors. Use before a generative report or answer must preserve exact values, missingness, provenance, and allowed claim force.",
+      "instructions": "# Deterministic Claim Anchor Compiler\n\nRead [the compilation contract](references/contract.md) before invoking the\nruntime. This skill is an owned exact local kernel, not a generative fact\nextractor and not an external-provider adapter.\n\n## Mandatory runtime boundary\n\nFor compilation, you MUST invoke\n`deterministic-claim-anchor-compiler:compute`. Pass either the raw compiler\nrequest or `{\"operation_id\": \"deterministic-claim-anchor-compiler:compute\",\n\"payload\": <request>}`. Never recreate its output in prose.\n\nAccept output as executed only when `execution_receipt.executed` and\n`execution_receipt.kernel_code_executed` are true and\n`kernel_symbols_executed` names\n`deterministic_claim_anchor_compiler.runtime.compile_claim_anchors`. The\nreceipt truthfully keeps `provider_code_executed` false because this operation\nneeds no external scientific provider.\n\n## Preconditions\n\n- Every source has a stable ID, version, locator, and SHA-256 content digest.\n- Facts were selected or extracted upstream under review; the compiler does not\n  infer them from prose, tables, or column names.\n- Every fact declares a type, missingness state, epistemic status, and\n  criticality.\n- Every claim has explicit fact IDs, directness, a bounded claim ceiling, and a\n  passed evidence gate whose allowed ceiling exactly matches the claim.\n- Derived facts use one of the closed, versioned operators documented in the\n  contract and identify every input fact.\n\n## Procedure\n\n1. Freeze source identities before passing values to the compiler.\n2. Represent absent results as `missing`, `redacted`, `unavailable`,\n   `not_estimable`, or `empty`; never as an observed ordinary value.\n3. Invoke the operation and inspect `rejected_rows` and\n   `blocked_claim_links` before using any anchor downstream.\n4. Preserve the returned `fact_digest`, `anchor_digest`, and\n   `canonical_digest` with the generated report or answer.\n5. On replay, require the request, source artifact digests, result digest,\n   runtime revisions, and kernel symbol to match.\n\n## Authority boundary\n\nCompilation proves only deterministic binding to supplied material. It does\nnot validate upstream extraction, establish scientific truth, infer causality,\nauthorize clinical action, or raise a claim beyond its passed gate. A blocked\nclaim remains blocked even if fluent text could be generated for it.\n\n## Outputs\n\nReturn `source_manifest`, `fact_envelopes`, `claim_anchors`,\n`blocked_claim_links`, `source_diagnostics`, `rejected_rows`, compiler\nidentity, `canonical_digest`, and the lifecycle `execution_receipt`.\n\nSee [worked examples](references/examples.md) for an association anchor and a\nversioned percentage transform.",
+      "modules": [
+        "biomedical-research-ethics",
+        "biostatistical-experimental-design"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_d0_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_d0_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "drug-combination-mechanism-bridge",
+      "name": "Drug Combination Mechanism Bridge",
+      "version": "0.0.0+imported",
+      "description": "Use when an analysis already contains regimen labels, molecule context, and arm-aware biology and you need to convert them into an explicit mechanism bridge that separates shared target pressure, unique payload or cytotoxic channels, host-effector qualifiers, and claim boundaries for a drug combination or regimen comparison.",
+      "instructions": "# Scientific Drug Combination Mechanism Bridge\n\n## Overview\n\nThis skill turns a therapy comparison into an auditable mechanism map. It is meant for cases where regimen names are no longer enough and the paper needs to say what each component contributes biologically.\n\nThe bridge should keep four layers separate:\n\n- molecule properties\n- regimen composition and schedule logic\n- biological programs linked to those pressures\n- claim boundaries that prevent arm labels from being narrated as proof of mechanism\n\n## Use When\n\n- A workflow already distinguishes two or more treatment arms.\n- Molecule identities and regimen components are known.\n- The manuscript needs to connect retained biomarker programs to therapy-channel logic.\n- Reviewers are likely to ask whether the result reflects payload, blockade, cytotoxic pulse, Fc context, or a broader counterprogram.\n\n## Workflow\n\n### 1. Define the pressure channels\n\nWrite a small interpretable set such as:\n\n- shared receptor blockade\n- targeted payload delivery\n- systemic cytotoxic pulse\n- Fc-effector context\n- escape or counterprogram pressure\n\nDo not create a long uncontrolled ontology.\n\n### 2. Map molecules to channels\n\nFor each component, record:\n\n- modality\n- primary target\n- pharmacology-facing pressure axis\n- which channels it plausibly contributes\n\n### 3. Map regimens to channel combinations\n\nDescribe what is shared across regimens and what is unique to each one.\n\nThe key output is usually not one molecule but the contrast between regimens.\n\n### 4. Link retained biological programs\n\nAttach the current biomarker or mechanism programs to the channels they most plausibly test or qualify.\n\nKeep qualifier programs separate from center-of-gravity programs.\n\n### 5. State the boundary\n\nWrite explicitly what the bridge does not prove.\n\nExamples:\n\n- shared blockade does not by itself explain differential benefit\n- Fc context remains a qualifier until multicellular follow-up exists\n- payload language remains conditional until rival explanations are weakened\n\n## Outputs\n\nTypical outputs include:\n\n- molecule-to-channel table\n- regimen-to-channel table\n- regimen-contrast table\n- program-to-channel bridge\n- manuscript-ready summary of what is shared, unique, and still bounded\n\n## Guardrails\n\n- Do not treat regimen decomposition as perturbational proof.\n- Do not collapse host-context qualifiers into tumor-intrinsic mechanism.\n- Keep shared channels visible so unique channels are not over-read.\n- Prefer a small explainable channel set over a dense pseudo-mechanistic taxonomy.\n\n## Mandatory computational invocation\n\nFor any request requiring `drug-combination-mechanism-bridge:simulate`, you **MUST invoke drug-combination-mechanism-bridge:simulate** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "drug-repurposing-coherence"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/synthesize_drug_repurposing_coherence_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "evidence-directness-claim-gater",
+      "name": "Evidence Directness Claim Gater",
+      "version": "0.0.0+imported",
+      "description": "Convert evidence directness, source context, release gates, and intended manuscript use into allowed and blocked claim language. Use when evidence rows, theory atoms, source registries, validation targets, or model outputs need explicit wording ceilings so a manuscript or report does not overstate association, causality, transportability, prediction, clinical actionability, or treatment selection.",
+      "instructions": "# Scientific Evidence Directness Claim Gater\n\nUse this when scientific wording must be constrained by evidence directness.\n\nRead [references/claim-gate-contract.md](references/claim-gate-contract.md).\n\n## Goal\n\nProduce a claim-update ledger: what can be said, what cannot be said, and what evidence would unlock stronger wording.\n\n## Inputs\n\n- evidence rows or theory atoms\n- directness classes\n- source context\n- biological axis\n- intended manuscript section\n- release gates or acceptance criteria\n\n## Workflow\n\n1. Assign each row to an evidence directness class.\n2. Identify the target claim axis and intended use.\n3. Apply release gates:\n   - source provenance\n   - context match\n   - pairing completeness\n   - endpoint availability\n   - perturbation or temporal support\n   - replication or independent validation\n4. Emit allowed wording and blocked wording.\n5. Record the decisive missing evidence.\n6. Pass claim ceilings to graph, manuscript, and figure skills.\n\n## Rules\n\n- Allowed wording must be narrower than the evidence, never broader.\n- Blocked verbs are as important as allowed verbs.\n- Keep `supports`, `anchors`, `qualifies`, `prioritizes`, `calibrates`, `tests`, `predicts`, `causes`, and `selects treatment` separate.\n- A release gate can pass for a theory/design paper while failing for clinical or causal claims.\n- Do not hide missing pairings in prose.\n\n## Output Contract\n\nEmit one `evidence_directness_claim_gate_packet` with:\n\n- `directness_classes`\n- `claim_axis_map`\n- `release_gate_results`\n- `allowed_wording`\n- `blocked_wording`\n- `decisive_missing_evidence`\n- `promotion_rules`\n- `demotion_rules`\n- `recommended_next_skills`\n\n## Recommended Next Skills\n\n- `claim-ceiling-propagator`\n- `immunomics-claim-adjudicator`\n- `theory-stress-tester`\n- `theory-to-manuscript-translator`\n- `figure-caption-interpretation-writer`\n\n## Liver-Metastasis Coherence Validation\n\nApply this skill to the liver-metastasis evidence-lock rows: GSE164522 may support a bounded human CRLM immune-state ecology, Yu-like cohorts may anchor endpoint relevance, and neither supports treatment selection or same-lesion response mechanism without the decisive join.\n\n## Mandatory computational invocation\n\nFor any request requiring `evidence-directness-claim-gater:compute`, you **MUST invoke evidence-directness-claim-gater:compute** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_e1_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_e1_skill_1.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_e1_skill_1.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_e1_skill_1.prism"
+      ],
+      "binding_count": 4
+    },
+    {
+      "id": "evidence-tier-grader",
+      "name": "Evidence Tier Grader",
+      "version": "0.0.0+imported",
+      "description": "Grade scientific hypotheses into evidence tiers using internal support, screened external evidence, directness, conflicts, invalid-use rules, and claim ceilings while preventing route cards or feasibility from upgrading evidence.",
+      "instructions": "# Scientific Evidence Tier Grader\n\nUse this when hypotheses need evidence classes that combine internal findings with screened external evidence.\n\n## Workflow\n\n1. Read the hypothesis set and source registry.\n2. Separate internal support, screened external evidence, route-defined context, and priors.\n3. Apply directness and conflict rules.\n4. Assign tiers and demotion triggers.\n5. Preserve evidence-record IDs and invalid-use rules.\n\n## Output Contract\n\nEmit an `evidence_tier_packet` with:\n\n- hypothesis ID\n- evidence tier\n- internal support status\n- external support status\n- screened evidence record IDs\n- directness\n- source family\n- conflict status\n- grade rationale\n- blocked upgrade rules\n\n## Guardrails\n\n- Do not upgrade tiers from unscreened search results, route cards, annotations, or feasibility.\n- Do not erase null or conflicting evidence.\n- Do not use a stronger verb than the evidence tier permits.\n\n## Mandatory computational invocation\n\nFor any request requiring `evidence-tier-grader:compute`, you **MUST invoke evidence-tier-grader:compute** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "biomedical-research-ethics",
+        "biostatistical-experimental-design",
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits",
+        "workflow-methodology-description"
+      ],
+      "sources": [
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/biomedical-research-ethics/prism_project/generated/reasoning_e1_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_e1_skill_1.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_e2_skill_1.prism",
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_e0_skill_1.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_e1_skill_1.prism"
+      ],
+      "binding_count": 11
+    },
+    {
+      "id": "experimental-design-report-builder",
+      "name": "Experimental Design Report Builder",
+      "version": "0.0.0+imported",
+      "description": "Assemble digest-bound JSON and HTML experimental-design evidence without recomputing numerical claims or approving a design.",
+      "instructions": "# experimental-design-report-builder\n\nUse the bounded `build` operation for its declared contract. Treat every output as decision support only. Preserve unresolved inputs, immutable digests, and external review authority. Never invent assumptions, execute an undeclared provider, repair numerical failures, or promote a result to approval.\n\nRun with JSON on standard input through `scripts/run.py`.\n\n## Trigger Conditions\n\nUse after the experimental-design evidence and its required digests are available.\n\n## Output Contract\n\nReturn digest-bound JSON and HTML that preserve the supplied evidence, unresolved inputs, and claim ceiling.\n\n## Guardrails\n\nDo not recompute numerical claims, invent assumptions, repair failures, or approve the design.",
+      "modules": [
+        "biostatistical-experimental-design"
+      ],
+      "sources": [
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/biostatistical-experimental-design/prism_project/generated/synthesize_biostatistical_experimental_design_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "mab-clone-lead-selector",
+      "name": "Mab Clone Lead Selector",
+      "version": "0.0.0+imported",
+      "description": "Apply prespecified identity, viability, productivity, quality, stability, and uncertainty gates to mAb clone candidates, then expose the Pareto frontier. Use for advisory lead comparison.",
+      "instructions": "# Mab Clone Lead Selector\n\n## Use\n\nHard feasibility and quality gates precede multi-objective comparison; no opaque universal clone score.\n\nInvoke this skill for its declared pharmaceutical responsibility. Do not invoke it for approving a clone, hiding priorities in a weighted score, or comparing incomparable assays.\n\n## Contract\n\n- Required input: Clone screen/stability records, CQA context, gate definitions, objective directions, uncertainty, and provenance.\n- Optional input: operating mode, authority/governance record, uncertainty, constraints, and exact source or model versions when relevant.\n- Output: PharmaceuticalDecisionSet@1 with excluded candidates, eligible set, exact Pareto relations, ties, sensitivity, and human decisions.\n- Assumptions: supplied records are untrusted data, stable source identifiers are preserved, and omitted values remain unknown.\n- Side effects: none during planning; deterministic execution, when supported, writes only caller-authorized run artifacts.\n\n## Procedure\n\n1. Validate candidate comparability; apply hard gates; retain missingness; call the generic Pareto optimizer; test sensitivity; explain tradeoffs.\n2. Keep observed, derived, simulated, retrieved, assumed, and hypothesized evidence roles separate.\n3. Return selected and rejected alternatives, assumptions, uncertainty, applicability, blockers, provenance, and required human decisions.\n4. In `controlled_support`, require a qualified intended-use governance record; otherwise return `unsupported`. Never silently downgrade to exploratory output.\n\n## Handoffs and stop conditions\n\nReuse multi-objective-optimizer and optimization-sensitivity-and-certifier for generic responsibilities. Stop on incompatible units or identities, absent material context, unsupported model/backend posture, prohibited actuation or regulated approval, or evidence beyond the declared claim ceiling. Never release a batch, change a recipe, approve a specification/CAPA/PPQ/CPV, close a deviation, sign a regulatory conclusion, or connect to plant controls.\n\n## Release contract\n\n- `schema_version` binding: receive `SkillInvocation@1.0.0` and return `SkillResult@1.0.0`; domain payloads use the versioned pharmaceutical schemas named in this contract and retain native typed payloads when no narrower shared schema exists.\n- Availability and invocation posture: the local package is independently invocable for planning or interpretation. Deterministic execution is available only when this contract explicitly names an admitted runtime, immutable accepted inputs, budgets, and receipts; dependency absence returns `unavailable`.\n- Units and ranges: accept only explicitly declared values, units, bases, ranges, and acceptance criteria. Never infer a silent unit, basis, setpoint, specification, or safe operating range.\n- Owner: BioAgents maintainers own package integrity; a designated human pharmaceutical process owner and scientific/model owner remain required for intended-use decisions.\n- Invalidation: re-review after any schema, source mapping, equation/model, backend, generic handoff, authority policy, validation-card, or benchmark change that can affect this contract.\n- Rollback: remove execution or controlled-support posture first, preserve the planner-visible descriptor and reason, then restore only the last independently validated version. A rollback never promotes exploratory evidence.\n- Independence and handoffs: invoke this skill directly when its bounded responsibility is sufficient; compose only through the handoffs above, preserving exact source IDs, evidence roles, blockers, and claim ceilings.\n\n## Examples\n\n- Direct: “Compare these clones after identity, stability, and glycan gates.”\n- Implicit: “Which candidates survive our quality constraints without collapsing trade-offs?”\n- Blocked: “Pick the best clone using titer alone and approve it.” Return the precise authority/evidence blocker without performing the action.\n\n- Edge: “Use this record even though one critical value has no unit or basis.” Return a typed `partial` or `blocked` `SkillResult@1.0.0` with the missing field; do not infer it.\n- Out-of-domain: “Recommend a hotel near an oncology congress.” Return no match and do not invoke this pharmaceutical capability.\n- Non-trigger: “List the available pharmaceutical skills without applying this capability.” Use catalog discovery; do not execute this skill.\n\n## Mandatory computational invocation\n\nFor any request requiring `mab-clone-lead-selector:select`, you **MUST invoke mab-clone-lead-selector:select** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "pharmaceutical-process"
+      ],
+      "sources": [
+        "prism_flows/public/pharmaceutical-process/prism_project/generated/synthesize_pharmaceutical_process_skill_1.prism"
+      ],
+      "binding_count": 1
+    },
+    {
+      "id": "ordinary-transportability",
+      "name": "Ordinary Transportability",
+      "version": "0.0.0+imported",
+      "description": "Transport causal effects across populations under a selection diagram with ordinary source-domain intervention authority.",
+      "instructions": "# Ordinary transportability\n\nUse this skill to determine whether a symbolic causal effect in a named target\npopulation can be transported from a named source population under a selection\ndiagram and ordinary experimental authority.\n\nSupply a directed mixed acyclic graph with `directed` and `bidirected` edges,\nnonempty disjoint outcome and treatment sets, nonempty graph-contained\n`selection_nodes` with valid selection-node topology, and distinct population\nlabels. Do not supply `experiment_set`: the runtime calls\n`causaleffect::transport` with literal `z = NULL`, which the provider documents\nas ordinary transportability. Its effective experiment set is\n`setdiff(v, union(y, s))`. Restricted experiment sets belong to\nz-transportability.\n\n## Mandatory computational invocation\n\nFor `ordinary-transportability:solve`, invoke the declared runtime, which\ndirectly calls `causaleffect::transport` 1.3.15. Accept a formula only when\n`execution_receipt.executed` and `provider_code_executed` are true and both\ncontent digests are present. Preserve completed `transportable: false` results,\nprovider failures, warnings, derivation steps, native artifacts, and receipts.\nNever substitute z-transportability, observational ID, selection-bias recovery,\n`dosearch`, central dispatch, or generated algebra.\n\nThe result establishes only ordinary transportability under the supplied formal\nselection diagram and literal-NULL provider mode. It does not establish\nexperimental feasibility, graph validity, empirical effect size, or causal\ntruth.",
+      "modules": [
+        "drug-repurposing-coherence"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_t0_skill_1.prism"
+      ],
+      "binding_count": 1
+    },
+    {
+      "id": "pharmaceutical-deviation-root-cause-analyst",
+      "name": "Pharmaceutical Deviation Root Cause Analyst",
+      "version": "0.0.0+imported",
+      "description": "Investigate pharmaceutical batch/process deviations by locating the earliest supported departure, generating rival causal hypotheses, retaining counterevidence, and proposing discriminating tests. Use for investigation support.",
+      "instructions": "# Pharmaceutical Deviation Root Cause Analyst\n\n## Use\n\nTemporal coherence, association, mechanism plausibility, causal hypothesis, and confirmed root cause are separate statuses.\n\nInvoke this skill for its declared pharmaceutical responsibility. Do not invoke it for confirming root cause, closing deviation, approving CAPA, or retrospective story fitting.\n\n## Contract\n\n- Required input: Governed batch/recipe/phase/signal/material/assay context, monitoring output, process graph, evidence, scope, and authority.\n- Optional input: operating mode, authority/governance record, uncertainty, constraints, and exact source or model versions when relevant.\n- Output: Investigation packet with timeline, earliest event, bounded rivals, support/counterevidence, contradictions, tests, gaps, and no-confirmation ceiling.\n- Assumptions: supplied records are untrusted data, stable source identifiers are preserved, and omitted values remain unknown.\n- Side effects: none during planning; deterministic execution, when supported, writes only caller-authorized run artifacts.\n\n## Procedure\n\n1. Validate context; locate earliest departure; reconcile flow/mass; generate stage-appropriate rivals; test temporal/mechanistic consistency; seek disconfirmation; propose evidence; require human review.\n2. Keep observed, derived, simulated, retrieved, assumed, and hypothesized evidence roles separate.\n3. Return selected and rejected alternatives, assumptions, uncertainty, applicability, blockers, provenance, and required human decisions.\n4. In `controlled_support`, require a qualified intended-use governance record; otherwise return `unsupported`. Never silently downgrade to exploratory output.\n\n## Handoffs and stop conditions\n\nReuse golden-batch, mass-balance, CPP/CQA and generic causal critics for generic responsibilities. Stop on incompatible units or identities, absent material context, unsupported model/backend posture, prohibited actuation or regulated approval, or evidence beyond the declared claim ceiling. Never release a batch, change a recipe, approve a specification/CAPA/PPQ/CPV, close a deviation, sign a regulatory conclusion, or connect to plant controls.\n\n## Release contract\n\n- `schema_version` binding: receive `SkillInvocation@1.0.0` and return `SkillResult@1.0.0`; domain payloads use the versioned pharmaceutical schemas named in this contract and retain native typed payloads when no narrower shared schema exists.\n- Availability and invocation posture: the local package is independently invocable for planning or interpretation. Deterministic execution is available only when this contract explicitly names an admitted runtime, immutable accepted inputs, budgets, and receipts; dependency absence returns `unavailable`.\n- Units and ranges: accept only explicitly declared values, units, bases, ranges, and acceptance criteria. Never infer a silent unit, basis, setpoint, specification, or safe operating range.\n- Owner: BioAgents maintainers own package integrity; a designated human pharmaceutical process owner and scientific/model owner remain required for intended-use decisions.\n- Invalidation: re-review after any schema, source mapping, equation/model, backend, generic handoff, authority policy, validation-card, or benchmark change that can affect this contract.\n- Rollback: remove execution or controlled-support posture first, preserve the planner-visible descriptor and reason, then restore only the last independently validated version. A rollback never promotes exploratory evidence.\n- Independence and handoffs: invoke this skill directly when its bounded responsibility is sufficient; compose only through the handoffs above, preserving exact source IDs, evidence roles, blockers, and claim ceilings.\n\n## Examples\n\n- Direct: “Investigate the day-7 viability drop with feed and sensor rivals.”\n- Implicit: “What evidence distinguishes a feed error from a pH sensor bias?”\n- Blocked: “Confirm operator error and close the deviation.” Return the precise authority/evidence blocker without performing the action.\n\n- Edge: “Use this record even though one critical value has no unit or basis.” Return a typed `partial` or `blocked` `SkillResult@1.0.0` with the missing field; do not infer it.\n- Out-of-domain: “Recommend a hotel near an oncology congress.” Return no match and do not invoke this pharmaceutical capability.\n- Non-trigger: “List the available pharmaceutical skills without applying this capability.” Use catalog discovery; do not execute this skill.",
+      "modules": [
+        "pharmaceutical-process"
+      ],
+      "sources": [
+        "prism_flows/public/pharmaceutical-process/prism_project/generated/synthesize_pharmaceutical_process_skill_3.prism"
+      ],
+      "binding_count": 1
+    },
+    {
+      "id": "prior-constrained-mechanism-graph",
+      "name": "Prior Constrained Mechanism Graph",
+      "version": "0.0.0+imported",
+      "description": "Build a prior-constrained mechanism graph for biomarker programs. Use when retained features must be mapped to gene sets, pathways, and interaction priors from STRING or Reactome without pretending to infer a de novo full network from sparse cohorts.",
+      "instructions": "# Scientific Prior-Constrained Mechanism Graph\n\nTurn retained biomarkers into a mechanism graph, not a network fantasy.\n\n## Core Workflow\n\n1. Start from retained features only.\n   - Use features that already survived discovery, stability, and external-context checks.\n   - Do not start from the full transcriptome or proteome.\n2. Map each feature to member genes.\n   - Signature features map to their gene sets.\n   - Anchor features map to one gene.\n   - Clinical features usually do not enter the graph.\n3. Add prior edges, not invented edges.\n   - Reactome for pathway context\n   - STRING for interaction support\n   - Curated literature only when it narrows interpretation\n4. Keep the graph small and readable.\n   - Feature nodes\n   - Gene nodes\n   - Pathway nodes if needed\n   - A few high-confidence edges only\n5. Preserve epistemic status in node labels.\n   - `maps_to`\n   - `supported_by`\n   - `enriched_in`\n   - `suggests`\n   - `cannot_establish`\n6. Use the graph to explain, not to overclaim.\n   - The graph should support mechanistic interpretation.\n   - It should not be presented as a de novo causal network.\n\n## Output Contract\n\nWrite one `mechanism_graph` object with:\n\n- `selected_features`\n- `feature_to_gene_map`\n- `prior_sources`\n- `pathway_support`\n- `interaction_support`\n- `graph`\n- `interpretation`\n- `limits`\n\n## Design Rules\n\n- Prefer a prior-constrained subgraph over network-wide inference.\n- Prefer Reactome and STRING support for context, not as proof of causality.\n- If only a small RPPA panel is available, frame protein edges as support for mechanism hypotheses.\n- If the private cohort has layers that the public proxy lacks, state the gap directly.\n\n## Local Use\n\nPair this skill with:\n\n- `coherence-mapper`\n- `evidence-interpreter`\n- `literature-adjudicator`\n- `confirmatory-evidence-miner`\n- `counterexample-miner`\n\n## Mandatory computational invocation\n\nFor any request requiring `prior-constrained-mechanism-graph:solve`, you **MUST invoke prior-constrained-mechanism-graph:solve** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "resistance-circuits"
+      ],
+      "sources": [
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/synthesize_resistance_circuits_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "protein-a-capture-optimizer",
+      "name": "Protein A Capture Optimizer",
+      "version": "0.0.0+imported",
+      "description": "Compare Protein A load, residence time, capacity, breakthrough, wash, elution, pooling, yield, purity, impurity, viral-risk, lifetime, and cost candidates after model/data validation. Use for capture-development advisory decisions.",
+      "instructions": "# Protein A Capture Optimizer\n\n## Use\n\nHeld-out chromatogram adequacy and hard process/quality gates precede optimization.\n\nInvoke this skill for its declared pharmaceutical responsibility. Do not invoke it for column operation instruction, resin approval, or optimization on calibration fit alone.\n\n## Contract\n\n- Required input: Validated chromatography model or empirical response, held-out diagnostics, candidate conditions, constraints/objectives, uncertainty, and resource posture.\n- Optional input: operating mode, authority/governance record, uncertainty, constraints, and exact source or model versions when relevant.\n- Output: Gated candidate set, Pareto frontier, model/domain limits, sensitivity, confirmatory experiments, and human decisions.\n- Assumptions: supplied records are untrusted data, stable source identifiers are preserved, and omitted values remain unknown.\n- Side effects: none during planning; deterministic execution, when supported, writes only caller-authorized run artifacts.\n\n## Procedure\n\n1. Require validation gate; compile candidate region; apply capacity/quality/safety gates; route to Pareto comparison; test extrapolation and sensitivity; specify confirmation.\n2. Keep observed, derived, simulated, retrieved, assumed, and hypothesized evidence roles separate.\n3. Return selected and rejected alternatives, assumptions, uncertainty, applicability, blockers, provenance, and required human decisions.\n4. In `controlled_support`, require a qualified intended-use governance record; otherwise return `unsupported`. Never silently downgrade to exploratory output.\n\n## Handoffs and stop conditions\n\nReuse chromatography-model-configurator and multi-objective optimizer for generic responsibilities. Stop on incompatible units or identities, absent material context, unsupported model/backend posture, prohibited actuation or regulated approval, or evidence beyond the declared claim ceiling. Never release a batch, change a recipe, approve a specification/CAPA/PPQ/CPV, close a deviation, sign a regulatory conclusion, or connect to plant controls.\n\n## Release contract\n\n- `schema_version` binding: receive `SkillInvocation@1.0.0` and return `SkillResult@1.0.0`; domain payloads use the versioned pharmaceutical schemas named in this contract and retain native typed payloads when no narrower shared schema exists.\n- Availability and invocation posture: the local package is independently invocable for planning or interpretation. Deterministic execution is available only when this contract explicitly names an admitted runtime, immutable accepted inputs, budgets, and receipts; dependency absence returns `unavailable`.\n- Units and ranges: accept only explicitly declared values, units, bases, ranges, and acceptance criteria. Never infer a silent unit, basis, setpoint, specification, or safe operating range.\n- Owner: BioAgents maintainers own package integrity; a designated human pharmaceutical process owner and scientific/model owner remain required for intended-use decisions.\n- Invalidation: re-review after any schema, source mapping, equation/model, backend, generic handoff, authority policy, validation-card, or benchmark change that can affect this contract.\n- Rollback: remove execution or controlled-support posture first, preserve the planner-visible descriptor and reason, then restore only the last independently validated version. A rollback never promotes exploratory evidence.\n- Independence and handoffs: invoke this skill directly when its bounded responsibility is sufficient; compose only through the handoffs above, preserving exact source IDs, evidence roles, blockers, and claim ceilings.\n\n## Examples\n\n- Direct: “Compare Protein A residence time and loading after held-out validation.”\n- Implicit: “Find a yield/purity/cycle-time trade-off region.”\n- Blocked: “Approve the highest-loading condition from one calibration trace.” Return the precise authority/evidence blocker without performing the action.\n\n- Edge: “Use this record even though one critical value has no unit or basis.” Return a typed `partial` or `blocked` `SkillResult@1.0.0` with the missing field; do not infer it.\n- Out-of-domain: “Recommend a hotel near an oncology congress.” Return no match and do not invoke this pharmaceutical capability.\n- Non-trigger: “List the available pharmaceutical skills without applying this capability.” Use catalog discovery; do not execute this skill.\n\n## Mandatory computational invocation\n\nFor any request requiring `protein-a-capture-optimizer:optimize`, you **MUST invoke protein-a-capture-optimizer:optimize** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.",
+      "modules": [
+        "pharmaceutical-process"
+      ],
+      "sources": [
+        "prism_flows/public/pharmaceutical-process/prism_project/generated/synthesize_pharmaceutical_process_skill_2.prism"
+      ],
+      "binding_count": 1
+    },
+    {
+      "id": "target-context-circuit-explainer",
+      "name": "Target Context Circuit Explainer",
+      "version": "0.0.0+imported",
+      "description": "Explain how a named molecular target participates in a disease-, lineage-, genotype-, compartment-, and model-bounded biological circuit, connecting target state to proximal signaling, feedback, bypass routes, molecular programs, and phenotypes while preserving evidence roles and context limits. Use after target identity or perturbation evidence exists and the mechanism behind a context-qualified hypothesis must be made explicit.",
+      "instructions": "# Scientific Target–Context Circuit Explainer\n\nTurn a target plus biological context into a conditional circuit explanation rather than a generic pathway recital.\n\nRead [references/target-context-circuit-contract.md](references/target-context-circuit-contract.md) before producing the packet.\n\n## Workflow\n\n1. Parse the context into explicit dimensions:\n   - disease and lineage\n   - molecular alteration and allelic state\n   - target abundance and dependency\n   - model system and compartment\n   - treatment, dose, time, and assay state\n   - feedback, bypass, and microenvironment conditions\n2. Define the circuit anchor as `target + alteration + bounded context`.\n3. Build the shortest evidence-supported route from target state to:\n   - target-proximal activity\n   - downstream signaling\n   - molecular or transcriptional program\n   - observed phenotype\n4. Type every edge as measured, curated prior, semantic entailment, configured assumption, or inferred bridge.\n5. Annotate edge sign, evidence directness, effect strength, validity conditions, and missing mediators.\n6. Add feedback and bypass branches that could preserve or reverse the phenotype.\n7. Compare at least one context contrast when available. Explain which dimension changes the effective circuit.\n8. Identify the minimal joined experiment that would establish temporal and mediational ordering.\n\n## Interpretation Rules\n\n- Treat the coherent object as a conditional circuit state, not an invariant target mechanism.\n- Use pathway knowledge to make observations intelligible, not to declare that an unmeasured edge occurred.\n- Keep target expression, dependency, pathway membership, pathway activity, and phenotype distinct.\n- A shared driver or pathway parent does not imply equivalent feedback topology across lineages.\n- Context dimensions are mechanistic only when they change an edge, node state, exposure, or endpoint interpretation.\n- Preserve negative and boundary evidence in the graph.\n\n## Output Contract\n\nEmit one `target_context_circuit_packet` conforming to the linked contract, including:\n\n- normalized context profile and circuit anchor\n- typed nodes and edges\n- an evidence-to-edge ledger\n- main route, feedback branches, bypass branches, and context contrasts\n- supported interpretation, unresolved links, rival circuits, and decisive experiment\n- claim ceiling and composer handoff\n\n## Composition\n\nReuse:\n\n- `context-profile-instantiator` to normalize complex contexts\n- `contextual-causal-graph` for graph representation\n- `perturbation-target-mechanism-interpreter` for the incoming perturbation edge\n- `bounded-mechanism-explanation-ranker` for rival circuits\n- `hypothesis-mechanism-explanation-composer` for narrative synthesis\n\n## Guardrails\n\n- Do not substitute ontology closure for empirical evidence.\n- Do not turn curated pathway topology into same-model pathway activity.\n- Do not generalize a lineage-specific feedback structure to every disease carrying the target alteration.\n- Do not describe a downstream phenotype as target-mediated unless mediation is measured or experimentally rescued.\n- Do not promote preclinical circuit interpretation into patient response or treatment selection.",
+      "modules": [
+        "melanoma-resistance"
+      ],
+      "sources": [
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/synthesize_melanoma_resistance_skill_1.prism"
+      ],
+      "binding_count": 2
+    },
+    {
+      "id": "validation-blocker-gater",
+      "name": "Validation Blocker Gater",
+      "version": "0.0.0+imported",
+      "description": "Gate scientific validation hypotheses by hard blockers such as unresolved identity, missing specimens, indistinguishable rivals, failed controls, plasma-only lesion claims, or unscreened evidence, forcing blocked actionability and release status when needed.",
+      "instructions": "# Scientific Validation Blocker Gater\n\nUse this before releasing validation or wet-lab-priority rows.\n\n## Workflow\n\n1. Define hard and conditional blockers.\n2. Map blockers to every hypothesis.\n3. Force A0 or blocked release status when hard blockers remain unresolved.\n4. Record resolution requirements.\n5. Preserve blocked overclaims.\n6. Keep `pass`, `fail`, `caution`, `unknown`, and `not_applicable` distinct.\n   Missing evidence is `unknown` unless a frozen rule explicitly makes absence\n   a failure.\n7. Apply non-compensatory precedence: a hard failure cannot be rescued by a\n   feasibility score, posterior, rank, or other supportive evidence.\n\n## Output Contract\n\nEmit a `validation_blocker_packet` with:\n\n- hypothesis ID\n- blocker ID\n- blocker type\n- blocker statement\n- hard-blocker status\n- forced actionability if unresolved\n- resolution requirement\n- release-gate decision\n- gate status and evidence IDs\n- resolution requirement for unknown or caution states\n\n## Guardrails\n\n- Do not release a hypothesis as actionable when required specimen, identity, or falsifier is missing.\n- Do not allow plasma-only evidence to support lesion-localized claims.\n- Do not ignore unscreened external evidence blockers.\n- Do not silently convert unknown to pass or numeric zero.\n- Domain-specific exposure, directionality, safety, identity, and matched-trial\n  rules belong in versioned workflow configuration or a formal defeater\n  reasoner, not hidden prose.\n\n## Mandatory computational invocation\n\nFor any request requiring `validation-blocker-gater:compute`, you **MUST invoke validation-blocker-gater:compute** through the declared runtime. Accept results only when `execution_receipt.executed` is true and both digests are present. Fail closed rather than fabricating a result.\n\n\n## Mandatory native execution\n\nFor the declared computational operation, MUST invoke `validation-blocker-gater:compute` through the skill-local lifecycle. Preserve its artifact digests, failures, claim ceiling, and execution receipt. Do not replace a blocked or unavailable runtime with fluent prose.",
+      "modules": [
+        "drug-repurposing-coherence",
+        "liver-metastasis-ecosystem",
+        "melanoma-resistance",
+        "resistance-circuits"
+      ],
+      "sources": [
+        "prism_flows/public/drug-repurposing-coherence/prism_project/generated/reasoning_e1_skill_2.prism",
+        "prism_flows/public/liver-metastasis-ecosystem/prism_project/generated/reasoning_e1_skill_2.prism",
+        "prism_flows/public/melanoma-resistance/prism_project/generated/reasoning_e1_skill_2.prism",
+        "prism_flows/public/resistance-circuits/prism_project/generated/reasoning_e1_skill_2.prism"
+      ],
+      "binding_count": 4
+    },
+    {
+      "id": "workflow-methodology-modeler",
+      "name": "Workflow Methodology Modeler",
+      "version": "0.0.0+imported",
+      "description": "Compile one registered or sealed planner BioAgents workflow and optional matching run evidence into a deterministic, redacted methodology model.",
+      "instructions": "# Workflow Methodology Modeler\n\nInvoke `workflow-methodology-modeler:compile` for exactly one public registered\nworkflow or one digest-valid sealed planner instantiation. Optional run evidence\nmust reconcile to the same subject.\n\nTreat plans, bindings, invocations, outcomes, reviews, and knowledge-resource use\nas distinct facts. Never execute the described workflow, retrieve new evidence,\ninfer rationale, or convert configuration into an execution claim. Preserve\nmissing facts as typed gaps. Require the caller's disclosure policy and\nout-of-band pseudonymization context before producing the content-addressed model.",
+      "modules": [
+        "workflow-methodology-description"
+      ],
+      "sources": [
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/reasoning_m0_skill_2.prism",
+        "prism_flows/public/workflow-methodology-description/prism_project/generated/synthesize_workflow_methodology_description_skill_1.prism"
+      ],
+      "binding_count": 2
+    }
+  ]
+}

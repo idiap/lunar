@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-generative-transformation-receipt-v1.schema.json",
+  "title": "Lunar observed generative transformation receipt v1",
+  "type": "object",
+  "required": [
+    "schema_version", "receipt_id", "observed_only", "operation_id",
+    "provider", "provider_version", "input_digests", "output_digest",
+    "allowed_evidence_ids", "generated_ancestor_ids", "protected_field_checks",
+    "missing_fields", "lossy_fields", "abstained", "violations",
+    "independent_verifier", "verification_status", "provenance_digest", "digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.generative-transformation-receipt/v1"},
+    "receipt_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "observed_only": {"const": true},
+    "operation_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "provider_version": {"type": "string", "minLength": 1},
+    "input_digests": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/digest"}},
+    "output_digest": {"$ref": "#/$defs/digest"},
+    "allowed_evidence_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "generated_ancestor_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "protected_field_checks": {
+      "type": "object",
+      "required": ["numbers", "units", "entities", "negation", "direction", "population", "specimen", "comparator", "endpoint", "time", "uncertainty", "missingness", "contradiction", "claim_ceiling"],
+      "properties": {
+        "numbers": {"$ref": "#/$defs/check"}, "units": {"$ref": "#/$defs/check"},
+        "entities": {"$ref": "#/$defs/check"}, "negation": {"$ref": "#/$defs/check"},
+        "direction": {"$ref": "#/$defs/check"}, "population": {"$ref": "#/$defs/check"},
+        "specimen": {"$ref": "#/$defs/check"}, "comparator": {"$ref": "#/$defs/check"},
+        "endpoint": {"$ref": "#/$defs/check"}, "time": {"$ref": "#/$defs/check"},
+        "uncertainty": {"$ref": "#/$defs/check"}, "missingness": {"$ref": "#/$defs/check"},
+        "contradiction": {"$ref": "#/$defs/check"}, "claim_ceiling": {"$ref": "#/$defs/check"}
+      },
+      "additionalProperties": false
+    },
+    "missing_fields": {"$ref": "#/$defs/stringArray"},
+    "lossy_fields": {"$ref": "#/$defs/stringArray"},
+    "abstained": {"type": "boolean"},
+    "violations": {"$ref": "#/$defs/stringArray"},
+    "independent_verifier": {
+      "type": ["object", "null"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "provider": {"type": "string", "minLength": 1}, "receipt_digest": {"$ref": "#/$defs/digest"}},
+      "required": ["id", "provider", "receipt_digest"],
+      "additionalProperties": false
+    },
+    "verification_status": {"enum": ["passed", "failed", "inconclusive", "not_independently_verified"]},
+    "provenance_digest": {"$ref": "#/$defs/digest"},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "check": {
+      "type": "object",
+      "required": ["status", "anchors"],
+      "properties": {
+        "status": {"enum": ["preserved", "violated", "not_applicable", "unknown"]},
+        "anchors": {"$ref": "#/$defs/stringArray"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

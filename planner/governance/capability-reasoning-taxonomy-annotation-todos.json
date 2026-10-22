@@ -1,0 +1,306 @@
+{
+  "schema_version": "lunar.planner.capability-annotation-backlog/v1",
+  "status": "planned",
+  "implementation_authorized": false,
+  "objective": "Add an optional planner-level process that annotates skills and tools with evidence-backed reasoning taxonomy, purpose, dependencies, licenses, uncertainty, and independent review.",
+  "design": "planner/governance/capability-reasoning-taxonomy-annotation.md",
+  "default_enabled": false,
+  "invariants": [
+    "to_prism/taxonomy.json remains the sole canonical component taxonomy",
+    "generative, deterministic, and hybrid are derived postures rather than replacement taxonomy classes",
+    "unsupported metadata is unknown or explicitly abstained rather than guessed",
+    "annotation never executes or mutates the target capability",
+    "license metadata is evidence inventory and compatibility triage, not legal advice",
+    "disabled mode preserves existing planner behavior, outputs, and digests"
+  ],
+  "phases": [
+    {"id": "P0", "name": "semantics and authority boundary", "promotion_gate": "canonical ownership, units, posture derivation, evidence precedence, and non-goals are frozen"},
+    {"id": "P1", "name": "strict contracts and ports", "promotion_gate": "skill and tool targets normalize without losing provenance and standalone planning needs no repository crawl"},
+    {"id": "P2", "name": "planner skills and deterministic validators", "promotion_gate": "the four planning skills produce strict draft packages and abstain safely"},
+    {"id": "P3", "name": "critique, lifecycle, and optional integration", "promotion_gate": "review, invalidation, extension, and default-off paths are enforced"},
+    {"id": "P4", "name": "benchmarks and compatibility", "promotion_gate": "forward and adversarial cases pass with zero disabled-mode regression"},
+    {"id": "P5", "name": "documentation and controlled promotion", "promotion_gate": "operator guidance, review ownership, rollback, and catalog projection policy are approved"}
+  ],
+  "todos": [
+    {
+      "id": "CTA-001", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "planner governance",
+      "action": "Freeze the annotation vocabulary, target kinds, units of annotation, statuses, non-goals, and distinction between authored, observed, derived, and inferred metadata.",
+      "dependencies": [], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation.md"],
+      "acceptance": ["skill, tool, adapter, and external capability are covered", "planned use cannot be labeled observed", "unknown and not_applicable are distinct"],
+      "example": "A documentation-only skill receives non_executing posture without an invented runtime.",
+      "rollback": "remove the unreferenced planning document"
+    },
+    {
+      "id": "CTA-002", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "taxonomy authority",
+      "action": "Specify immutable binding to taxonomy ID, version, and SHA-256 digest, with to_prism/taxonomy.json as sole authority and no planner-owned fork.",
+      "dependencies": ["CTA-001"], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation.md"],
+      "acceptance": ["taxonomy drift invalidates an annotation", "standalone fixtures are explicitly non-authoritative", "planner code has no static to_prism import"],
+      "example": "An annotation made against taxonomy 0.8.0 becomes stale when its digest changes.",
+      "rollback": "leave taxonomy annotation unavailable when no provider is configured"
+    },
+    {
+      "id": "CTA-003", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "reasoning policy",
+      "action": "Freeze canonical facet decision rules, evidence precedence, confidence, rationale, most-specific-taxon storage, and explicit abstention behavior.",
+      "dependencies": ["CTA-002"], "target_files": ["app/backend/lunar_planner/resources/policies/capability-annotation-policy-v1.json"],
+      "acceptance": ["exactly one primary_family is required", "facet cardinalities and ancestor rules match the bound taxonomy", "unsupported facets are abstained"],
+      "example": "Typed JSON input supports schema_constrained but does not prove deterministic execution.",
+      "rollback": "return needs_input instead of a partial taxonomy assertion"
+    },
+    {
+      "id": "CTA-004", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "posture policy",
+      "action": "Define deterministic, generative, hybrid, non_executing, and unresolved as derived operational postures with exact contributing facets and negative rules.",
+      "dependencies": ["CTA-003"], "target_files": ["app/backend/lunar_planner/resources/policies/capability-annotation-policy-v1.json"],
+      "acceptance": ["posture never replaces canonical facets", "mixed capabilities split into operations when possible", "model or implementation names alone cannot determine posture"],
+      "example": "A seeded symbolic candidate generator may be deterministic and generative in realization, so the derivation explains the chosen summary.",
+      "rollback": "emit unresolved posture while retaining supported facets"
+    },
+    {
+      "id": "CTA-005", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "dependency policy",
+      "action": "Define typed dependency edges, phases, conditions, version evidence, availability, fallbacks, authority implications, and source-basis precedence.",
+      "dependencies": ["CTA-001"], "target_files": ["app/backend/lunar_planner/resources/policies/capability-annotation-policy-v1.json"],
+      "acceptance": ["runtime, package, model, service, data, credential, network, hardware, and human-review dependencies are representable", "required and optional dependencies differ", "transitive unknowns remain visible"],
+      "example": "A PubMed retrieval adapter records network and credential posture separately from its Python package dependency.",
+      "rollback": "retain unresolved dependency records without claiming invocability"
+    },
+    {
+      "id": "CTA-006", "status": "planned", "phase": "P0", "priority": "P0", "owner_surface": "license policy",
+      "action": "Define license and terms evidence for code, content, weights, data, APIs, adapters, and transitive dependencies, including scope and compatibility dispositions.",
+      "dependencies": ["CTA-001"], "target_files": ["app/backend/lunar_planner/resources/policies/capability-annotation-policy-v1.json"],
+      "acceptance": ["SPDX is used only when supported", "nearest nested license scope is respected", "custom, conflicting, restrictive, and unknown terms cannot be silently promoted"],
+      "example": "MIT repository code does not erase research-only terms on bundled model weights.",
+      "rollback": "mark promotion blocked while keeping the capability discoverable"
+    },
+    {
+      "id": "CTA-007", "status": "planned", "phase": "P0", "priority": "P1", "owner_surface": "threat model",
+      "action": "Version semantic, dependency, license, provenance, stale-evidence, and generated-metadata masking threats with required safe dispositions.",
+      "dependencies": ["CTA-003", "CTA-004", "CTA-005", "CTA-006"], "target_files": ["benchmarks/planner/capability-annotation/threat-taxonomy.json"],
+      "acceptance": ["each threat has a minimal fixture", "unsafe inference maps to abstain, needs_input, blocked, or extension_required", "no threat is resolved by schema validity alone"],
+      "example": "A model-written description cannot be relabeled declared without reviewer evidence.",
+      "rollback": "keep rollout off until every P0 threat has a fixture"
+    },
+    {
+      "id": "CTA-010", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "request contract",
+      "action": "Create strict CapabilityAnnotationRequest and CapabilityTarget schemas with stable identity, purpose, source boundary, revision, and digest.",
+      "dependencies": ["CTA-001"], "target_files": ["app/backend/lunar_planner/resources/schemas/planner-capability-annotation-request-v1.schema.json"],
+      "acceptance": ["all target kinds normalize", "aliases cannot replace stable IDs", "missing source digest prevents review status"],
+      "example": "A local SKILL.md and a remote callable tool share target fields while retaining kind-specific locators.",
+      "rollback": "reject annotation requests that cannot freeze target identity"
+    },
+    {
+      "id": "CTA-011", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "evidence contract",
+      "action": "Create a field-addressable source-evidence schema with basis, exact anchor, digest, confidence, extraction time, reviewer state, and source precedence.",
+      "dependencies": ["CTA-010", "CTA-003"], "target_files": ["app/backend/lunar_planner/resources/schemas/planner-capability-source-evidence-v1.schema.json"],
+      "acceptance": ["every asserted field can trace to evidence", "generated inference is distinguishable from documented and implementation-derived evidence", "stale anchors fail validation"],
+      "example": "The determinacy assertion points to the operative procedure, not the skill name.",
+      "rollback": "drop unsupported fields and emit abstentions"
+    },
+    {
+      "id": "CTA-012", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "taxonomy contract",
+      "action": "Create a strict reasoning-taxonomy annotation schema containing taxonomy binding, operation identity, facets, evidence, confidence, rationale, abstentions, and derived posture receipt.",
+      "dependencies": ["CTA-002", "CTA-003", "CTA-004", "CTA-011"], "target_files": ["app/backend/lunar_planner/resources/schemas/planner-reasoning-taxonomy-annotation-v1.schema.json"],
+      "acceptance": ["facet assertions are field-evidenced", "posture lists contributing facet paths", "unknown taxa cannot pass as canonical"],
+      "example": "A hybrid retriever/writer has separate operation annotations and an evidence-backed aggregate posture.",
+      "rollback": "retain a draft with extension_required or unresolved status"
+    },
+    {
+      "id": "CTA-013", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "dependency-license contract",
+      "action": "Create a dependency-and-license manifest schema with typed graph edges, scoped license records, compatibility dispositions, provenance, and unresolved obligations.",
+      "dependencies": ["CTA-005", "CTA-006", "CTA-011"], "target_files": ["app/backend/lunar_planner/resources/schemas/planner-capability-dependency-license-manifest-v1.schema.json"],
+      "acceptance": ["dependency cycles and missing targets are representable and detectable", "each license record has a subject and scope", "unknown never becomes permissive by default"],
+      "example": "A callable tool links service terms, adapter code license, and client-library license without collapsing them.",
+      "rollback": "set compatibility to unresolved and block promotion"
+    },
+    {
+      "id": "CTA-014", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "review contract",
+      "action": "Create review, package, invalidation, and taxonomy-extension-proposal schemas with explicit lifecycle transitions and reviewer separation.",
+      "dependencies": ["CTA-012", "CTA-013"], "target_files": ["app/backend/lunar_planner/resources/schemas/planner-capability-annotation-review-v1.schema.json", "app/backend/lunar_planner/resources/schemas/planner-capability-annotation-package-v1.schema.json", "app/backend/lunar_planner/resources/schemas/planner-capability-annotation-invalidation-v1.schema.json", "app/backend/lunar_planner/resources/schemas/planner-taxonomy-extension-proposal-v1.schema.json"],
+      "acceptance": ["reviewed requires an independent critic receipt", "extension proposals cannot mutate taxonomy", "invalidation names changed digests and affected fields"],
+      "example": "An unsupported reasoning taxon yields extension_required and remains non-promotable.",
+      "rollback": "limit lifecycle to draft and blocked until transition validation exists"
+    },
+    {
+      "id": "CTA-015", "status": "planned", "phase": "P1", "priority": "P0", "owner_surface": "planner ports",
+      "action": "Add read-only ReasoningTaxonomyProvider and CapabilitySourceProvider ports plus in-memory implementations for standalone tests.",
+      "dependencies": ["CTA-010", "CTA-011"], "target_files": ["app/backend/lunar_planner/ports.py"],
+      "acceptance": ["no parent-directory discovery occurs", "no static catalog or to_prism import is introduced", "source bundles are digest verified"],
+      "example": "A host injects taxonomy 0.8.0 as bytes and receives the same digest-bound result as a repository adapter.",
+      "rollback": "leave the annotation journey unavailable without configured providers"
+    },
+    {
+      "id": "CTA-016", "status": "planned", "phase": "P1", "priority": "P1", "owner_surface": "source adapters",
+      "action": "Design bounded repository adapters for skill descriptors and external capability records without changing their authoritative loaders or schemas.",
+      "dependencies": ["CTA-015"], "target_files": ["catalog/workflows/public/dependencies/planner/__init__.py"],
+      "acceptance": ["adapters normalize source-specific fields into CapabilityTarget", "existing descriptor builds are byte-stable when annotation is disabled", "network and execution remain prohibited"],
+      "example": "External record dependencies seed evidence but remain free-text source facts until normalized and reviewed.",
+      "rollback": "remove adapter registration while retaining in-memory planning"
+    },
+    {
+      "id": "CTA-020", "status": "planned", "phase": "P2", "priority": "P0", "owner_surface": "planner skill",
+      "action": "Create capability-annotation-planner as the explicit router that freezes target and purpose, inventories sources, coordinates specialists, and returns statusful packages.",
+      "dependencies": ["CTA-014", "CTA-015"], "target_files": ["app/backend/lunar_planner/skills/capability-annotation-planner/SKILL.md", "app/backend/lunar_planner/skills/capability-annotation-planner/agents/openai.yaml"],
+      "acceptance": ["ordinary planning does not invoke it", "no target source is mutated", "missing evidence yields named questions or blockers"],
+      "example": "Annotate this new report-writing skill produces a draft package, not a rewritten skill.",
+      "rollback": "remove the unregistered skill directory"
+    },
+    {
+      "id": "CTA-021", "status": "planned", "phase": "P2", "priority": "P0", "owner_surface": "planner skill",
+      "action": "Create reasoning-taxonomy-annotator with concise instructions and a referenced decision table for canonical facets, operation splitting, abstention, and posture derivation.",
+      "dependencies": ["CTA-012", "CTA-020"], "target_files": ["app/backend/lunar_planner/skills/reasoning-taxonomy-annotator/SKILL.md", "app/backend/lunar_planner/skills/reasoning-taxonomy-annotator/agents/openai.yaml", "app/backend/lunar_planner/skills/reasoning-taxonomy-annotator/references/decision-rules.md"],
+      "acceptance": ["instructions distinguish canonical facets from coarse posture", "negative rules are applied", "output validates against the bound taxonomy"],
+      "example": "A criteria-guided narrative synthesis is not promoted to formal deduction.",
+      "rollback": "route taxonomy requests to needs_input"
+    },
+    {
+      "id": "CTA-022", "status": "planned", "phase": "P2", "priority": "P0", "owner_surface": "planner skill",
+      "action": "Create capability-dependency-license-annotator with bounded evidence collection, typed dependencies, scoped terms, and uncertainty rules.",
+      "dependencies": ["CTA-013", "CTA-020"], "target_files": ["app/backend/lunar_planner/skills/capability-dependency-license-annotator/SKILL.md", "app/backend/lunar_planner/skills/capability-dependency-license-annotator/agents/openai.yaml", "app/backend/lunar_planner/skills/capability-dependency-license-annotator/references/evidence-rules.md"],
+      "acceptance": ["no install, network, or arbitrary environment scan occurs", "nested licenses and service terms remain distinct", "transitive unknowns are surfaced"],
+      "example": "A requirements file supplies package evidence but not proof of runtime observation.",
+      "rollback": "return an unresolved manifest and prohibit promotion"
+    },
+    {
+      "id": "CTA-023", "status": "planned", "phase": "P2", "priority": "P0", "owner_surface": "planner skill",
+      "action": "Create capability-annotation-critic that independently reviews semantic leakage, evidence sufficiency, operation boundaries, hidden dependencies, and license scope.",
+      "dependencies": ["CTA-021", "CTA-022"], "target_files": ["app/backend/lunar_planner/skills/capability-annotation-critic/SKILL.md", "app/backend/lunar_planner/skills/capability-annotation-critic/agents/openai.yaml", "app/backend/lunar_planner/skills/capability-annotation-critic/references/critique-checklist.md"],
+      "acceptance": ["critic identity is distinct from annotator identity", "each defect names field, evidence, severity, and remediation", "hard contradictions prevent reviewed status"],
+      "example": "The critic rejects deterministic because the remote provider and sampling behavior are unspecified.",
+      "rollback": "all packages remain review_required"
+    },
+    {
+      "id": "CTA-024", "status": "planned", "phase": "P2", "priority": "P0", "owner_surface": "deterministic validation",
+      "action": "Implement pure validators for schema, taxonomy binding/cardinality/ancestor rules, evidence anchors, digest integrity, dependency graph, lifecycle transition, and coarse-posture consistency.",
+      "dependencies": ["CTA-012", "CTA-013", "CTA-014"], "target_files": ["app/backend/lunar_planner/capability_annotation.py"],
+      "acceptance": ["validation has no I/O side effects", "semantic confidence is not inferred from schema success", "errors use stable machine-readable codes"],
+      "example": "A child and its ancestor in the same facet fails with redundant_ancestor_taxon.",
+      "rollback": "disable package creation when validators are unavailable"
+    },
+    {
+      "id": "CTA-025", "status": "planned", "phase": "P2", "priority": "P1", "owner_surface": "source inspection",
+      "action": "Implement a bounded source inventory that identifies declared manifests, referenced scripts, locks, model/data/service declarations, and nearest license files without executing content.",
+      "dependencies": ["CTA-011", "CTA-015", "CTA-024"], "target_files": ["app/backend/lunar_planner/capability_annotation_sources.py"],
+      "acceptance": ["only frozen bundle paths are read", "symlink and traversal escapes are rejected", "every discovered item has a digest and basis"],
+      "example": "A nested LICENSE in a referenced subdirectory is reported with its actual scope.",
+      "rollback": "accept only explicitly supplied evidence bundles"
+    },
+    {
+      "id": "CTA-026", "status": "planned", "phase": "P2", "priority": "P1", "owner_surface": "skill validation",
+      "action": "Run skill-creator validation and independent forward tests for all four planner skills, including trigger discrimination and context-size review.",
+      "dependencies": ["CTA-020", "CTA-021", "CTA-022", "CTA-023"], "target_files": ["tests/planner/test_capability_annotation_skills.py"],
+      "acceptance": ["quick_validate passes for each skill", "ordinary workflow planning does not falsely trigger annotation", "complex examples are independently forward tested"],
+      "example": "A request to use an existing tool is not mistaken for a request to annotate it.",
+      "rollback": "keep skills undiscoverable until trigger tests pass"
+    },
+    {
+      "id": "CTA-030", "status": "planned", "phase": "P3", "priority": "P0", "owner_surface": "lifecycle profile",
+      "action": "Add an explicit default-off capability-annotation profile with draft, needs_input, extension_required, blocked, review_required, reviewed, stale, and superseded states.",
+      "dependencies": ["CTA-020", "CTA-023", "CTA-024"], "target_files": ["app/backend/lunar_planner/resources/profiles/capability-annotation.yaml"],
+      "acceptance": ["only explicit annotation intent enters the profile", "invalid transitions are rejected", "reviewed requires critic and digest gates"],
+      "example": "Taxonomy drift moves reviewed to stale, never directly back to reviewed.",
+      "rollback": "unregister the profile and leave current lifecycle unchanged"
+    },
+    {
+      "id": "CTA-031", "status": "planned", "phase": "P3", "priority": "P0", "owner_surface": "invalidation",
+      "action": "Implement field-level invalidation for target, taxonomy, dependency manifest, license evidence, model/provider revision, and reviewed override changes.",
+      "dependencies": ["CTA-014", "CTA-024", "CTA-030"], "target_files": ["app/backend/lunar_planner/capability_annotation.py"],
+      "acceptance": ["changed inputs identify affected assertions", "revalidation never silently refreshes evidence", "unaffected fields may be retained with provenance"],
+      "example": "A package-lock change invalidates dependency and license conclusions but not an unchanged purpose description.",
+      "rollback": "invalidate the whole package conservatively"
+    },
+    {
+      "id": "CTA-032", "status": "planned", "phase": "P3", "priority": "P0", "owner_surface": "planner routing",
+      "action": "Register the explicit journey without modifying direct-use precedence or existing new, extend, refine, trust, and economics outputs.",
+      "dependencies": ["CTA-030"], "target_files": ["app/backend/lunar_planner/staged_routing.py", "app/backend/lunar_planner/entrypoint.py", "app/backend/lunar_planner/resources/planner-manifest.json"],
+      "acceptance": ["feature flag defaults off", "existing request fixtures retain byte-stable outputs when off", "annotation cannot execute a capability"],
+      "example": "Plan a workflow follows the old route; annotate this workflow's skills enters the new route only when enabled.",
+      "rollback": "set rollout state off and remove route registration"
+    },
+    {
+      "id": "CTA-033", "status": "planned", "phase": "P3", "priority": "P1", "owner_surface": "catalog projection",
+      "action": "Specify a separately authorized reviewed-overlay projection into skill descriptors and external capability views without changing prose authority or overloading the authority field.",
+      "dependencies": ["CTA-014", "CTA-016", "CTA-030"], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation.md", "catalog/contracts/capability-annotations/README.md"],
+      "acceptance": ["digest-bound sidecars live outside target packages to avoid self-referential digests", "draft annotations never enter canonical indexes", "field-level provenance survives projection", "existing schema consumers can ignore the additive view"],
+      "example": "Derived hybrid posture appears in an annotation view, not in skill authority=deterministic.",
+      "rollback": "retain packages as planner artifacts only"
+    },
+    {
+      "id": "CTA-034", "status": "planned", "phase": "P3", "priority": "P1", "owner_surface": "extension governance",
+      "action": "Define taxonomy extension review requiring corpus examples, exclusions, overlap analysis, migration impact, version change, and independent approval.",
+      "dependencies": ["CTA-014"], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation.md"],
+      "acceptance": ["the planner cannot create canonical taxa", "extension proposals include positive and negative examples", "promotion waits for a new bound taxonomy version"],
+      "example": "A novel reasoning mode remains extension_required until taxonomy maintainers approve it.",
+      "rollback": "map no extension and preserve abstention"
+    },
+    {
+      "id": "CTA-040", "status": "planned", "phase": "P4", "priority": "P0", "owner_surface": "benchmark corpus",
+      "action": "Create reviewed forward fixtures for deterministic, generative, hybrid, non-executing, external-service, and operation-split capabilities with expected evidence and abstentions.",
+      "dependencies": ["CTA-007", "CTA-024", "CTA-025"], "target_files": ["benchmarks/planner/capability-annotation/cases.json", "benchmarks/planner/capability-annotation/oracles.json"],
+      "acceptance": ["both skills and tools are represented", "oracles bind source and taxonomy digests", "reviewer disagreement is recorded rather than erased"],
+      "example": "A retrieval-plus-synthesis tool is correctly split instead of receiving an unexplained mixed label.",
+      "rollback": "keep results diagnostic and rollout off"
+    },
+    {
+      "id": "CTA-041", "status": "planned", "phase": "P4", "priority": "P0", "owner_surface": "adversarial benchmark",
+      "action": "Implement all threat fixtures for false determinism/generation, retrieval leakage, license inheritance, hidden dependencies, cycles, aliases, generated metadata, stale digests, and unknown taxa.",
+      "dependencies": ["CTA-007", "CTA-040"], "target_files": ["benchmarks/planner/capability-annotation/adversarial-cases.json", "tests/planner/test_capability_annotation_benchmark.py"],
+      "acceptance": ["every threat has a required safe disposition", "hard cases cannot reach reviewed", "false-completeness rate is reported separately from coverage"],
+      "example": "A temperature-zero remote LLM remains unknown or underdetermined without a complete provider contract.",
+      "rollback": "block advisory rollout on any hard-case escape"
+    },
+    {
+      "id": "CTA-042", "status": "planned", "phase": "P4", "priority": "P0", "owner_surface": "contract tests",
+      "action": "Add schema, validator, digest, graph, lifecycle, invalidation, source-boundary, and field-provenance test suites.",
+      "dependencies": ["CTA-024", "CTA-025", "CTA-031"], "target_files": ["tests/planner/test_capability_annotation_contracts.py", "tests/planner/test_capability_annotation_sources.py", "tests/planner/test_capability_annotation_lifecycle.py"],
+      "acceptance": ["strict additionalProperties rules are tested", "traversal and stale evidence fail closed", "unknown and abstention round-trip exactly"],
+      "example": "A dependency edge missing evidence_basis fails validation.",
+      "rollback": "do not package the profile until contract tests pass"
+    },
+    {
+      "id": "CTA-043", "status": "planned", "phase": "P4", "priority": "P0", "owner_surface": "compatibility tests",
+      "action": "Verify the standalone wheel and assert disabled-mode equivalence across planner contracts, profiles, indexes, routes, hooks, and generated digests.",
+      "dependencies": ["CTA-032", "CTA-042"], "target_files": ["planner/testing/verify_module.py", "tests/planner/test_planner_contracts.py"],
+      "acceptance": ["wheel works outside the checkout", "no static catalog or to_prism import exists", "existing fixtures are unchanged with rollout off"],
+      "example": "A host without taxonomy provider can still perform every pre-existing planning journey.",
+      "rollback": "remove packaged annotation resources and keep rollout off"
+    },
+    {
+      "id": "CTA-044", "status": "planned", "phase": "P4", "priority": "P1", "owner_surface": "review study",
+      "action": "Run blinded dual-review on a held-out mixed corpus and measure facet agreement, abstention quality, false completeness, posture accuracy, and license/dependency omission severity.",
+      "dependencies": ["CTA-040", "CTA-041"], "target_files": ["benchmarks/planner/capability-annotation/README.md"],
+      "acceptance": ["promotion thresholds are frozen before evaluation", "false reviewed classifications are zero for hard blockers", "disagreements produce calibration actions"],
+      "example": "Reviewer disagreement over evidential versus model-based reasoning remains a recorded adjudication case.",
+      "rollback": "retain diagnostic-only status"
+    },
+    {
+      "id": "CTA-050", "status": "planned", "phase": "P5", "priority": "P1", "owner_surface": "documentation",
+      "action": "Document invocation, interpretation, abstention, review, legal boundary, source preparation, invalidation, and rollback with concrete skill and tool examples.",
+      "dependencies": ["CTA-043"], "target_files": ["planner/lifecycle/capability-annotation.md", "planner/README.md"],
+      "acceptance": ["users can distinguish facets from derived posture", "license results are not framed as legal advice", "default-off state is prominent"],
+      "example": "The guide shows why an LLM tool can be schema-constrained but underdetermined.",
+      "rollback": "remove links to an unavailable journey"
+    },
+    {
+      "id": "CTA-051", "status": "planned", "phase": "P5", "priority": "P1", "owner_surface": "rollout governance",
+      "action": "Define off, shadow, diagnostic, advisory, and reviewed-projection rollout states with named owners, metrics, incident response, and one-step rollback.",
+      "dependencies": ["CTA-041", "CTA-044", "CTA-050"], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation.md"],
+      "acceptance": ["promotion is evidence-based and reversible", "annotation cannot become an invocation authorization", "reviewed projection requires separate explicit approval"],
+      "example": "Shadow mode records comparison artifacts but changes no catalog or route decisions.",
+      "rollback": "set effective rollout state to off"
+    },
+    {
+      "id": "CTA-052", "status": "planned", "phase": "P5", "priority": "P1", "owner_surface": "implementation receipt",
+      "action": "After authorized implementation, replace planned statuses only with evidence-backed completion records including test counts, digests, unresolved calibration, and effective rollout state.",
+      "dependencies": ["CTA-051"], "target_files": ["planner/governance/capability-reasoning-taxonomy-annotation-todos.json"],
+      "acceptance": ["no TODO is marked complete from code presence alone", "unresolved external review remains explicit", "receipt identifies exact rollback target"],
+      "example": "Software-complete but review-study-incomplete remains diagnostic rather than advisory.",
+      "rollback": "restore status planned or blocked with the missing evidence named"
+    }
+  ],
+  "definition_of_done": [
+    "four planner skills and all strict contracts pass forward and adversarial tests",
+    "skill and tool targets normalize without losing source-specific provenance",
+    "canonical facets, derived posture, dependencies, and licenses remain separate evidence-backed views",
+    "review and invalidation prevent stale or incomplete annotations from promotion",
+    "standalone and disabled-mode compatibility are demonstrated",
+    "catalog projection remains separately authorized and reversible"
+  ]
+}

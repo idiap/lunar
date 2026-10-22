@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-resource-profile-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "as_of", "provider_revision", "status", "sample_size", "excluded_stale_count", "excluded_revision_mismatch_count", "privacy_cohort_count", "distribution", "calibration", "fallback", "promotion_blockers", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-resource-profile/v1"},
+    "profile_id": {"type": "string"}, "as_of": {"type": "string"}, "provider_revision": {"type": ["string", "null"]},
+    "status": {"enum": ["matched_profile", "fallback_required"]},
+    "sample_size": {"type": "integer", "minimum": 0}, "excluded_stale_count": {"type": "integer", "minimum": 0},
+    "excluded_revision_mismatch_count": {"type": "integer", "minimum": 0}, "privacy_cohort_count": {"type": "integer", "minimum": 0},
+    "distribution": {"type": "object"}, "calibration": {"type": "object"}, "fallback": {"type": ["string", "null"]},
+    "promotion_blockers": {"type": "array", "items": {"type": "string"}},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: .
+configfile: pyproject.toml
+testpaths: tests, app/backend/tests
+plugins: anyio-4.15.1
+collected 76 items
+
+tests/domain_packages/test_format.py ................................... [ 46%]
+.........                                                                [ 57%]
+app/backend/tests/test_auth.py ....                                      [ 63%]
+app/backend/tests/test_independent_startup.py ..                         [ 65%]
+app/backend/tests/test_modules.py .................                      [ 88%]
+app/backend/tests/test_package_ownership.py ........                     [ 98%]
+app/backend/tests/test_rate_limit.py .                                   [100%]
+
+=============================== warnings summary ===============================
+app/backend/tests/test_independent_startup.py::test_fresh_postgres_authentication_has_no_seeded_catalog
+  app/backend/server.py:40: DeprecationWarning: `AuthSettings.validate_token_resource` is not set, so bearer tokens are not checked against `resource_server_url`; it will default to True in 3.0 when `resource_server_url` is set. Set it to True to have the server refuse tokens issued for another resource, or to False if your TokenVerifier validates the token's audience itself.
+    auth=AuthSettings(issuer_url=PUBLIC_BASE_URL, resource_server_url=f"{PUBLIC_BASE_URL}/mcp", required_scopes=["reports:create"]),
+
+app/backend/tests/test_independent_startup.py::test_fresh_postgres_authentication_has_no_seeded_catalog
+  .venv/lib/python3.13/site-packages/pydantic_settings/main.py:262: DeprecationWarning: `AuthSettings.validate_token_resource` is not set, so bearer tokens are not checked against `resource_server_url`; it will default to True in 3.0 when `resource_server_url` is set. Set it to True to have the server refuse tokens issued for another resource, or to False if your TokenVerifier validates the token's audience itself.
+    super().__init__(**__pydantic_self__.__class__._settings_build_values(sources, init_kwargs))
+
+app/backend/tests/test_independent_startup.py::test_fresh_postgres_authentication_has_no_seeded_catalog
+  app/backend/tests/test_independent_startup.py:53: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+app/backend/tests/test_independent_startup.py::test_fresh_postgres_authentication_has_no_seeded_catalog
+  .venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+app/backend/tests/test_independent_startup.py::test_fresh_postgres_authentication_has_no_seeded_catalog
+app/backend/tests/test_package_ownership.py::test_fresh_schema_allows_collisions_and_denies_foreign_selection
+app/backend/tests/test_package_ownership.py::test_concurrent_identical_imports_allocate_new_monotonic_versions
+app/backend/tests/test_package_ownership.py::test_composite_lineage_and_immutable_context
+app/backend/tests/test_package_ownership.py::test_resource_file_links_cannot_cross_context
+app/backend/tests/test_package_ownership.py::test_failed_allocation_transaction_preserves_previous_versions
+  .venv/lib/python3.13/site-packages/alembic/config.py:604: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 76 passed, 10 warnings in 8.34s ========================

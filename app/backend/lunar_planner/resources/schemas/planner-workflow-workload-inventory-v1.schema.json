@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-workload-inventory-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_digest", "work_units", "unresolved_drivers", "duplicate_operations", "estimable", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-workload-inventory/v1"},
+    "plan_digest": {"type": "string"},
+    "work_units": {"type": "array", "items": {"type": "object"}},
+    "unresolved_drivers": {"type": "array", "items": {"type": "object", "required": ["work_unit_id", "driver"], "properties": {"work_unit_id": {"type": "string"}, "driver": {"type": "string"}}, "additionalProperties": false}},
+    "duplicate_operations": {"type": "array", "items": {"type": "object"}},
+    "estimable": {"type": "boolean"},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

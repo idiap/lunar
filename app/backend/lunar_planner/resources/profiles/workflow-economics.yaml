@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.0"
+workflow_id: workflow_economics_overlay
+kind: planner_profile
+status: planning_only_non_executing
+mode: workflow_economics
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [sealed_workflow_plan, comparator_contract, workload_manifest, economics_policy]
+release_stage_id: workflow_economics_estimate
+stages:
+  - id: workflow_economics_estimate
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [sealed_workflow_plan, comparator_contract, workload_manifest, economics_policy]
+    outputs: [workflow_effort_estimate, workflow_resource_estimate, workflow_economics_report]
+    dependencies: []
+    rule: When explicitly enabled, emit prospective digest-bound effort and resource sidecars for an output-equivalent traditional comparator. Preserve negative and not-estimable outcomes; do not execute, mutate routing or the base plan, infer observed usage, or affect scientific release.

@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+{
+  "cluster": "planner",
+  "execution": {
+    "availability": "requires-runtime-binding",
+    "implementation": {
+      "module": "closure_readiness_assessor",
+      "operations": [
+        {
+          "callable": "assess_closure_readiness",
+          "execution_character": "exact_deterministic",
+          "module": "closure_readiness_assessor",
+          "name": "assess_closure_readiness",
+          "operation_id": "closure-readiness-assessor:compute"
+        }
+      ],
+      "ownership_declaration": "src/OWNERSHIP.yaml",
+      "shared_dependencies": [
+        "app/backend"
+      ],
+      "source_root": "src"
+    },
+    "mode": "deterministic",
+    "posture": "reviewed_owned_source"
+  },
+  "role": "planner",
+  "schema_version": "bioagents.skill-metadata/v1",
+  "scope": "planner",
+  "skill_id": "closure-readiness-assessor",
+  "structure": {
+    "owned_python_package": "closure_readiness_assessor",
+    "owned_source_declaration": "src/OWNERSHIP.yaml",
+    "references_index": "references/INDEX.md",
+    "source_posture": "reviewed_owned_source",
+    "source_root": "src",
+    "template_version": "bioagents.skill-package-template/v1",
+    "test_contract": "tests/contract.yaml",
+    "tests_root": "tests"
+  },
+  "theme": "planner",
+  "version": "1.0.0"
+}

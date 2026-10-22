@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for quantitative proteomics batch diagnosis",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:6f3ed129e405cfb8289bd8019695eb7825072aed81b7eff11a2738af0f5cfc99",
+  "family_id": "proteomics-batch",
+  "governing_boundary": "distinguish batch drift from biological contrast",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "quantitative proteomics batch diagnosis",
+  "snapshot_id": "snapshot-sealed_rehearsal-proteomics-batch-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

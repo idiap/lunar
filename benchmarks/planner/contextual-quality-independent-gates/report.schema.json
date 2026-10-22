@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.dev/schemas/independent-quality-report-v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "partition", "claim_status", "claim_limitation", "manifest_digest", "cases_digest", "policy_digest", "lineage_audit", "family_metrics", "metrics", "receipts", "digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.benchmark.independent-quality-report/v1"},
+    "partition": {"enum": ["validation", "sealed_rehearsal"]},
+    "claim_status": {"type": "string"},
+    "claim_limitation": {"type": "string"},
+    "manifest_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "cases_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "policy_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "lineage_audit": {"type": "object"},
+    "family_metrics": {"type": "object"},
+    "metrics": {"type": "object"},
+    "receipts": {"type": "array"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

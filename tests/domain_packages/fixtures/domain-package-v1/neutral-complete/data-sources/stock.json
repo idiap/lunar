@@ -1,0 +1,1 @@
+{"id": "stock", "name": "Stock", "descriptor": {"kind": "inventory"}, "local_files": [{"id": "morning", "file": "data-sources/shared.csv"}, {"id": "backup", "file": "data-sources/shared.csv"}], "remote_references": [{"id": "reference", "uri": "https://example.invalid/stock.csv"}]}

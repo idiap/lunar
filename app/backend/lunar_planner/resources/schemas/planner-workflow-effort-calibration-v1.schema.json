@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-effort-calibration-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corpus_id", "corpus_digest", "frozen", "blinded", "partition", "estimate_count", "review_count", "thresholds", "metrics", "adjudication", "promotion_blockers", "status", "policy_tuned_on_evaluation_cases", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-effort-calibration/v1"},
+    "corpus_id": {"type": "string"}, "corpus_digest": {"type": "string"},
+    "frozen": {"type": "boolean"}, "blinded": {"type": "boolean"}, "partition": {"type": "string"},
+    "estimate_count": {"type": "integer", "minimum": 0}, "review_count": {"type": "integer", "minimum": 0},
+    "thresholds": {"type": "object"}, "metrics": {"type": "object"}, "adjudication": {"type": "object"},
+    "promotion_blockers": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["calibrated", "insufficient_calibration_evidence"]},
+    "policy_tuned_on_evaluation_cases": {"const": false},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

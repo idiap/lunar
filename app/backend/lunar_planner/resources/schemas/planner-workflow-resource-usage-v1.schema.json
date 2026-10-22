@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-resource-usage-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "polarity", "plan_digest", "status", "observed_attempt_coverage", "aggregate", "budget_treated_as_usage", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-resource-usage/v1"},
+    "polarity": {"const": "observed_only"},
+    "plan_digest": {"type": "string"},
+    "status": {"enum": ["observed", "partial"]},
+    "observed_attempt_coverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "aggregate": {"type": "object"},
+    "budget_treated_as_usage": {"const": false},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

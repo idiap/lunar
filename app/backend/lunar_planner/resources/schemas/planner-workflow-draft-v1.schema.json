@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-draft-v1.schema.json",
+  "title": "Lunar evolving workflow draft v1",
+  "type": "object",
+  "required": ["schema_version", "dialogue_id", "turn_index", "status", "nodes", "edges", "gates", "critics", "unresolved_requirement_ids", "route_only", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-draft/v1"},
+    "dialogue_id": {"type": "string", "pattern": "^dialogue-[a-z0-9]+$"},
+    "turn_index": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["needs_framing", "framing", "eliciting", "draft", "draft_workflow", "ready_for_review", "ready_for_delivery"]},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["node_id", "requirement_id", "component", "bindings", "preflight", "output_type"],
+        "properties": {
+          "node_id": {"type": "string", "pattern": "^node-[1-9][0-9]*$"},
+          "requirement_id": {"type": "string", "pattern": "^requirement-[1-9][0-9]*$"},
+          "component": {"type": "object"},
+          "bindings": {"type": "array"},
+          "preflight": {"type": "object"},
+          "output_type": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["edge_id", "from_node", "to_node", "artifact_type", "required_input_types", "compatibility", "invented_mapping"],
+        "properties": {
+          "edge_id": {"type": "string", "pattern": "^edge-[1-9][0-9]*$"},
+          "from_node": {"type": "string"},
+          "to_node": {"type": "string"},
+          "artifact_type": {"type": "string"},
+          "required_input_types": {"type": "array", "items": {"type": "string"}},
+          "compatibility": {"enum": ["documented_compatible", "requires_mapping_review"]},
+          "invented_mapping": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "gates": {"type": "array", "items": {"type": "object"}},
+    "critics": {"type": "array", "items": {"type": "string"}},
+    "terminal_artifact": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+    "unresolved_requirement_ids": {"type": "array", "items": {"type": "string"}},
+    "route_only": {"const": true},
+    "report_workflow_inheritance": {"$ref": "planner-report-workflow-inheritance-v1.schema.json"},
+    "inheritance_sources": {"type": "array", "items": {"type": "object"}},
+    "section_plan": {"type": "array", "items": {"type": "object"}},
+    "control_plan": {"type": "array", "items": {"type": "object"}},
+    "critic_plan": {"type": "array", "items": {"type": "object"}},
+    "release_gate_plan": {"type": "array", "items": {"type": "object"}},
+    "adaptation_decisions": {"type": "array", "items": {"type": "object"}},
+    "communication_plan": {"type": "array", "items": {"type": "object"}},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Workflow Skill Gap Planner
+  short_description: Turn a workflow description and a candidate skill packet into
+    an explicit…
+  default_prompt: Use $workflow-skill-gap-planner to turn a workflow description and
+    a candidate skill packet into an explicit reuse-vs-gap plan with self-contained
+    TODOs, distinguishing direct reuse, composition work, catalog problems, and true
+    capability gaps from the contract-defined inputs, producing the documented output
+    artifact; do not exceed supplied evidence or the skill's declared authority, and
+    return needs_input, blocked, or the documented abstention state when prerequisites
+    are absent.

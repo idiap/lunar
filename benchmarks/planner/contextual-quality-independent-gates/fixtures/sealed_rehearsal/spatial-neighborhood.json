@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for spatial transcriptomic neighborhood analysis",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:d8fd49194095828f3a3d9d60268b641f490934c801f9c9a87b4f4b753cceb32d",
+  "family_id": "spatial-neighborhood",
+  "governing_boundary": "preserve section, patient, and field-of-view hierarchy",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "spatial transcriptomic neighborhood analysis",
+  "snapshot_id": "snapshot-sealed_rehearsal-spatial-neighborhood-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

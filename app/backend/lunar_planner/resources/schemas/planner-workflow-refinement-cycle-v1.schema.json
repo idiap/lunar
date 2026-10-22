@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-refinement-cycle-v1.schema.json",
+  "title": "Lunar bounded workflow refinement cycle v1",
+  "type": "object",
+  "required": ["schema_version", "dialogue_id", "iteration", "max_iterations", "status", "input_instantiation_digest", "pre_execution_ready", "execution_validated", "findings", "diagnostic", "fix_plan", "repair_actions", "workflow_test_specifications", "proposed_skill_test_plan_ids", "required_test_ids", "verified_test_ids", "missing_execution_test_ids", "release_gate", "next_iteration_trigger", "route_only", "planner_executed_workflow", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-refinement-cycle/v1"},
+    "dialogue_id": {"type": "string", "pattern": "^dialogue-[a-z0-9]+$"},
+    "iteration": {"type": "integer", "minimum": 0},
+    "max_iterations": {"const": 3},
+    "status": {"enum": ["not_started", "blocked_for_refinement", "ready_for_controlled_execution", "validated_for_release", "escalation_required"]},
+    "input_instantiation_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "pre_execution_ready": {"type": "boolean"},
+    "execution_validated": {"type": "boolean"},
+    "findings": {"type": "array", "items": {"type": "object"}},
+    "diagnostic": {"type": "object"},
+    "fix_plan": {"type": "object"},
+    "repair_actions": {"type": "array", "items": {"type": "object"}},
+    "workflow_test_specifications": {"type": "array", "items": {"type": "object"}, "minItems": 1},
+    "proposed_skill_test_plan_ids": {"type": "array", "items": {"type": "string"}},
+    "required_test_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "verified_test_ids": {"type": "array", "items": {"type": "string"}},
+    "missing_execution_test_ids": {"type": "array", "items": {"type": "string"}},
+    "release_gate": {"enum": ["passed", "blocked_pending_execution_validation"]},
+    "next_iteration_trigger": {"type": "string", "minLength": 1},
+    "route_only": {"const": true},
+    "planner_executed_workflow": {"const": false},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

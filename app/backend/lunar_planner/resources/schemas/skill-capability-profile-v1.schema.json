@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bioagents.skill-capability-profile/v1",
+  "title": "SkillCapabilityProfile/v1",
+  "type": "object",
+  "required": ["schema_version", "skill_id", "skill_digest", "review_status", "operations", "derived_posture", "capability_profile_digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.skill-capability-profile/v1"},
+    "skill_id": {"type": "string", "minLength": 1},
+    "skill_digest": {"$ref": "#/$defs/digest"},
+    "review_status": {"enum": ["draft", "reviewed", "rejected", "invalidated"]},
+    "reviewed_by": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "operations": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/operation"}},
+    "derived_posture": {"enum": ["deterministic", "computational_stochastic", "semantic_generative", "hybrid", "human_authority", "orchestration_only", "instruction_only", "unresolved"]},
+    "authority": {"type": "object", "description": "Decision or approval authority only; never computational character."},
+    "extensions": {"type": "object"},
+    "capability_profile_digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "port": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {"name": {"type": "string", "minLength": 1}, "type": {"type": "string", "minLength": 1}, "required": {"type": "boolean"}},
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {"source": {"enum": ["author", "static_analysis", "runtime_observation", "migration_inference"]}, "evidence": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "required": ["operation_id", "purpose", "reasoning_role", "execution_character", "generation_requirement", "operation_role", "inputs", "outputs", "failure_states", "epistemic_class", "epistemic_ceiling", "verification", "abstention", "runtime_binding_ids", "field_provenance"],
+      "properties": {
+        "operation_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "purpose": {"type": "string", "minLength": 1},
+        "reasoning_role": {"enum": ["exact_transform", "retrieval", "symbolic_solver", "statistical_inference", "numerical_simulation", "semantic_generation", "human_judgment", "orchestration"]},
+        "execution_character": {"enum": ["exact_deterministic", "numerically_deterministic", "seeded_stochastic", "stochastic_estimated", "provider_opaque", "semantic_generative", "human_variable", "non_executing"]},
+        "generation_requirement": {"enum": ["required", "conditional", "optional_presentation", "prohibited", "not_applicable", "unknown"]},
+        "operation_role": {"enum": ["kernel", "control", "interpretation", "presentation", "orchestration"]},
+        "inputs": {"type": "array", "items": {"$ref": "#/$defs/port"}},
+        "outputs": {"type": "array", "items": {"$ref": "#/$defs/port"}},
+        "failure_states": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "evidence_inputs": {"type": "array", "items": {"type": "string"}},
+        "assumptions": {"type": "array", "items": {"type": "string"}},
+        "epistemic_class": {"enum": ["observed", "retrieved", "derived", "simulated", "hypothesized", "interpretive", "procedural", "unknown"]},
+        "epistemic_ceiling": {"type": "string", "minLength": 1},
+        "verification": {"type": "array", "minItems": 1, "items": {"enum": ["exact_comparison", "tolerance_check", "statistical_diagnostics", "evidence_fidelity", "formal_check", "human_review", "schema_validation", "availability_only"]}, "uniqueItems": true},
+        "abstention": {"type": "array", "items": {"enum": ["insufficient_evidence", "conflicting_evidence", "unavailable_binding", "out_of_scope", "invalid_input"]}, "uniqueItems": true},
+        "protected_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "binding_status": {"enum": ["bound", "unavailable", "instruction_only", "upstream_only"]},
+        "generative_controls": {"$ref": "#/$defs/generativeControls"},
+        "handoffs": {"type": "array", "items": {"$ref": "#/$defs/handoff"}},
+        "runtime_binding_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "field_provenance": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/provenance"}}
+      },
+      "additionalProperties": false
+    },
+    "generativeControls": {
+      "type": "object",
+      "required": ["allowed_evidence_classes", "source_identity_required", "source_digests_required", "model_memory_as_evidence_allowed", "extraction_rules", "freshness_rule", "prompt_template_digest_required", "provider_provenance_required", "independent_verifier_required", "producer_may_self_approve", "structured_abstention_required", "expected_receipt_schema"],
+      "properties": {
+        "allowed_evidence_classes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "source_identity_required": {"type": "boolean"},
+        "source_digests_required": {"type": "boolean"},
+        "model_memory_as_evidence_allowed": {"const": false},
+        "extraction_rules": {"type": "array", "items": {"type": "string"}},
+        "freshness_rule": {"type": "string", "minLength": 1},
+        "prompt_template_digest_required": {"type": "boolean"},
+        "provider_provenance_required": {"type": "boolean"},
+        "independent_verifier_required": {"type": "boolean"},
+        "producer_may_self_approve": {"const": false},
+        "structured_abstention_required": {"type": "boolean"},
+        "expected_receipt_schema": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "handoff": {
+      "type": "object",
+      "required": ["target_operation_id", "schema", "validation_required", "immutable_anchor_required", "propagated_fields", "human_gate"],
+      "properties": {
+        "target_operation_id": {"type": "string", "minLength": 1},
+        "schema": {"type": "string", "minLength": 1},
+        "validation_required": {"type": "boolean"},
+        "immutable_anchor_required": {"type": "boolean"},
+        "propagated_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "human_gate": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

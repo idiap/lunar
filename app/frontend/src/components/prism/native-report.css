@@ -1,0 +1,21 @@
+/*
+ * SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+ *
+ * SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+ * Neuro-symbolic AI Group
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.run-report .report-tabs > [role="tablist"] { flex-wrap: wrap; overflow: visible; margin-block: 12px; }
+.run-report .report-tabs [role="tab"] { font-size: 12px; padding: 8px 12px; }
+.run-report .report-tabs [role="tab"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.run-report .report-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.run-report .report-metric { padding: 14px 16px; border-radius: var(--radius); background: var(--muted); }
+.run-report .report-metric strong { display: block; font-size: 24px; color: var(--primary); }
+.run-report .report-metric p { margin: 0; }
+.run-report .report-block { overflow-wrap: anywhere; }
+.run-report .report-math { display: inline-block; max-width: 100%; vertical-align: middle; overflow-x: auto; }
+.run-report .report-math.display { display: block; margin: 12px 0; padding: 12px; background: var(--muted); border-radius: var(--radius); }
+.run-report .report-math svg { max-width: none; }
+.run-report .report-math mjx-assistive-mml { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; border: 0 !important; overflow: hidden !important; clip: rect(1px, 1px, 1px, 1px) !important; white-space: nowrap !important; }
+@media (max-width: 640px) { .run-report .report-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

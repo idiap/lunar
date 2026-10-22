@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Workflow Reference Scout
+  short_description: Systematically scan the local skill and reference landscape whenever
+    a new…
+  default_prompt: Use $workflow-reference-scout to systematically scan the local skill
+    and reference landscape whenever a new workflow is proposed, prioritizing existing
+    workflow builders, package catalogs, database connectors, evidence layers, validators,
+    and reporting skills before inventing new integrations from the contract-defined
+    inputs, producing the documented output artifact; do not substitute generated
+    content for failed or unavailable computation, and return the documented typed
+    failure or abstention when prerequisites are absent.

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-cost-reconciliation-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "polarity", "resource_usage_digest", "price_book_digest", "reservation_digest", "invoice_digest", "status", "currency", "priced_total_nano", "priced_lines", "unpriced_lines", "cost_line_coverage", "missing_price_as_zero", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-cost-reconciliation/v1"},
+    "polarity": {"const": "observed_only"},
+    "resource_usage_digest": {"$ref": "#/$defs/digest"},
+    "price_book_digest": {"type": ["string", "null"]},
+    "reservation_digest": {"type": ["string", "null"]},
+    "invoice_digest": {"type": ["string", "null"]},
+    "status": {"enum": ["invoice_reconciled", "provider_observed_cost", "partial_not_calculable"]},
+    "currency": {"type": ["string", "null"]},
+    "priced_total_nano": {"type": ["integer", "null"]},
+    "priced_lines": {"type": "array", "items": {"type": "object"}},
+    "unpriced_lines": {"type": "array", "items": {"type": "object"}},
+    "cost_line_coverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "missing_price_as_zero": {"const": false},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.1"
+workflow_id: catalog_aware_new_workflow_planning
+kind: planner_profile
+status: planning_only_non_executing
+mode: new_workflow
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [workflow_objective, constraints, authority_envelope]
+release_stage_id: release_review
+stages:
+  - id: workflow_reference_scan
+    owner_skill: workflow-reference-scout
+    owner_scope: planner
+    inputs: [workflow_objective, constraints]
+    outputs: [workflow_reference_scan]
+    dependencies: []
+    rule: Search named workflows and promoted subworkflows before leaf skills.
+  - id: portfolio_narrowing
+    owner_skill: skill-portfolio-navigator
+    owner_scope: planner
+    inputs: [workflow_objective, workflow_reference_scan]
+    outputs: [skill_portfolio_packet]
+    dependencies: [workflow_reference_scan]
+    rule: Gather the smallest credible candidate set across the complete index.
+  - id: semantic_reuse_review
+    owner_skill: skill-reuse-critical-reasoner
+    owner_scope: planner
+    inputs: [workflow_objective, constraints, workflow_reference_scan, skill_portfolio_packet]
+    outputs: [reuse_critical_packet]
+    dependencies: [portfolio_narrowing]
+    rule: Complete-body semantic review owns reuse classification.
+  - id: report_control_inheritance
+    owner_skill: skill-reuse-critical-reasoner
+    owner_scope: planner
+    inputs: [workflow_objective, constraints, workflow_reference_scan, reuse_critical_packet]
+    outputs: [report_control_inheritance]
+    dependencies: [semantic_reuse_review]
+    rule: For report or document outputs, resolve the selected package report-control policy, bind its mandatory controls, and emit concrete section critiques; absent such a policy, retain the generic evidence and release gates and record that no additional package policy applies.
+  - id: capability_plan
+    owner_skill: workflow-skill-gap-planner
+    owner_scope: planner
+    inputs: [workflow_objective, constraints, reuse_critical_packet, report_control_inheritance]
+    outputs: [workflow_capability_plan]
+    dependencies: [semantic_reuse_review, report_control_inheritance]
+    rule: Prefer direct and composed reuse; for report or paper requests retain the complete inherited control blueprint, and type unresolved obligations as universal, project-specific, adapter, or workflow-local without fabricating availability.
+  - id: pipeline_plan
+    owner_skill: pipeline-design-refinement-planner
+    owner_scope: planner
+    inputs: [workflow_capability_plan, reuse_critical_packet]
+    outputs: [pipeline_design_refinement_plan]
+    dependencies: [capability_plan]
+    rule: Preserve catalog workflows and public behavior by default.
+  - id: post_plan_reasoning_verification
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [pipeline_design_refinement_plan, authority_envelope]
+    outputs: [post_plan_evidence_verification]
+    dependencies: [pipeline_plan]
+    rule: Bind a planning-only lunar.planner.post-plan-evidence-verification/v1 sidecar to the exact initial-plan digest; maximize deterministic and symbolic checks, preserve proportionate exploratory reasoning, and propose local repairs without mutating or rerouting the plan.
+  - id: release_review
+    owner_skill: closure-readiness-assessor
+    owner_scope: planner
+    inputs: [pipeline_design_refinement_plan, post_plan_evidence_verification, authority_envelope]
+    outputs: [planning_release_decision]
+    dependencies: [pipeline_plan, post_plan_reasoning_verification]
+    rule: Planning release consumes the additive verification sidecar but does not admit or execute a new workflow; verification readiness is not executed evidence.

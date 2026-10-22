@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+{
+  "authority": "planning-only-semantic-verification-classification",
+  "cluster": "planner",
+  "execution": {
+    "availability": "unavailable",
+    "implementation": null,
+    "mode": "instruction_only",
+    "posture": "instruction_or_orchestration_only"
+  },
+  "failure_taxonomy": [
+    "not-applicable",
+    "tampered-base-plan",
+    "repair-required",
+    "inconclusive"
+  ],
+  "inputs": [
+    {
+      "name": "workflow_instantiation",
+      "required": true,
+      "schema": "lunar.planner.workflow-instantiation/v1"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "post_plan_evidence_verification",
+      "required": true,
+      "schema": "lunar.planner.post-plan-evidence-verification/v1"
+    }
+  ],
+  "permissions": [
+    "read-declared-planning-artifacts-only",
+    "no-execution",
+    "no-network",
+    "no-mutation"
+  ],
+  "preconditions": [
+    "the initial workflow instantiation is immutable and content-addressed"
+  ],
+  "resources": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "role": "planner",
+  "schema_version": "bioagents.skill-metadata/v1",
+  "scope": "planner",
+  "skill_id": "post-plan-evidence-grounding-verifier",
+  "structure": {
+    "owned_python_package": null,
+    "owned_source_declaration": null,
+    "references_index": "references/INDEX.md",
+    "source_posture": "instruction_or_orchestration_only",
+    "source_root": "src",
+    "template_version": "bioagents.skill-package-template/v1",
+    "test_contract": "tests/contract.yaml",
+    "tests_root": "tests"
+  },
+  "theme": "planner",
+  "version": "1.0.0"
+}

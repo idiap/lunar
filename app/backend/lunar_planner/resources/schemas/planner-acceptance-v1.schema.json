@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-acceptance-v1.schema.json",
+  "title": "Lunar planner acceptance v1",
+  "type": "object",
+  "required": ["schema_version", "acceptance_id", "run_id", "plan_id", "plan_digest", "decision", "actor", "timestamp", "authority"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.acceptance/v1"},
+    "acceptance_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "decision": {"enum": ["accepted", "rejected"]},
+    "actor": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "authority": {"const": "accept_plan_only"},
+    "comment": {"type": "string"}
+  },
+  "additionalProperties": false
+}

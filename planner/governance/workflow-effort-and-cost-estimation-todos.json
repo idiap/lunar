@@ -1,0 +1,907 @@
+{
+  "schema_version": "lunar.planner.workflow-economics-backlog/v1",
+  "status": "implemented",
+  "implementation_authorized": true,
+  "objective": "Add an optional planner-level model for output-equivalent traditional human effort, assisted residual effort, net time savings, token/resource usage, and direct cost without conflating estimates, observations, budgets, invoices, or scientific validity.",
+  "design": "planner/governance/workflow-effort-and-cost-estimation.md",
+  "implementation_receipt": {
+    "schema_version": "lunar.planner.workflow-economics-implementation-receipt/v1",
+    "completed_todo_ids": [
+      "WEA-001", "WEA-002", "WEA-003", "WEA-004", "WEA-005", "WEA-006",
+      "WEA-010", "WEA-011", "WEA-012", "WEA-013", "WEA-014", "WEA-015",
+      "WEA-016", "WEA-017", "WEA-018", "WEA-020", "WEA-021", "WEA-022",
+      "WEA-023", "WEA-024", "WEA-025", "WEA-026", "WEA-027", "WEA-028",
+      "WEA-029", "WEA-030", "WEA-031", "WEA-032", "WEA-033", "WEA-034",
+      "WEA-035", "WEA-036", "WEA-037", "WEA-040", "WEA-041", "WEA-042",
+      "WEA-043", "WEA-044", "WEA-045", "WEA-046", "WEA-050", "WEA-051",
+      "WEA-052", "WEA-053", "WEA-054"
+    ],
+    "implementation_files": [
+      "app/backend/lunar_planner/workflow_economics.py",
+      "app/backend/lunar_planner/workflow_economics_calibration.py",
+      "app/backend/lunar_planner/usage_accounting.py",
+      "app/backend/lunar_planner/pricing.py",
+      "app/backend/lunar_planner/budget_accounting.py",
+      "app/backend/lunar_planner/contracts.py",
+      "app/backend/lunar_planner/staged_routing.py",
+      "app/backend/lunar_planner/entrypoint.py",
+      "app/backend/lunar_planner/quality_authorization.py"
+    ],
+    "schema_count": 13,
+    "policy_digest": "sha256:ec9923fba7875df122e5109882457e0ed509e64d80a361656284a6899d67b2e1",
+    "profile_sha256": "dcf6f1d5f2366126d788e959915126f1a767900c7346ced6769c5dd0826576bb",
+    "benchmark": {
+      "split": "development-disclosed-not-expert-calibrated",
+      "case_count": 18,
+      "cases_sha256": "824077d68f3ba50500c715b3ac7ba96c6e855179e5a9aec1084199c1efd827fc",
+      "manifest_sha256": "ea4c6ed8a361de1ee9cf9d08d8bcb17dd11c098bdfe7bd7c3d9c44e04900b9c1",
+      "promotion_evidence": false
+    },
+    "validation": {
+      "planner_contract_check": "pass",
+      "standalone_wheel_and_sdist": "pass",
+      "focused_economics_tests": "45 passed",
+      "full_planner_suite": "475 passed"
+    },
+    "effective_rollout_state": "off",
+    "software_complete": true,
+    "real_world_calibration_complete": false,
+    "unresolved_external_calibration": "Blinded held-out expert timing and provider/invoice calibration are still required before advisory promotion.",
+    "rollback_target": "off"
+  },
+  "scope": {
+    "owner": "planner workflow economics overlay",
+    "default_enabled": false,
+    "prospective_artifacts": [
+      "lunar.planner.workflow-effort-estimate/v1",
+      "lunar.planner.workflow-resource-estimate/v1"
+    ],
+    "retrospective_artifacts": [
+      "lunar.planner.workflow-effort-assessment/v1",
+      "lunar.planner.workflow-resource-usage/v1",
+      "lunar.planner.workflow-cost-reconciliation/v1"
+    ],
+    "prohibited_effects": [
+      "automatic invocation for ordinary planner requests",
+      "scientific route or workflow mutation",
+      "lowering evidence, quality, review, or answer-trust requirements",
+      "scientific release authorization or denial",
+      "planned or budgeted quantities presented as observed usage",
+      "missing effort, usage, or price presented as zero",
+      "individual productivity, salary, performance, or ROI inference",
+      "prompt, response, hidden reasoning, credential, or patient-row retention"
+    ]
+  },
+  "invariants": [
+    "the traditional comparator must deliver the same scope, rigor, evidence coverage, acceptance tests, and review posture",
+    "human active effort, human waiting, machine runtime, and end-to-end calendar duration remain separate",
+    "prospective and retrospective artifacts have different schemas and cannot be relabeled",
+    "negative savings and not-estimable outcomes remain visible",
+    "provider-reported usage is the only source labeled provider-observed",
+    "a configured token budget is never treated as consumed tokens",
+    "price books are immutable, effective-time resolved, and digest bound",
+    "direct execution cost and optional human labor valuation remain separate",
+    "economics cannot upgrade or downgrade scientific validity",
+    "disabled mode preserves existing planner outputs and digests"
+  ],
+  "phases": [
+    {
+      "id": "P0",
+      "name": "semantics, comparator, and threat model",
+      "promotion_gate": "equivalence, polarity, clocks, taxonomy, evidence grades, privacy, and anti-gaming rules are frozen"
+    },
+    {
+      "id": "P1",
+      "name": "human effort and time-savings model",
+      "promotion_gate": "component estimates reconcile, retain negative outcomes, and expose uncertainty and residual review"
+    },
+    {
+      "id": "P2",
+      "name": "usage, price, cost, and budget model",
+      "promotion_gate": "token classes never double count and complete fixtures replay to exact fixed-decimal cost"
+    },
+    {
+      "id": "P3",
+      "name": "contracts and optional planner integration",
+      "promotion_gate": "strict artifacts are digest bound, default off, non-mutating, explicitly persisted, and standalone packaged"
+    },
+    {
+      "id": "P4",
+      "name": "benchmarks and calibration",
+      "promotion_gate": "adversarial escapes, interval coverage, quality parity, usage arithmetic, and privacy checks meet frozen thresholds"
+    },
+    {
+      "id": "P5",
+      "name": "rollout, monitoring, and documentation",
+      "promotion_gate": "shadow and audit evidence support advisory use with a pinned one-step rollback"
+    }
+  ],
+  "todos": [
+    {
+      "id": "WEA-001",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "planner governance",
+      "action": "Freeze workflow-economics vocabulary and non-goals, including effort, elapsed time, runtime, usage, budget, estimated cost, observed spend, invoice reconciliation, and optional labor valuation.",
+      "dependencies": [],
+      "target_files": ["planner/governance/workflow-effort-and-cost-estimation.md"],
+      "acceptance": [
+        "every user-facing quantity has an explicit unit and evidence state",
+        "the documentation prohibits productivity surveillance and a scalar ROI/trust score",
+        "planned, observed, and invoice-reconciled states cannot be confused"
+      ],
+      "example": "A 200,000-token context budget remains a budget when the provider returns no usage receipt.",
+      "rollback": "remove the unreferenced design document"
+    },
+    {
+      "id": "WEA-002",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "comparator policy",
+      "action": "Define a versioned ComparatorContract requiring output equivalence for scope, rigor, evidence coverage, provenance, reproducibility, acceptance tests, and reviews.",
+      "dependencies": ["WEA-001"],
+      "target_files": ["app/backend/lunar_planner/resources/schemas/planner-workflow-comparator-v1.schema.json"],
+      "acceptance": [
+        "the comparator represents an experienced practitioner using ordinary non-agentic tools",
+        "novice learning time and agent-only assurance cannot inflate the manual baseline",
+        "non-equivalent deliverables produce not_estimable"
+      ],
+      "example": "A short narrative cannot be compared with a manual systematic review requiring claim locators and contradiction checks.",
+      "rollback": "disable economics calculation when no comparator contract exists"
+    },
+    {
+      "id": "WEA-003",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "workload ontology",
+      "action": "Define atomic WorkUnit classes, quantity units, role classes, risk/rigor tiers, dependency semantics, and operation/output identity rules.",
+      "dependencies": ["WEA-002"],
+      "target_files": ["app/backend/lunar_planner/resources/policies/workflow-economics-policy-v1.json"],
+      "acceptance": [
+        "reading, screening, extraction, normalization, analysis, synthesis, verification, revision, coordination, packaging, and integration remain distinguishable",
+        "each unit binds to stage and input/output artifact identities",
+        "shared or repeated work has an explicit deduplication key"
+      ],
+      "example": "A literature stage becomes separate search, abstract-screening, full-text-reading, extraction, and adjudication units.",
+      "rollback": "retain workload rows as unresolved rather than applying generic stage totals"
+    },
+    {
+      "id": "WEA-004",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "evidence and uncertainty policy",
+      "action": "Define source precedence, evidence grades, distribution types, correlation rules, sensitivity reporting, and explicit unknown/not-applicable states for every driver and rate.",
+      "dependencies": ["WEA-003"],
+      "target_files": ["app/backend/lunar_planner/resources/policies/workflow-economics-policy-v1.json"],
+      "acceptance": [
+        "exact matched observations outrank benchmarks, analogues, expert priors, and generic priors",
+        "P10/P50/P90 are reproducible from a pinned policy and seed",
+        "missing evidence widens the range or produces not_estimable rather than zero"
+      ],
+      "example": "Unknown full-text depth is surfaced as the largest sensitivity driver instead of assuming one minute per paper.",
+      "rollback": "return not_estimable for profiles without an approved evidence basis"
+    },
+    {
+      "id": "WEA-005",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "threat model",
+      "action": "Version adversarial failure modes for planned-as-observed, runtime-as-effort, budget-as-usage, missing-as-zero, price drift, cache mispricing, retry omission, duplicate credit, novice inflation, review omission, denominator selection, and salary inference.",
+      "dependencies": ["WEA-001", "WEA-004"],
+      "target_files": ["benchmarks/planner/workflow-economics/threat-taxonomy.json"],
+      "acceptance": [
+        "each threat maps to a minimal fixture and required disposition",
+        "multi-agent parallelism cannot reduce additive person-hours by itself",
+        "quality or acceptance failure invalidates the savings headline"
+      ],
+      "example": "Three branches reusing one search call receive one shared or unallocated cost, not three direct charges.",
+      "rollback": "keep advisory rollout off until all P0 threats have fixtures"
+    },
+    {
+      "id": "WEA-006",
+      "status": "implemented",
+      "phase": "P0",
+      "priority": "P0",
+      "owner_surface": "privacy and authority",
+      "action": "Define opt-in telemetry, privacy-scope joins, retention, aggregation, authorization, and the boundary between economics, budget enforcement, scientific quality, and release.",
+      "dependencies": ["WEA-001"],
+      "target_files": ["planner/governance/provenance.md", "planner/governance/artifacts.md"],
+      "acceptance": [
+        "prompts, outputs, hidden reasoning, credentials, and patient rows are prohibited",
+        "economics cannot change scientific route or release",
+        "budget enforcement requires distinct explicit authority"
+      ],
+      "example": "An expensive workflow may still be scientifically valid; the report informs a human without changing its quality verdict.",
+      "rollback": "disable observation and persistence while retaining pure prospective calculation"
+    },
+    {
+      "id": "WEA-010",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "workload compiler",
+      "action": "Implement a pure compiler from sealed workflow/stage DAGs to non-overlapping WorkUnits with unresolved-driver diagnostics and double-count detection.",
+      "dependencies": ["WEA-002", "WEA-003"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "the input plan and route are never mutated",
+        "every output unit has stable stage/artifact bindings",
+        "combined stages decompose without inventing quantities"
+      ],
+      "example": "A stage declaring evidence synthesis but no source count emits unresolved screening and reading quantities.",
+      "rollback": "expose only a workload inventory without estimates"
+    },
+    {
+      "id": "WEA-011",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "manual baseline",
+      "action": "Implement component-level traditional manual effort from setup, quantity, throughput, complexity, friction, rigor, coordination, and expected rework distributions.",
+      "dependencies": ["WEA-004", "WEA-010"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "component and workflow totals replay deterministically",
+        "experienced-practitioner assumptions and ordinary tools are visible",
+        "one-time setup is separate from marginal per-run effort"
+      ],
+      "example": "Reusable query templates are charged once under the declared amortization horizon rather than on every run.",
+      "rollback": "emit workload drivers without a total"
+    },
+    {
+      "id": "WEA-012",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "reading and evidence selection",
+      "action": "Implement evidence-type/depth reading and complete-denominator screening models, including access, deduplication, authority/applicability review, and disagreement resolution.",
+      "dependencies": ["WEA-011"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "metadata, abstract, targeted lookup, and full-text critical reading have distinct rates",
+        "screening uses all candidates at the frozen cutoff",
+        "citations alone do not prove reading"
+      ],
+      "example": "400 hits, 60 screened abstracts, and 12 full texts produce three different work quantities.",
+      "rollback": "mark reading and screening components not_estimable"
+    },
+    {
+      "id": "WEA-013",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "extraction and normalization",
+      "action": "Implement extraction, locator capture, unit/identifier normalization, ambiguous crosswalk, missingness, and high-risk double-extraction drivers.",
+      "dependencies": ["WEA-011"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "field/claim counts and schema complexity drive effort",
+        "exceptions create work instead of disappearing",
+        "critical independent review floors remain mandatory"
+      ],
+      "example": "Forty extracted claims with five ambiguous endpoints include adjudication and provenance-locator work.",
+      "rollback": "fall back to an explicitly labeled generic prior"
+    },
+    {
+      "id": "WEA-014",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "analysis and synthesis",
+      "action": "Implement data staging, computation/debugging, evidence consolidation, contradiction handling, uncertainty, and narrative/figure/report assembly drivers.",
+      "dependencies": ["WEA-011"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "models, diagnostic runs, modalities, claim-evidence rows, and contradictions are explicit drivers",
+        "fluent output length does not substitute for consolidation work",
+        "cross-stage integration remains a separate line"
+      ],
+      "example": "A multi-omics report includes modality reconciliation, identifier linkage, diagnostic reruns, and report assembly separately.",
+      "rollback": "omit unsupported domain-specific components from the headline denominator"
+    },
+    {
+      "id": "WEA-015",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "assisted residual",
+      "action": "Implement assisted human effort independently from the manual baseline, including setup, unreplaced work, mandatory review, approval, correction, escalation, reruns, and coordination.",
+      "dependencies": ["WEA-012", "WEA-013", "WEA-014"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "residual effort is not an arbitrary percentage of the baseline",
+        "failed and retried work contributes expected correction effort",
+        "risk-specific review floors cannot be optimized away"
+      ],
+      "example": "A publication-facing report retains source checking, editing, and approval even if drafting is automated.",
+      "rollback": "report gross displaced work only and suppress net savings"
+    },
+    {
+      "id": "WEA-016",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "effort aggregation",
+      "action": "Calculate gross displacement, assisted residual, new assurance work, net saved person-hours, saving fraction, and negative/no-saving cases with exact reconciliation.",
+      "dependencies": ["WEA-015"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "manual minus assisted equals net savings at component and workflow levels",
+        "negative results are never clamped",
+        "saving fractions are absent when the denominator is invalid"
+      ],
+      "example": "A 90-minute manual task and 105-minute assisted task reports minus 15 minutes.",
+      "rollback": "disable the headline while retaining decomposed component estimates"
+    },
+    {
+      "id": "WEA-017",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P1",
+      "owner_surface": "temporal model",
+      "action": "Compute human active effort, human waiting, machine runtime, and manual/assisted dependency-graph critical paths as separate distributions.",
+      "dependencies": ["WEA-010", "WEA-016"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "parallelism changes critical path without erasing person-hours",
+        "machine runtime is not subtracted from human labor",
+        "missing dependency timing prevents a false calendar estimate"
+      ],
+      "example": "Two people working two hours in parallel remain four person-hours but two elapsed hours.",
+      "rollback": "report person-effort only"
+    },
+    {
+      "id": "WEA-018",
+      "status": "implemented",
+      "phase": "P1",
+      "priority": "P0",
+      "owner_surface": "uncertainty engine",
+      "action": "Implement seeded correlated uncertainty propagation, ordered P10/P50/P90 outputs, evidence grades, sensitivity attribution, and interval invalidation.",
+      "dependencies": ["WEA-004", "WEA-016", "WEA-017"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "replay is deterministic for identical inputs and seed",
+        "correlated source-count effects are preserved",
+        "confidence grade is distinct from interval width"
+      ],
+      "example": "Increasing candidate papers jointly changes screening and reading rather than sampling them independently.",
+      "rollback": "use conservative low/central/high scenario propagation"
+    },
+    {
+      "id": "WEA-020",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "usage contract",
+      "action": "Define provider-neutral request, attempt, component, subworkflow, reservation, privacy-scope, and raw-usage receipt identities.",
+      "dependencies": ["WEA-001", "WEA-006"],
+      "target_files": ["app/backend/lunar_planner/resources/schemas/planner-workflow-usage-receipt-v1.schema.json"],
+      "acceptance": [
+        "retries receive distinct attempt identities",
+        "receipts bind to exact plan, component, provider configuration, and time",
+        "no prompt or response body is required"
+      ],
+      "example": "A failed first call and successful retry are retained as two attempts under one component.",
+      "rollback": "accept no retrospective usage without a conforming receipt"
+    },
+    {
+      "id": "WEA-021",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "token normalization",
+      "action": "Define provider accounting-semantics adapters for uncached input, cached input, output, reasoning, embeddings, batch/tier, tool context, failures, cancellation, and rounding.",
+      "dependencies": ["WEA-020"],
+      "target_files": ["app/backend/lunar_planner/usage_accounting.py"],
+      "acceptance": [
+        "raw provider usage is preserved",
+        "normalized token classes are non-overlapping",
+        "unsupported semantics yield not_calculable rather than guessed totals"
+      ],
+      "example": "Cached tokens included in provider input totals are subtracted before uncached input is priced.",
+      "rollback": "report raw provider usage without normalized cost"
+    },
+    {
+      "id": "WEA-022",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "prospective resources",
+      "action": "Estimate per-component invocation, attempt, retry, token-class, external API, compute, storage, network, and fixed-charge distributions from explicit plan drivers.",
+      "dependencies": ["WEA-010", "WEA-021"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "P10/P50/P90 resource envelopes expose call-count and context/output assumptions",
+        "failed/cancelled consumption is included prospectively",
+        "cold-start heuristics remain labeled heuristic_estimated"
+      ],
+      "example": "A critique loop estimates one base call plus a bounded retry/revision distribution, not exactly one call.",
+      "rollback": "emit declared budgets with no consumption estimate"
+    },
+    {
+      "id": "WEA-023",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "observed usage",
+      "action": "Aggregate provider-reported and locally metered receipts by component, attempt, stage, workflow, provider, and resource class with evidence-state coverage.",
+      "dependencies": ["WEA-020", "WEA-021"],
+      "target_files": ["app/backend/lunar_planner/usage_accounting.py"],
+      "acceptance": [
+        "only SDK/provider receipts are provider_observed tokens",
+        "tokenizer-derived and meter-observed quantities remain differently labeled",
+        "missing telemetry is not_reported and has no numeric zero"
+      ],
+      "example": "A local tokenizer estimate remains tokenizer_derived even if it exactly matches a later provider count.",
+      "rollback": "suppress aggregate usage when receipt identity is incomplete"
+    },
+    {
+      "id": "WEA-024",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "price books",
+      "action": "Implement immutable price-book schemas and resolution by provider, model/service, region, tier, effective time, currency, rate dimension, authority, and digest.",
+      "dependencies": ["WEA-021"],
+      "target_files": ["app/backend/lunar_planner/pricing.py", "app/backend/lunar_planner/resources/schemas/planner-price-book-v1.schema.json"],
+      "acceptance": [
+        "mutable prices are absent from estimator code",
+        "historical events resolve the effective historical price",
+        "missing model/category prices remain unpriced"
+      ],
+      "example": "A price change next month does not alter replay of this month's reconciled run.",
+      "rollback": "report quantities without monetary totals"
+    },
+    {
+      "id": "WEA-025",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "cost arithmetic",
+      "action": "Implement fixed-decimal or integer nano-currency line pricing, provider rounding, subtotals, coverage, unpriced lines, and optional pinned FX conversion.",
+      "dependencies": ["WEA-023", "WEA-024"],
+      "target_files": ["app/backend/lunar_planner/pricing.py"],
+      "acceptance": [
+        "complete fixture totals replay exactly without floating-point drift",
+        "unpriced categories reduce coverage rather than contributing zero",
+        "FX conversion requires a separate snapshot digest"
+      ],
+      "example": "Observed tokens with an unknown model price produce an observed usage total and not_calculable cost.",
+      "rollback": "disable converted and aggregate monetary presentation"
+    },
+    {
+      "id": "WEA-026",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "non-LLM resources",
+      "action": "Add independent receipt adapters for paid search/database APIs, OCR, CPU/GPU, memory, storage, egress, embeddings, and user-supplied contractual fees.",
+      "dependencies": ["WEA-020", "WEA-025"],
+      "target_files": ["app/backend/lunar_planner/usage_accounting.py"],
+      "acceptance": [
+        "token and external-tool charges remain separate",
+        "contractual/license prices are never invented",
+        "meter class and unit are explicit"
+      ],
+      "example": "A paid literature API request is priced once even though its result later contributes model input tokens.",
+      "rollback": "retain unsupported resources as unpriced lines"
+    },
+    {
+      "id": "WEA-027",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P0",
+      "owner_surface": "cost attribution",
+      "action": "Implement direct/shared/unallocated component attribution with declared allocation methods and exact subtotal reconciliation.",
+      "dependencies": ["WEA-023", "WEA-026"],
+      "target_files": ["app/backend/lunar_planner/usage_accounting.py"],
+      "acceptance": [
+        "shared events are never charged repeatedly",
+        "an unallocated bucket remains available",
+        "component totals plus unallocated equal the workflow total"
+      ],
+      "example": "One orchestration call serving three analysis branches remains one workflow cost line.",
+      "rollback": "report workflow totals without component allocation"
+    },
+    {
+      "id": "WEA-028",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P1",
+      "owner_surface": "budget accounting",
+      "action": "Implement explicitly authorized P90 reservations, deterministic multi-scope locking, release, expiry, partial/late reconciliation, and idempotency using CostGuard-compatible state rules.",
+      "dependencies": ["WEA-022", "WEA-025", "WEA-027"],
+      "target_files": ["app/backend/lunar_planner/budget_accounting.py"],
+      "acceptance": [
+        "reserved, observed-not-invoiced, and reconciled spend remain separate",
+        "concurrent reservations cannot overspend a scope",
+        "confined paths, atomic replacement, locks, and append-only ledgers are tested"
+      ],
+      "example": "A cancelled run releases unused reservation while retaining any billable observed attempts.",
+      "rollback": "disable budget mode without affecting estimate or observe modes"
+    },
+    {
+      "id": "WEA-029",
+      "status": "implemented",
+      "phase": "P2",
+      "priority": "P1",
+      "owner_surface": "invoice reconciliation",
+      "action": "Reconcile provider observations with authoritative billing exports while retaining estimate-to-observed and observed-to-invoice variances and discrepancies.",
+      "dependencies": ["WEA-025", "WEA-028"],
+      "target_files": ["app/backend/lunar_planner/budget_accounting.py"],
+      "acceptance": [
+        "invoice reconciliation never rewrites original receipts",
+        "late and partial lines are idempotent",
+        "discrepancies are visible by provider/accounting semantics"
+      ],
+      "example": "Provider rounding creates a small invoice delta that remains diagnostic rather than silently altering token counts.",
+      "rollback": "stop at provider_observed estimated cost"
+    },
+    {
+      "id": "WEA-030",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "strict contracts",
+      "action": "Add strict Draft 2020-12 schemas for comparator, work unit, effort estimate/assessment, resource estimate/usage, usage receipt, price book, reservation, reconciliation, and economics report.",
+      "dependencies": ["WEA-002", "WEA-016", "WEA-023", "WEA-029"],
+      "target_files": ["app/backend/lunar_planner/resources/schemas/"],
+      "acceptance": [
+        "additionalProperties is false at controlled boundaries",
+        "polarity, units, evidence state, uncertainty, currency, coverage, and digests are required where applicable",
+        "prospective documents cannot validate as retrospective documents"
+      ],
+      "example": "A resource estimate containing observed_spend fails schema validation.",
+      "rollback": "leave new schemas unregistered"
+    },
+    {
+      "id": "WEA-031",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "semantic validation",
+      "action": "Register contracts and validate digest binding, unique IDs, arithmetic, ordered intervals, allowed units, nonnegative usage, effective prices, subtotal coverage, and no unknown-as-zero semantics.",
+      "dependencies": ["WEA-030"],
+      "target_files": ["app/backend/lunar_planner/contracts.py"],
+      "acceptance": [
+        "tampered totals and digests fail",
+        "manual minus assisted equals saved effort",
+        "priced plus unpriced coverage reconciles without fabricated zeros"
+      ],
+      "example": "A cached-token line counted as both cached and uncached is rejected.",
+      "rollback": "do not expose invalid artifacts at the public boundary"
+    },
+    {
+      "id": "WEA-032",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "packaged policy and profile",
+      "action": "Add digest-bound workflow-economics policy, default-off non-executing profile, manifest metadata, and resource packaging without modifying scientific skills or workflows.",
+      "dependencies": ["WEA-003", "WEA-004", "WEA-030"],
+      "target_files": [
+        "app/backend/lunar_planner/resources/policies/workflow-economics-policy-v1.json",
+        "app/backend/lunar_planner/resources/profiles/workflow-economics.yaml",
+        "app/backend/lunar_planner/resources/planner-manifest.json"
+      ],
+      "acceptance": [
+        "default mode is off",
+        "generic priors are explicitly uncalibrated",
+        "profile authority is planning-only and non-executing"
+      ],
+      "example": "Installing the planner package makes the estimator resources available but does not invoke them.",
+      "rollback": "remove the manifest entry and packaged resources"
+    },
+    {
+      "id": "WEA-033",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "planner integration",
+      "action": "Add default-off entrypoint/staged-routing arguments and attach prospective economics only after the plan and comparator are sealed, without route, candidate, refinement, or release mutation.",
+      "dependencies": ["WEA-010", "WEA-018", "WEA-022", "WEA-032"],
+      "target_files": ["app/backend/lunar_planner/staged_routing.py", "app/backend/lunar_planner/entrypoint.py"],
+      "acceptance": [
+        "disabled outputs and digests are byte-identical",
+        "explicit estimate mode returns only prospective sidecars",
+        "direct-use and control-plane behavior remain unchanged"
+      ],
+      "example": "A normal workflow-planning request returns no economics fields unless explicitly enabled.",
+      "rollback": "remove the optional keyword arguments and sidecar projection"
+    },
+    {
+      "id": "WEA-034",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P0",
+      "owner_surface": "authorization and persistence",
+      "action": "Add explicit retrospective authorization, exact-input binding, tamper rejection, and ArtifactStore persistence under planner run economics paths; never write implicitly.",
+      "dependencies": ["WEA-006", "WEA-023", "WEA-029", "WEA-031"],
+      "target_files": ["app/backend/lunar_planner/quality_authorization.py"],
+      "acceptance": [
+        "workflow, run, telemetry, comparator, policy, calibration, and price-book digests are bound",
+        "persistence requires an authorized assessment",
+        "path traversal and privacy-scope mismatch are rejected"
+      ],
+      "example": "Changing a usage receipt after authorization invalidates reconciliation and persistence.",
+      "rollback": "retain pure in-memory calculation only"
+    },
+    {
+      "id": "WEA-035",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "public API and compatibility",
+      "action": "Export stable APIs, extend the deprecated facade module allowlist, and add standalone wheel/sdist verification for modules, schemas, policy, and profile.",
+      "dependencies": ["WEA-031", "WEA-032", "WEA-033", "WEA-034"],
+      "target_files": ["app/backend/lunar_planner/__init__.py", "planner/testing/verify_module.py"],
+      "acceptance": [
+        "the package works outside the repository root",
+        "resource loading is deterministic",
+        "legacy import compatibility remains intact"
+      ],
+      "example": "A temporary environment installs the wheel and validates an off-mode and fixture estimate.",
+      "rollback": "remove public exports while keeping internal fixtures"
+    },
+    {
+      "id": "WEA-036",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "user reporting",
+      "action": "Build an economics card showing comparator, P10/P50/P90 manual and assisted effort, negative/net savings, component decomposition, residual reviews, resource/cost classes, coverage, assumptions, exclusions, and sensitivities.",
+      "dependencies": ["WEA-018", "WEA-025", "WEA-027", "WEA-031"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "estimated versus observed banners are prominent",
+        "no scalar hides component uncertainty or unpriced categories",
+        "the report says it is not employee productivity telemetry"
+      ],
+      "example": "Observed tokens with 82% cost coverage show the unknown API category next to the priced subtotal.",
+      "rollback": "return machine-readable artifacts only"
+    },
+    {
+      "id": "WEA-037",
+      "status": "implemented",
+      "phase": "P3",
+      "priority": "P1",
+      "owner_surface": "invalidation",
+      "action": "Implement selective invalidation and replay so workload changes affect effort/resources, usage changes affect usage/cost, and price changes affect cost but never token counts or effort.",
+      "dependencies": ["WEA-031", "WEA-034"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics.py"],
+      "acceptance": [
+        "invalidation reasons and re-entry owners are explicit",
+        "unaffected artifacts retain their receipts",
+        "all calculations retain seed and unrounded inputs"
+      ],
+      "example": "A new price book recalculates cost while preserving the original observed token receipt.",
+      "rollback": "invalidate the complete economics bundle conservatively"
+    },
+    {
+      "id": "WEA-040",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "effort benchmark",
+      "action": "Create frozen development and sealed-validation cases spanning small literature triage, systematic evidence review, multi-omics analysis, deterministic transforms, reporting, human-heavy approvals, and repeated workflows.",
+      "dependencies": ["WEA-005", "WEA-018", "WEA-031"],
+      "target_files": ["benchmarks/planner/workflow-economics/"],
+      "acceptance": [
+        "cases include exact comparator, workload, ranges, equivalence disposition, and expected diagnostics",
+        "reading, selection, extraction, consolidation, verification, coordination, and amortization are covered",
+        "sealed cases remain blinded during calibration"
+      ],
+      "example": "A plasma multi-omics case exposes integration/debugging and scientific-review overhead rather than only report-writing time.",
+      "rollback": "retain benchmarks as non-authoritative fixtures"
+    },
+    {
+      "id": "WEA-041",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "anti-gaming benchmark",
+      "action": "Add adversarial cases for skim-as-read, duplicate records, parallel double credit, ignored review, cached-work inflation, optimistic unknowns, quality mismatch, failed retries, selective denominator, and negative savings.",
+      "dependencies": ["WEA-005", "WEA-040"],
+      "target_files": ["benchmarks/planner/workflow-economics/adversarial-cases.jsonl"],
+      "acceptance": [
+        "every threat has a deterministic oracle",
+        "not_equivalent and not_estimable outcomes render correctly",
+        "no fixture can obtain positive savings by omitting required work"
+      ],
+      "example": "A workflow with 105 minutes of assisted effort against 90 manual minutes must remain negative.",
+      "rollback": "block advisory rollout"
+    },
+    {
+      "id": "WEA-042",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "usage and cost benchmark",
+      "action": "Build exact fixtures for token-class semantics, caches, reasoning/output inclusion, tool context, retries, failures, cancellations, shared costs, historical prices, rounding, missing prices, FX, and invoice deltas.",
+      "dependencies": ["WEA-021", "WEA-025", "WEA-027", "WEA-029"],
+      "target_files": ["benchmarks/planner/workflow-economics/resource-cost-cases.jsonl"],
+      "acceptance": [
+        "complete fixtures have 100% exact arithmetic replay",
+        "budget-as-usage and missing-as-zero have zero escapes",
+        "provider receipt remains the usage oracle and price book remains the cost oracle"
+      ],
+      "example": "A cached-input provider fixture detects addition of cached tokens to a total that already includes them.",
+      "rollback": "disable monetary output while retaining raw fixture usage"
+    },
+    {
+      "id": "WEA-043",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "effort calibration",
+      "action": "Implement frozen blinded expert calibration with matched output-quality tests, reviewer role/experience, disagreement, bias, error, interval coverage, residual-effort underestimation, and false-positive savings metrics.",
+      "dependencies": ["WEA-040", "WEA-041"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics_calibration.py"],
+      "acceptance": [
+        "manual and assisted work are calibrated independently of automated runtime",
+        "displayed evaluation cases are not used for tuning",
+        "quality parity is required before time-savings calibration counts"
+      ],
+      "example": "A fast but scientifically incomplete agent output is excluded rather than credited with large savings.",
+      "rollback": "label all profiles generic_prior and keep advisory off"
+    },
+    {
+      "id": "WEA-044",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "resource calibration",
+      "action": "Build privacy-filtered component/provider resource profiles with minimum sample size, recency, drift, temporal holdout, quantile loss, interval coverage, retry calibration, overrun, cost coverage, and invoice discrepancy.",
+      "dependencies": ["WEA-022", "WEA-023", "WEA-042"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics_calibration.py"],
+      "acceptance": [
+        "stale or sparse profiles fall back explicitly",
+        "actual-zero cases use absolute rather than percentage error",
+        "privacy thresholds prevent sensitive singleton profiles"
+      ],
+      "example": "A provider model revision triggers drift fallback to a wider analogous profile.",
+      "rollback": "use conservative heuristic estimates"
+    },
+    {
+      "id": "WEA-045",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "property and contract tests",
+      "action": "Test permutation invariance, digest replay, ordered intervals, B-A=S, critical paths, amortization, no NaN, no double counting, fixed-decimal totals, coverage, and selective invalidation.",
+      "dependencies": ["WEA-018", "WEA-025", "WEA-031", "WEA-037"],
+      "target_files": ["tests/planner/test_workflow_economics.py", "tests/planner/test_workflow_economics_contracts.py"],
+      "acceptance": [
+        "malformed/tampered documents fail deterministically",
+        "component order cannot change totals",
+        "unknown and partial states remain arithmetic-safe"
+      ],
+      "example": "Permuting three shared branches does not alter their unallocated overhead total.",
+      "rollback": "keep modules private until properties pass"
+    },
+    {
+      "id": "WEA-046",
+      "status": "implemented",
+      "phase": "P4",
+      "priority": "P0",
+      "owner_surface": "lifecycle and compatibility tests",
+      "action": "Prove default-off exact compatibility, explicit sidecar-only invocation, prospective/observed polarity, authorization, confinement, privacy, no scientific release effect, and standalone packaging.",
+      "dependencies": ["WEA-033", "WEA-034", "WEA-035"],
+      "target_files": ["tests/planner/test_workflow_economics_lifecycle_integration.py"],
+      "acceptance": [
+        "existing planner fixtures and digests are unchanged when off",
+        "no scientific skill, workflow, or Prism file requires modification",
+        "wheel and sdist contain all registered resources"
+      ],
+      "example": "An estimate with a poor savings result still leaves the existing scientific delivery decision unchanged.",
+      "rollback": "remove integration while preserving isolated fixtures"
+    },
+    {
+      "id": "WEA-050",
+      "status": "implemented",
+      "phase": "P5",
+      "priority": "P0",
+      "owner_surface": "rollout policy",
+      "action": "Implement off, fixture, shadow, audit, and advisory states with default off, pinned rollback, and no scientific enforcement; retain budget as separate explicit authority.",
+      "dependencies": ["WEA-043", "WEA-044", "WEA-046"],
+      "target_files": ["app/backend/lunar_planner/resources/policies/workflow-economics-policy-v1.json"],
+      "acceptance": [
+        "shadow and audit have no user-facing or release effect",
+        "advisory requires all promotion metrics",
+        "one-step rollback returns to off without deleting historical ledgers"
+      ],
+      "example": "Fixture arithmetic passing alone cannot promote generic effort priors to advisory status.",
+      "rollback": "set effective state to off"
+    },
+    {
+      "id": "WEA-051",
+      "status": "implemented",
+      "phase": "P5",
+      "priority": "P0",
+      "owner_surface": "promotion gates",
+      "action": "Freeze promotion thresholds for quality parity, effort interval coverage/bias, false-complete and false-positive-savings rates, token/cost replay, telemetry and price coverage, privacy, compatibility, latency, size, and reviewer capacity.",
+      "dependencies": ["WEA-041", "WEA-042", "WEA-043", "WEA-044", "WEA-050"],
+      "target_files": ["app/backend/lunar_planner/resources/policies/workflow-economics-policy-v1.json"],
+      "acceptance": [
+        "effort calibration targets at least 90% declared central-interval coverage or a justified alternative",
+        "complete cost fixtures require exact arithmetic and zero polarity escapes",
+        "uncalibrated or under-reviewed evidence blocks promotion"
+      ],
+      "example": "High token accuracy cannot compensate for poor residual-human-effort coverage.",
+      "rollback": "retain the last approved state and policy digest"
+    },
+    {
+      "id": "WEA-052",
+      "status": "implemented",
+      "phase": "P5",
+      "priority": "P1",
+      "owner_surface": "operational monitoring",
+      "action": "Monitor aggregate estimate coverage, interval calibration, drift, overruns, unpriced share, arithmetic mismatches, invalidations, latency, artifact size, privacy exceptions, and rollback triggers without content telemetry.",
+      "dependencies": ["WEA-050", "WEA-051"],
+      "target_files": ["app/backend/lunar_planner/workflow_economics_calibration.py"],
+      "acceptance": [
+        "metrics contain counts, labels, and opaque IDs only",
+        "domain/provider drift is separable",
+        "rollback conditions are deterministic"
+      ],
+      "example": "A rising unpriced-cost share triggers advisory degradation without exposing prompts or source content.",
+      "rollback": "stop metrics ingestion and retain prior aggregate reports"
+    },
+    {
+      "id": "WEA-053",
+      "status": "implemented",
+      "phase": "P5",
+      "priority": "P1",
+      "owner_surface": "documentation",
+      "action": "Document lifecycle placement, contracts, artifact paths, provenance joins, comparator construction, activity heuristics, price-book maintenance, report interpretation, limitations, reassessment, and concrete cards.",
+      "dependencies": ["WEA-036", "WEA-037", "WEA-050"],
+      "target_files": [
+        "planner/lifecycle/workflow-economics-assessment.md",
+        "planner/governance/artifacts.md",
+        "planner/governance/provenance.md",
+        "planner/README.md"
+      ],
+      "acceptance": [
+        "researchers can distinguish manual effort, assisted effort, elapsed time, tokens, and cost",
+        "operators can trace every displayed total to components and digests",
+        "examples include negative, partial, and not-estimable results"
+      ],
+      "example": "The guide explains why observed tokens plus an absent price produce a partial report, not zero cost.",
+      "rollback": "remove links to an unavailable runtime"
+    },
+    {
+      "id": "WEA-054",
+      "status": "implemented",
+      "phase": "P5",
+      "priority": "P1",
+      "owner_surface": "implementation receipt",
+      "action": "Record completed TODO IDs, files, schemas, policy/calibration digests, benchmark splits, validation results, effective rollout state, unresolved external calibration, and rollback target.",
+      "dependencies": ["WEA-045", "WEA-046", "WEA-051", "WEA-053"],
+      "target_files": ["planner/governance/workflow-effort-and-cost-estimation-todos.json"],
+      "acceptance": [
+        "receipt coverage exactly matches backlog IDs",
+        "software completion is distinguished from real-world calibration and rollout promotion",
+        "full planner and standalone validation results are reproducible"
+      ],
+      "example": "The implementation can be complete while advisory promotion remains off pending blinded benchmark evidence.",
+      "rollback": "remove an invalid receipt and return status to planned"
+    }
+  ],
+  "definition_of_done": [
+    "all backlog items have implementation receipts and tests",
+    "every headline value decomposes to typed work or resource lines with provenance",
+    "output equivalence and quality parity cannot be bypassed",
+    "negative and not-estimable outcomes render correctly",
+    "prospective, observed, and invoice states remain distinct",
+    "missing effort, usage, and price never become zero",
+    "default-disabled planner behavior and digests are unchanged",
+    "economics has no scientific routing or release authority",
+    "strict schemas, deterministic replay, benchmarks, standalone distribution, and full planner regression pass",
+    "advisory promotion remains off until real held-out calibration meets the frozen policy"
+  ]
+}

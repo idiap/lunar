@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lunar:domain-package:worker-request-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "operation": {
+      "enum": [
+        "prepare",
+        "plan",
+        "verify",
+        "execute"
+      ]
+    },
+    "workflow_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hook_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "input": {
+      "type": "object"
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "network": {
+          "type": "boolean"
+        },
+        "model_access": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "network",
+        "model_access"
+      ]
+    }
+  },
+  "required": [
+    "contract_version",
+    "request_id",
+    "operation",
+    "workflow_id",
+    "hook_id",
+    "input",
+    "authority"
+  ]
+}

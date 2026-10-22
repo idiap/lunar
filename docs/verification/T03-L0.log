@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: .
+configfile: pyproject.toml
+testpaths: tests, app/backend/tests
+plugins: anyio-4.15.1
+collected 68 items
+
+tests/domain_packages/test_format.py ................................... [ 51%]
+.........                                                                [ 64%]
+app/backend/tests/test_auth.py ....                                      [ 70%]
+app/backend/tests/test_independent_startup.py .s                         [ 73%]
+app/backend/tests/test_modules.py .................                      [ 98%]
+app/backend/tests/test_rate_limit.py .                                   [100%]
+
+=============================== warnings summary ===============================
+app/backend/tests/test_modules.py::test_app_registers_module_routes
+  app/backend/server.py:40: DeprecationWarning: `AuthSettings.validate_token_resource` is not set, so bearer tokens are not checked against `resource_server_url`; it will default to True in 3.0 when `resource_server_url` is set. Set it to True to have the server refuse tokens issued for another resource, or to False if your TokenVerifier validates the token's audience itself.
+    auth=AuthSettings(issuer_url=PUBLIC_BASE_URL, resource_server_url=f"{PUBLIC_BASE_URL}/mcp", required_scopes=["reports:create"]),
+
+app/backend/tests/test_modules.py::test_app_registers_module_routes
+  .venv/lib/python3.13/site-packages/pydantic_settings/main.py:262: DeprecationWarning: `AuthSettings.validate_token_resource` is not set, so bearer tokens are not checked against `resource_server_url`; it will default to True in 3.0 when `resource_server_url` is set. Set it to True to have the server refuse tokens issued for another resource, or to False if your TokenVerifier validates the token's audience itself.
+    super().__init__(**__pydantic_self__.__class__._settings_build_values(sources, init_kwargs))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 67 passed, 1 skipped, 2 warnings in 3.03s ===================

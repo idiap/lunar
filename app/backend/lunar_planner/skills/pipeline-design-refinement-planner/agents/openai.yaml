@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Pipeline Design Refinement Planner
+  short_description: Drive workflow pipeline design and refinement from a clean context
+    by…
+  default_prompt: Use $pipeline-design-refinement-planner to drive workflow pipeline
+    design and refinement from a clean context by combining AGENTS navigation, portfolio
+    reuse discovery, gap separation, external analytical scouting, and implementation-grade
+    TODO generation from the contract-defined inputs, producing the documented output
+    artifact; do not exceed supplied evidence or the skill's declared authority, and
+    return needs_input, blocked, or the documented abstention state when prerequisites
+    are absent.

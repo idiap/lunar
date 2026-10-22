@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+services:
+  db:
+    volumes:
+      - ${LUNAR_DATA_ROOT:?Set the mounted persistent data disk}/postgres:/var/lib/postgresql/data
+  frontend:
+    ports: !reset []
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      LUNAR_HOST: ${LUNAR_HOST:?Set the public host name}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${LUNAR_DATA_ROOT}/caddy:/data
+    depends_on: [frontend]

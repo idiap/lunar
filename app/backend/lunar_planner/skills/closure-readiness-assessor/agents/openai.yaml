@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Closure Readiness Assessor
+  short_description: Decide whether planning needs a concrete next step
+  default_prompt: Use $closure-readiness-assessor to determine whether this planner
+    state warrants a closure-oriented next-step suggestion.

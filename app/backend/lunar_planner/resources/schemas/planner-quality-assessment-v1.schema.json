@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-quality-assessment-v1.schema.json",
+  "title": "Quality assessment v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "assessment_id",
+    "root_interaction_id",
+    "operation_role",
+    "parent_digest",
+    "principal",
+    "canonical_serialization",
+    "evidence_manifest_digest",
+    "quality_plan_digest",
+    "artifact_digest",
+    "evaluator",
+    "independent",
+    "criterion_results",
+    "verdict",
+    "digest",
+    "presentable_as_user_answer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.quality-assessment/v1"
+    },
+    "assessment_id": {
+      "type": "string"
+    },
+    "root_interaction_id": {
+      "type": "string"
+    },
+    "operation_role": {
+      "const": "artifact_assessment"
+    },
+    "parent_digest": {
+      "type": "string"
+    },
+    "principal": {
+      "type": "object"
+    },
+    "canonical_serialization": {
+      "const": "canonical-json-v1"
+    },
+    "evidence_manifest_digest": {
+      "type": "string"
+    },
+    "quality_plan_digest": {
+      "type": "string"
+    },
+    "artifact_digest": {
+      "type": "string"
+    },
+    "evaluator": {
+      "type": "object"
+    },
+    "independent": {
+      "type": "boolean"
+    },
+    "criterion_results": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "verdict": {
+      "enum": [
+        "pass",
+        "fail",
+        "inconclusive"
+      ]
+    },
+    "digest": {
+      "type": "string"
+    },
+    "presentable_as_user_answer": {
+      "const": false
+    }
+  },
+  "additionalProperties": false
+}

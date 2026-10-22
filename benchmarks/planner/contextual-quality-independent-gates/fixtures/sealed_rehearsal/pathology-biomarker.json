@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for pathology biomarker scoring",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:3fdee259e14a2058e094a115f7dbca0c5b129f051f33490f2e0c7135c5de091f",
+  "family_id": "pathology-biomarker",
+  "governing_boundary": "retain assay, specimen, scoring rule, and indeterminate state",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "pathology biomarker scoring",
+  "snapshot_id": "snapshot-sealed_rehearsal-pathology-biomarker-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

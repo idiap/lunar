@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-answer-trust-assessment-v1.schema.json",
+  "title": "Lunar realized answer trust assessment v1",
+  "type": "object",
+  "required": ["schema_version", "assessment_id", "polarity", "answer_digest", "base_plan_digest", "evidence_manifest_digest", "provenance_digest", "policy_version", "policy_digest", "status", "score", "score_interval", "band", "denominator_frozen", "claim_assessments", "evidence_atoms", "derivation_edges", "exemptions", "diagnostics", "binding", "blocking_reasons", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.answer-trust-assessment/v1"}, "assessment_id": {"type": "string", "pattern": "^answer-trust-[0-9a-f]{16}$"}, "polarity": {"const": "observed_only"},
+    "answer_digest": {"$ref": "#/$defs/nullableDigest"}, "base_plan_digest": {"$ref": "#/$defs/nullableDigest"}, "evidence_manifest_digest": {"$ref": "#/$defs/nullableDigest"}, "provenance_digest": {"$ref": "#/$defs/nullableDigest"},
+    "policy_version": {"type": "string", "minLength": 1}, "policy_digest": {"$ref": "#/$defs/digest"},
+    "status": {"enum": ["assessed", "insufficient_evidence", "not_calculable", "blocked"]}, "score": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+    "score_interval": {"oneOf": [{"$ref": "#/$defs/interval"}, {"type": "null"}]}, "band": {"enum": ["high_control", "substantiated", "guarded", "low", "blocked_untrusted", null]},
+    "material_claim_coverage": {"type": "number", "minimum": 0, "maximum": 1}, "denominator_frozen": {"const": true},
+    "claim_assessments": {"type": "array", "items": {"$ref": "https://bioagents.local/schemas/planner-claim-trust-assessment-v1.schema.json"}},
+    "evidence_atoms": {"type": "array", "items": {"$ref": "#/$defs/evidenceAtom"}}, "derivation_edges": {"type": "array", "items": {"$ref": "#/$defs/derivationEdge"}},
+    "exemptions": {"type": "array", "items": {"type": "object", "required": ["claim_id", "reason"], "properties": {"claim_id": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+    "diagnostics": {"type": "object", "additionalProperties": true}, "binding": {"type": "object", "additionalProperties": {"$ref": "#/$defs/nullableDigest"}}, "blocking_reasons": {"$ref": "#/$defs/stringArray"}, "digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "nullableDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}, "interval": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 100}},
+    "evidenceAtom": {"type": "object", "required": ["evidence_id", "origin", "authorized", "content_digest", "locator", "observed_consumed", "independence_cluster", "generated_ancestor_ids"], "properties": {"evidence_id": {"type": "string", "minLength": 1}, "origin": {"type": ["string", "null"]}, "authorized": {"type": ["boolean", "null"]}, "content_digest": {"$ref": "#/$defs/nullableDigest"}, "locator": {"type": ["string", "null"]}, "observed_consumed": {"type": ["boolean", "null"]}, "independence_cluster": {"type": ["string", "null"]}, "generated_ancestor_ids": {"$ref": "#/$defs/stringArray"}}, "additionalProperties": false},
+    "derivationEdge": {"type": "object", "required": ["edge_id", "input_ids", "output_id", "kind", "observed", "receipt_id"], "properties": {"edge_id": {"type": "string", "minLength": 1}, "input_ids": {"$ref": "#/$defs/stringArray"}, "output_id": {"type": "string", "minLength": 1}, "kind": {"type": "string", "minLength": 1}, "observed": {"type": ["boolean", "null"]}, "receipt_id": {"type": ["string", "null"]}}, "additionalProperties": false}
+  }
+}

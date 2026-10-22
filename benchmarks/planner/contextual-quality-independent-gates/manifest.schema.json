@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.dev/schemas/independent-quality-manifest-v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "benchmark_id", "status", "partitions", "independence_contract", "sample_size_rationale", "confidence_interval_method", "certification_limitation", "digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.benchmark.independent-quality-manifest/v1"},
+    "benchmark_id": {"const": "contextual-quality-independent-gates"},
+    "status": {"const": "validation_fixture_and_disclosed_sealed_rehearsal"},
+    "partitions": {"type": "object", "required": ["validation", "sealed_rehearsal"]},
+    "independence_contract": {"type": "object"},
+    "sample_size_rationale": {"type": "string"},
+    "confidence_interval_method": {"type": "string"},
+    "certification_limitation": {"type": "string"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

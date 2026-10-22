@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-effort-assessment-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "evidence_state", "comparator_disposition", "workload_inventory_digest", "headline", "components", "blockers", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-effort-assessment/v1"},
+    "status": {"enum": ["assessed", "not_estimable"]},
+    "evidence_state": {"const": "observed"},
+    "seed": {"type": "integer", "minimum": 0},
+    "samples": {"type": "integer", "minimum": 100},
+    "comparator_disposition": {"type": "object"},
+    "workload_inventory_digest": {"type": "string"},
+    "repetitions": {"type": "integer", "minimum": 1},
+    "headline": {"type": ["object", "null"]},
+    "clocks": {"type": "object"},
+    "gross_work_displaced_person_hours": {"type": "object"},
+    "new_assurance_work_person_hours": {"type": "object"},
+    "components": {"type": "array", "items": {"type": "object"}},
+    "sensitivity": {"type": "array", "items": {"type": "object"}},
+    "confidence_grade": {"type": "string"},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

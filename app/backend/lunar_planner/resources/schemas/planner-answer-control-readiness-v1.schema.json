@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-answer-control-readiness-v1.schema.json",
+  "title": "Lunar prospective answer-control readiness v1",
+  "type": "object",
+  "required": ["schema_version", "polarity", "base_plan_digest", "verification_digest", "policy_version", "policy_digest", "attainable_control_band", "realized_trust_score", "claims_considered", "required_receipts", "findings", "mutates_initial_plan", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.answer-control-readiness/v1"},
+    "polarity": {"const": "prospective_only"},
+    "base_plan_digest": {"$ref": "#/$defs/digest"},
+    "verification_digest": {"$ref": "#/$defs/digest"},
+    "policy_version": {"type": "string", "minLength": 1},
+    "policy_digest": {"$ref": "#/$defs/digest"},
+    "attainable_control_band": {"enum": ["high_control", "substantiated", "guarded", "low", "blocked_untrusted", "undetermined"]},
+    "realized_trust_score": {"const": null},
+    "claims_considered": {"type": "integer", "minimum": 0},
+    "required_receipts": {"type": "array", "items": {"$ref": "#/$defs/receiptObligation"}},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "mutates_initial_plan": {"const": false},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "receiptObligation": {"type": "object", "required": ["claim_id", "receipt", "status"], "properties": {"claim_id": {"type": "string", "minLength": 1}, "receipt": {"type": "string", "minLength": 1}, "status": {"const": "planned_unobserved"}}, "additionalProperties": false},
+    "finding": {
+      "type": "object", "required": ["finding_id", "severity", "plan_location", "message", "proposed_todo"],
+      "properties": {
+        "finding_id": {"type": "string", "minLength": 1}, "severity": {"enum": ["low", "medium", "high", "critical"]}, "plan_location": {"type": ["string", "null"]}, "message": {"type": "string", "minLength": 1},
+        "proposed_todo": {"type": "object", "required": ["owner", "action", "acceptance_evidence"], "properties": {"owner": {"type": "string", "minLength": 1}, "action": {"type": "string", "minLength": 1}, "acceptance_evidence": {"type": "string", "minLength": 1}}, "additionalProperties": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}

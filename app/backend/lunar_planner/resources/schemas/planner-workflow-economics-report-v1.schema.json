@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-economics-report-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "rollout", "effort", "resource", "cost", "labor_value", "scalar_roi", "scientific_release_effect", "interpretation", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-economics-report/v1"},
+    "status": {"enum": ["complete", "partial", "not_estimable"]},
+    "rollout": {"type": "object"},
+    "effort": {"type": "object"},
+    "resource": {"type": "object"},
+    "cost": {"type": ["object", "null"]},
+    "labor_value": {"type": ["object", "null"]},
+    "scalar_roi": {"type": "null"},
+    "scientific_release_effect": {"const": false},
+    "interpretation": {"type": "string", "minLength": 1},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

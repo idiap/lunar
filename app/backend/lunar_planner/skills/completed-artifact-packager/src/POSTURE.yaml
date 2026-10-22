@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: bioagents.skill-source-posture/v1
+skill_id: completed-artifact-packager
+posture: reviewed_owned_source
+owned_python_package: completed_artifact_packager
+scientific_code_added_by_harmonizer: false
+notes: A reviewed OWNERSHIP declaration identifies the skill-local package; runtime
+  availability remains separately governed.
+source_class: skill_local_adapter_to_repository_kernel

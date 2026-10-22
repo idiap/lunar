@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.0"
+workflow_id: answer_control_readiness_overlay
+kind: planner_profile
+status: planning_only_non_executing
+mode: answer_control_readiness
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [base_plan, post_plan_evidence_verification, scoring_policy]
+release_stage_id: answer_control_readiness
+stages:
+  - id: answer_control_readiness
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [base_plan, post_plan_evidence_verification, scoring_policy]
+    outputs: [answer_control_readiness]
+    dependencies: []
+    rule: Emit a prospective, digest-bound answer-control-readiness sidecar that inventories material claims, real-evidence obligations, generative-preservation controls, expected retrospective receipts, blockers, and the attainable control band without assigning a realized answer trust score, executing the workflow, or mutating the base plan.

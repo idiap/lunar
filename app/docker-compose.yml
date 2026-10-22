@@ -1,0 +1,90 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-reports}
+      POSTGRES_USER: ${POSTGRES_USER:-reports}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reports}
+    volumes:
+      - lunar_app_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: ${LUNAR_BACKEND_IMAGE:-lunar-backend:local}
+    build:
+      context: ..
+      dockerfile: app/backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://reports:reports@db:5432/reports}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:8080}
+      AUTH_SECRET: ${AUTH_SECRET:-local-development-secret-change-me}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      BYPASS_VERIFICATION: ${BYPASS_VERIFICATION:-false}
+      RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-Lunar <onboarding@resend.dev>}
+      API_RATE_LIMIT_REQUESTS: ${API_RATE_LIMIT_REQUESTS:-120}
+      API_RATE_LIMIT_WINDOW_SECONDS: ${API_RATE_LIMIT_WINDOW_SECONDS:-60}
+      LUNAR_ALLOW_LIVE_NETWORK: ${LUNAR_ALLOW_LIVE_NETWORK:-0}
+      LUNAR_PACKAGE_STORAGE_ROOT: ${LUNAR_PACKAGE_STORAGE_ROOT:?Set an absolute package-storage path on the Docker host}
+      LUNAR_WORKER_IMAGE: ${LUNAR_WORKER_IMAGE:-lunar-worker:local}
+      LUNAR_IMPORT_MAX_COMPRESSED_BYTES: ${LUNAR_IMPORT_MAX_COMPRESSED_BYTES:-2147483648}
+      LUNAR_IMPORT_MAX_EXPANDED_BYTES: ${LUNAR_IMPORT_MAX_EXPANDED_BYTES:-8589934592}
+      LUNAR_IMPORT_MAX_FILE_BYTES: ${LUNAR_IMPORT_MAX_FILE_BYTES:-2147483648}
+      LUNAR_IMPORT_MAX_MANIFEST_BYTES: ${LUNAR_IMPORT_MAX_MANIFEST_BYTES:-33554432}
+      LUNAR_IMPORT_MAX_DOCUMENT_BYTES: ${LUNAR_IMPORT_MAX_DOCUMENT_BYTES:-33554432}
+      LUNAR_IMPORT_MAX_DIRECTORY_BYTES: ${LUNAR_IMPORT_MAX_DIRECTORY_BYTES:-67108864}
+      LUNAR_IMPORT_MAX_ENTRIES: ${LUNAR_IMPORT_MAX_ENTRIES:-100000}
+      LUNAR_REASONING_MODEL_PROVIDER: ${LUNAR_REASONING_MODEL_PROVIDER:-}
+      LUNAR_REASONING_MODEL_ID: ${LUNAR_REASONING_MODEL_ID:-}
+      LUNAR_REASONING_MODEL_API_KEY: ${LUNAR_REASONING_MODEL_API_KEY:-}
+      LUNAR_REASONING_MODEL_API_BASE: ${LUNAR_REASONING_MODEL_API_BASE:-}
+      LUNAR_REASONING_MODEL_API_VERSION: ${LUNAR_REASONING_MODEL_API_VERSION:-}
+      LUNAR_REASONING_MODEL_TIMEOUT_SECONDS: ${LUNAR_REASONING_MODEL_TIMEOUT_SECONDS:-20}
+      LUNAR_PROFILE: ${LUNAR_PROFILE:-local}
+      LUNAR_QUALITY_ATTESTATION_KEY: ${LUNAR_QUALITY_ATTESTATION_KEY:-}
+      LUNAR_QUALITY_ADAPTER_ARGV: ${LUNAR_QUALITY_ADAPTER_ARGV:-}
+      LUNAR_QUALITY_ADAPTER_ID: ${LUNAR_QUALITY_ADAPTER_ID:-}
+      LUNAR_QUALITY_ADAPTER_CONFIGURATION: ${LUNAR_QUALITY_ADAPTER_CONFIGURATION:-}
+    volumes:
+      - ./backend:/workspace/live/backend:ro
+      - ${LUNAR_PACKAGE_STORAGE_ROOT}:${LUNAR_PACKAGE_STORAGE_ROOT}
+      - ${LUNAR_DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: ${LUNAR_FRONTEND_IMAGE:-lunar-frontend:local}
+    build:
+      context: ./frontend
+      target: ${ENVIRONMENT:-production}
+    restart: unless-stopped
+    environment:
+      VITE_API_PROXY_TARGET: http://backend:8000
+      # Polling also detects host edits through Docker Desktop bind mounts.
+      VITE_USE_POLLING: "true"
+    volumes:
+      - ./frontend/src:/app/src:ro
+      - ./frontend/public:/app/public:ro
+      - ./frontend/index.html:/app/index.html:ro
+      - ./frontend/vite.config.js:/app/vite.config.js:ro
+    ports:
+      - "${PORT:-8080}:80"
+    depends_on:
+      - backend
+
+volumes:
+  lunar_app_data:

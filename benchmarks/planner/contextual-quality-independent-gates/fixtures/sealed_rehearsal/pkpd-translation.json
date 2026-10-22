@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for PK/PD translational interpretation",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:654b011ca3d12a6fee839d97bc0b3ede92b5a43cfd2833ca3efa5b775e72b84f",
+  "family_id": "pkpd-translation",
+  "governing_boundary": "separate measured exposure from projected human effect",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "PK/PD translational interpretation",
+  "snapshot_id": "snapshot-sealed_rehearsal-pkpd-translation-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

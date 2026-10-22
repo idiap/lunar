@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.0"
+workflow_id: post_plan_reasoning_verification_overlay
+kind: planner_profile
+status: planning_only_non_executing
+mode: post_plan_reasoning_verification
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [base_plan, base_plan_digest, authority_envelope]
+release_stage_id: post_plan_reasoning_verification
+stages:
+  - id: post_plan_reasoning_verification
+    owner_skill: post-plan-evidence-grounding-verifier
+    owner_scope: planner
+    inputs: [base_plan, base_plan_digest, authority_envelope]
+    outputs: [post_plan_evidence_verification]
+    dependencies: []
+    rule: Emit a planning-only lunar.planner.post-plan-evidence-verification/v1 sidecar bound to base_plan_digest; choose the least-flexible adequate verification method, preserve exploratory claim posture, localize failures, and propose repairs without executing, mutating, or rerouting the base plan.

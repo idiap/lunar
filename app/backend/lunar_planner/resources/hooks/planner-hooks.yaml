@@ -1,0 +1,69 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.hooks/v1
+source_archive_version: "1.2"
+contract_id: planner_hook_policy
+kind: planning_hook_policy
+status: planning_only_non_executing
+kernel: null
+kernel_status: proposed_unimplemented
+
+profiles:
+  direct_use:
+    source: ../profiles/direct-use.yaml
+    release_stage_id: invocation_plan
+  new_workflow:
+    source: ../profiles/new-workflow.yaml
+    release_stage_id: release_review
+  extend_existing_workflow:
+    source: ../profiles/extend-workflow.yaml
+    release_stage_id: release_review
+  refine_output_problem:
+    source: ../profiles/refine-workflow.yaml
+    release_stage_id: release_review
+
+verification_overlays:
+  post_plan_reasoning_verification:
+    source: ../profiles/post-plan-reasoning-verification.yaml
+    stage_id: post_plan_reasoning_verification
+    owner_skill: post-plan-evidence-grounding-verifier
+    output: post_plan_evidence_verification
+    schema_version: lunar.planner.post-plan-evidence-verification/v1
+    applies_to: [new_workflow, extend_existing_workflow, refine_output_problem]
+    excluded_modes: [direct_use]
+    placement: after_initial_plan_before_release_or_refinement_review
+    mutation: forbidden
+    execution: forbidden
+
+planning_invariants:
+  - every owner skill resolves in the planner scientific or project-support descriptor scope
+  - archive-only and unknown skills are ignored and cannot own a stage
+  - the surface index covers every current Lunar skill and canonical workflow package
+  - lexical and structured scores gather candidates but never decide semantic fit
+  - complete-body semantic review precedes reuse and gap classification
+  - every stage dependency names an earlier stage in the same explicit profile
+  - profiles return planning artifacts only and never invoke skills workflows installers or external services
+  - no profile creates or mutates a Codex goal
+  - no profile changes a canonical skill workflow registry or generated surface
+  - unavailable and instruction-only capabilities cannot advertise execution
+  - permissions and authority remain explicit inputs and are never inferred from archive text
+  - absent run or provenance evidence remains missing rather than planned-as-observed
+  - new workflow extension and refinement profiles bind post-plan verification to the exact initial-plan digest before release review
+  - direct-use omits post-plan reasoning verification and remains materially smaller than change planning
+  - post-plan verification is an additive sidecar and cannot rewrite reroute reorder or execute the initial plan
+  - verification readiness cannot be represented as evidence validated or workflow executed
+  - deterministic and symbolic checks take precedence where their semantics are adequate while exploratory hypotheses retain proportionate claim ceilings
+
+future_runtime_requirements:
+  - namespaced schemas and canonical digests
+  - duplicate-key rejection and typed producer-consumer validation
+  - append-only idempotent events with retention and redaction policies
+  - path confinement under artifacts/runs/planner
+  - explicit no-op and blocked outputs
+  - transitive invalidation tests
+  - operator acceptance bound to one exact plan digest
+  - matched direct planning resume denial and provenance fixtures

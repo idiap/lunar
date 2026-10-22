@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-provenance-reconciliation-v1.schema.json",
+  "title": "Lunar prospective/observed provenance reconciliation v1",
+  "type": "object",
+  "required": ["schema_version", "components", "summary", "boundary", "prospective_digest", "observed_digest", "reconciliation_digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.provenance-reconciliation/v1"},
+    "reconciliation_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "plan_digest": {"$ref": "#/$defs/digest"},
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component_id", "prospective_status", "observed_status", "reconciliation_status", "release_blocking", "prospective", "observed"],
+        "properties": {
+          "component_id": {"type": "string", "minLength": 1},
+          "prospective_status": {"enum": ["planned", "not_planned"]},
+          "observed_status": {"enum": ["observed", "missing", "redacted", "not_executed", "unavailable", "expired", "unauthorized"]},
+          "reconciliation_status": {"enum": ["matched", "missing_observation", "unexpected_observation", "unexpected_omission", "digest_mismatch", "redacted", "not_executed", "unavailable", "expired", "unauthorized"]},
+          "release_blocking": {"type": "boolean"},
+          "prospective": {"type": ["object", "null"]},
+          "observed": {"type": ["object", "null"]},
+          "omission_reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["component_count", "status_counts", "release_blocking", "complete"],
+      "properties": {
+        "component_count": {"type": "integer", "minimum": 0},
+        "status_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "release_blocking": {"type": "boolean"},
+        "complete": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "boundary": {
+      "type": "object",
+      "required": ["prospective_is_observation", "allowed_privacy_classes", "redactions_are_explicit_omissions"],
+      "properties": {
+        "prospective_is_observation": {"const": false},
+        "allowed_privacy_classes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "redactions_are_explicit_omissions": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "prospective_digest": {"$ref": "#/$defs/digest"},
+    "observed_digest": {"$ref": "#/$defs/digest"},
+    "reconciliation_digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-requirement-ledger-v1.schema.json",
+  "title": "Lunar planner requirement ledger v1",
+  "type": "object",
+  "required": ["schema_version", "requirements", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.requirement-ledger/v1"},
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement_id", "status", "text", "active_text", "source_turn_ids", "desired_output", "correctness_criteria", "stability"],
+        "properties": {
+          "requirement_id": {"type": "string", "pattern": "^requirement-[1-9][0-9]*$"},
+          "status": {"enum": ["active", "superseded", "withdrawn"]},
+          "text": {"type": "string", "minLength": 1},
+          "active_text": {"type": "string", "minLength": 1},
+          "source_turn_ids": {"type": "array", "items": {"type": "string", "pattern": "^turn-[1-9][0-9]*$"}, "minItems": 1},
+          "qualification_turn_ids": {"type": "array", "items": {"type": "string", "pattern": "^turn-[1-9][0-9]*$"}},
+          "desired_output": {"type": "string", "minLength": 1},
+          "correctness_criteria": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+          "stability": {"enum": ["provisional", "stable"]},
+          "revision": {"type": "string"},
+          "planner_decision": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

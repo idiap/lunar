@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for source-bounded evidence synthesis",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:14b7e1ffbc3cb4bbaa471ed22cf4871b58603e5098a768fe8860b10ead9a1b9b",
+  "family_id": "source-bounded-synthesis",
+  "governing_boundary": "distinguish retrieved evidence from inference and name unavailable evidence",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "source-bounded evidence synthesis",
+  "snapshot_id": "snapshot-validation-source-bounded-synthesis-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

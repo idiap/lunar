@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: bioagents.skill-metadata/v1
+skill_id: workflow-skill-gap-planner
+version: 1.0.0
+structure:
+  template_version: bioagents.skill-package-template/v1
+  source_root: src
+  tests_root: tests
+  test_contract: tests/contract.yaml
+  references_index: references/INDEX.md
+  source_posture: instruction_or_orchestration_only
+  owned_source_declaration: null
+  owned_python_package: null
+scope: planner
+role: planner
+theme: planner
+execution:
+  posture: instruction_or_orchestration_only
+  mode: instruction_only
+  availability: unavailable
+  implementation: null
+cluster: planner

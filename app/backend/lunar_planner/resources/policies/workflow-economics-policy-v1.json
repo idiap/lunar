@@ -1,0 +1,140 @@
+{
+  "schema_version": "lunar.planner.workflow-economics-policy/v1",
+  "policy_id": "bioagents-default-workflow-economics-v1",
+  "policy_version": "1.0.0",
+  "default_enabled": false,
+  "modes": [
+    "off",
+    "estimate",
+    "observe",
+    "budget"
+  ],
+  "default_mode": "off",
+  "semantics": {
+    "primary_measure": "human-active-effort-saved-not-productivity",
+    "comparator": "experienced-practitioner-output-equivalent-traditional-process",
+    "negative_savings": "preserve",
+    "missing_values": "unknown-never-zero",
+    "scientific_authority": "none",
+    "budget_authority": "separate-explicit-authorization-only"
+  },
+  "activity_classes": [
+    "framing_protocol",
+    "discovery_access",
+    "screening_selection",
+    "reading_interpretation",
+    "extraction",
+    "normalization_linkage",
+    "data_staging",
+    "computation_analysis",
+    "consolidation_synthesis",
+    "verification_critique",
+    "revision_remediation",
+    "coordination_governance",
+    "packaging_communication",
+    "cross_stage_integration"
+  ],
+  "evidence_precedence": [
+    "exact_matched_observation",
+    "frozen_blinded_benchmark",
+    "organization_approved_profile",
+    "calibrated_analogue",
+    "structured_expert_prior",
+    "generic_prior"
+  ],
+  "evidence_states": [
+    "invoice_reconciled",
+    "provider_observed",
+    "meter_observed",
+    "tokenizer_derived",
+    "profile_estimated",
+    "heuristic_estimated",
+    "not_calculable"
+  ],
+  "quantiles": [
+    "p10",
+    "p50",
+    "p90"
+  ],
+  "resource_classes": [
+    "uncached_input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "reasoning_tokens",
+    "embedding_tokens",
+    "external_api_operations",
+    "cpu_seconds",
+    "gpu_seconds",
+    "memory_gb_seconds",
+    "storage_gb_hours",
+    "network_gb",
+    "fixed_charge"
+  ],
+  "shared_allocation_methods": [
+    "direct",
+    "equal",
+    "proportional_to_tokens",
+    "proportional_to_runtime",
+    "causal_owner",
+    "unallocated"
+  ],
+  "currency_arithmetic": "integer-nano-currency",
+  "price_resolution": "provider-model-region-tier-effective-time",
+  "pricing_rules": {
+    "mutable_prices_in_code": false,
+    "missing_price_as_zero": false,
+    "implicit_live_fx": false,
+    "historical_effective_snapshot_required": true
+  },
+  "privacy": {
+    "allowed": [
+      "opaque_ids",
+      "aggregate_counts",
+      "timestamps",
+      "component_labels",
+      "provider_model_ids",
+      "cost_lines"
+    ],
+    "prohibited": [
+      "prompts",
+      "response_bodies",
+      "hidden_reasoning",
+      "credentials",
+      "headers",
+      "patient_rows",
+      "low_entropy_sensitive_hashes"
+    ]
+  },
+  "rollout": {
+    "states": [
+      "off",
+      "fixture",
+      "shadow",
+      "audit",
+      "advisory"
+    ],
+    "default_state": "off",
+    "pinned_rollback_state": "off",
+    "user_visible_states": [
+      "advisory"
+    ],
+    "scientific_release_effect_states": [],
+    "budget_mode_requires_explicit_authorization": true
+  },
+  "promotion_gates": {
+    "minimum_effort_interval_coverage": 0.9,
+    "maximum_false_complete_rate": 0.05,
+    "maximum_false_positive_savings_rate": 0.05,
+    "planned_as_observed_escape_count": 0,
+    "budget_as_usage_escape_count": 0,
+    "missing_as_zero_escape_count": 0,
+    "complete_fixture_arithmetic_replay_rate": 1.0,
+    "legacy_compatibility_failure_count": 0,
+    "minimum_human_reviewers": 2,
+    "maximum_p95_latency_ms": 500,
+    "maximum_mean_artifact_bytes": 750000
+  },
+  "dynamic_imports_allowed": false,
+  "execution_allowed": false,
+  "digest": "sha256:8bde007b70a716ab4ac78bd6a9c7e181a2fe05e3410a4b33efb5f9ef7357d146"
+}

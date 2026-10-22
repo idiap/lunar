@@ -1,0 +1,23 @@
+/*
+ * SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+ *
+ * SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+ * Neuro-symbolic AI Group
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.skill-bindings { margin-top: 1.5rem; }
+.skill-bindings section + section { border-top: 1px solid var(--border); margin-top: 1.5rem; padding-top: 1rem; }
+.skill-binding-table { overflow-x: auto; margin: 1rem 0; }
+.skill-bindings table { width: 100%; border-collapse: collapse; text-align: left; }
+.skill-bindings th, .skill-bindings td { padding: .5rem; border-bottom: 1px solid var(--border); }
+.skill-bindings caption { text-align: left; font-weight: 600; margin-bottom: .5rem; }
+.skill-bindings pre { overflow: auto; max-height: 24rem; }
+
+.skill-bindings h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+.skill-bindings h3 { font-weight: 600; margin-bottom: .5rem; overflow-wrap: anywhere; }
+.skill-bindings dl { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: .75rem; }
+.skill-bindings dt { font-size: .875rem; color: var(--muted-foreground); }
+.skill-bindings dd, .skill-bindings p { overflow-wrap: anywhere; }
+.skill-bindings details { margin-top: .75rem; }
+.skill-bindings summary { cursor: pointer; }

@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for biologics manufacturing deviation assessment",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:0baaa3988f9c0ad546ed116d6434f055671c04da91c0a3bd8c872939e800a5cd",
+  "family_id": "manufacturing-deviation",
+  "governing_boundary": "separate observed deviation, product impact hypothesis, and disposition authority",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "biologics manufacturing deviation assessment",
+  "snapshot_id": "snapshot-sealed_rehearsal-manufacturing-deviation-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

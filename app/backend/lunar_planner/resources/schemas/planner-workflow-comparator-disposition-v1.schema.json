@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-workflow-comparator-disposition-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "workflow_digest", "workload_manifest_digest", "missing_dimensions", "mismatched_dimensions", "experienced_practitioner", "ordinary_non_agentic_tools", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.workflow-comparator-disposition/v1"},
+    "status": {"enum": ["equivalent", "not_equivalent"]},
+    "workflow_digest": {"type": ["string", "null"]},
+    "workload_manifest_digest": {"type": ["string", "null"]},
+    "missing_dimensions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "mismatched_dimensions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "experienced_practitioner": {"type": ["string", "null"]},
+    "ordinary_non_agentic_tools": {"type": "array", "items": {"type": "string"}},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}
+}

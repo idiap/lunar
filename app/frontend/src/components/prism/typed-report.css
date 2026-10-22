@@ -1,0 +1,44 @@
+/*
+ * SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+ *
+ * SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+ * Neuro-symbolic AI Group
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+.typed-section { margin-block: 1rem; }
+.typed-section-provenance {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  width: fit-content;
+  margin-block: .75rem;
+  font-size: .8rem;
+  color: var(--muted-foreground);
+}
+.typed-section-provenance svg { width: 1rem; height: 1rem; }
+.typed-section-provenance:hover { color: var(--foreground); }
+.typed-report img { max-width: 100%; height: auto; }
+.typed-report [role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  margin-block: .75rem;
+  border-bottom: 1px solid var(--border);
+}
+.typed-report [role="tab"] {
+  padding: .5rem .9rem;
+  border-bottom: 2px solid transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.typed-report [role="tab"][aria-selected="true"] {
+  border-color: var(--primary);
+  background: var(--muted);
+  color: var(--foreground);
+  font-weight: 600;
+}
+.typed-report [role="tab"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

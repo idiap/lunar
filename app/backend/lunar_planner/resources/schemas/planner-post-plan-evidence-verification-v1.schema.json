@@ -1,0 +1,329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-post-plan-evidence-verification-v1.schema.json",
+  "title": "Lunar post-plan epistemic verification overlay v1",
+  "type": "object",
+  "required": [
+    "schema_version", "overlay_id", "base_plan_digest",
+    "computed_base_plan_digest", "base_plan_digest_preserved", "status",
+    "semantics", "verification_context", "claim_atoms", "evidence_atoms",
+    "computation_atoms", "derivation_edges", "authority_profiles",
+    "symbolic_constraint_contracts", "deterministic_adapter_contracts",
+    "uncertainty_vectors", "evidence_independence_clusters",
+    "generative_envelopes", "risk_and_exploration_policy",
+    "method_assignments", "verification_obligations",
+    "grounding_matrix", "deterministic_checks", "findings",
+    "verification_test_specifications", "proposed_repairs",
+    "local_disposition_counts", "reused_responsibilities", "summary_event",
+    "route_only", "network_performed", "retrieval_performed",
+    "execution_performed", "store_mutation_performed",
+    "base_plan_mutation_performed", "digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.post-plan-evidence-verification/v1"},
+    "overlay_id": {"type": "string", "pattern": "^overlay-[0-9a-f]{16}$"},
+    "base_plan_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "computed_base_plan_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "base_plan_digest_preserved": {"type": "boolean"},
+    "status": {"enum": ["verification_ready", "verification_ready_with_caveats", "repair_required"]},
+    "semantics": {"const": "verification readiness of a plan; not validation of executed evidence"},
+    "verification_context": {"$ref": "#/$defs/verificationContext"},
+    "claim_atoms": {"type": "array", "items": {"$ref": "#/$defs/claimAtom"}},
+    "evidence_atoms": {"type": "array", "items": {"$ref": "#/$defs/evidenceAtom"}},
+    "computation_atoms": {"type": "array", "items": {"$ref": "#/$defs/computationAtom"}},
+    "derivation_edges": {"type": "array", "items": {"$ref": "#/$defs/derivationEdge"}},
+    "symbolic_constraint_contracts": {"type": "array", "items": {"$ref": "#/$defs/symbolicConstraintContract"}},
+    "deterministic_adapter_contracts": {"type": "array", "items": {"$ref": "#/$defs/deterministicAdapterContract"}},
+    "authority_profiles": {"type": "array", "items": {"$ref": "#/$defs/authorityProfile"}},
+    "uncertainty_vectors": {"type": "array", "items": {"$ref": "#/$defs/uncertaintyVector"}},
+    "evidence_independence_clusters": {"type": "array", "items": {"$ref": "#/$defs/evidenceCluster"}},
+    "generative_envelopes": {"type": "array", "items": {"$ref": "#/$defs/generativeEnvelope"}},
+    "risk_and_exploration_policy": {"$ref": "#/$defs/riskPolicy"},
+    "method_assignments": {"type": "array", "items": {"$ref": "#/$defs/methodAssignment"}},
+    "verification_obligations": {"type": "array", "items": {"$ref": "#/$defs/obligation"}},
+    "grounding_matrix": {"type": "array", "items": {"$ref": "#/$defs/groundingRow"}},
+    "deterministic_checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "verification_test_specifications": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+    "proposed_repairs": {"type": "array", "items": {"$ref": "#/$defs/repair"}},
+    "local_disposition_counts": {
+      "type": "object",
+      "required": ["pass", "pass_with_caveat", "defer", "revise_plan", "block", "inconclusive"],
+      "properties": {
+        "pass": {"type": "integer", "minimum": 0},
+        "pass_with_caveat": {"type": "integer", "minimum": 0},
+        "defer": {"type": "integer", "minimum": 0},
+        "revise_plan": {"type": "integer", "minimum": 0},
+        "block": {"type": "integer", "minimum": 0},
+        "inconclusive": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "reused_responsibilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "summary_event": {"$ref": "#/$defs/summaryEvent"},
+    "route_only": {"const": true},
+    "network_performed": {"const": false},
+    "retrieval_performed": {"const": false},
+    "execution_performed": {"const": false},
+    "store_mutation_performed": {"const": false},
+    "base_plan_mutation_performed": {"const": false},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nullableString": {"type": ["string", "null"]},
+    "stringArray": {"type": "array", "items": {"type": "string"}},
+    "verificationContext": {
+      "type": "object",
+      "required": ["schema_version", "receipt_digests", "network_performed", "retrieval_performed", "execution_performed", "digest"],
+      "properties": {
+        "schema_version": {"const": "lunar.planner.verification-context/v1"},
+        "receipt_digests": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}},
+        "network_performed": {"const": false},
+        "retrieval_performed": {"const": false},
+        "execution_performed": {"const": false},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "claimAtom": {
+      "type": "object",
+      "required": ["claim_id", "plan_location", "requirement_ids", "node_id", "output_type", "source_turn_indices", "normalized_predicate", "assertion_kind", "claim_posture", "materiality", "consumer", "intended_use", "requested_ceiling", "prohibited_promotions", "correctness_criteria"],
+      "properties": {
+        "claim_id": {"type": "string", "pattern": "^claim-[0-9a-f]{16}$"},
+        "plan_location": {"type": "string"},
+        "requirement_ids": {"$ref": "#/$defs/stringArray"},
+        "node_id": {"$ref": "#/$defs/nullableString"},
+        "output_type": {"$ref": "#/$defs/nullableString"},
+        "source_turn_indices": {"type": "array", "items": {"type": "integer", "minimum": 1}},
+        "normalized_predicate": {"type": "string", "minLength": 1},
+        "assertion_kind": {"enum": ["extracted_fact", "deterministic_derivation", "symbolic_consequence", "statistical_result", "scientific_synthesis", "exploratory_hypothesis", "user_constraint", "planned_future_action", "execution_status", "unknown"]},
+        "claim_posture": {"enum": ["observed", "computed", "associated", "causal", "hypothesis", "recommendation", "unknown"]},
+        "materiality": {"enum": ["material", "incidental"]},
+        "consumer": {"type": "string"},
+        "intended_use": {"type": "string"},
+        "requested_ceiling": {"enum": ["observed", "computed", "associated", "causal", "hypothesis", "recommendation", "unknown"]},
+        "prohibited_promotions": {"$ref": "#/$defs/stringArray"},
+        "correctness_criteria": {"$ref": "#/$defs/stringArray"}
+      },
+      "additionalProperties": false
+    },
+    "evidenceAtom": {
+      "type": "object",
+      "required": ["evidence_id", "source_id", "owner_or_issuer", "source_class", "release_or_date", "content_digest", "authorized", "retrieval_snapshot_digest", "independence_cluster", "locator", "access_class", "asserted_predicate", "applicable_claim_ids", "source_role", "directness", "authority_basis", "extraction_mode", "prompt_injection_quarantined", "support_class", "locator_valid"],
+      "properties": {
+        "evidence_id": {"type": "string"}, "source_id": {"type": "string"},
+        "owner_or_issuer": {"type": "string"}, "source_class": {"type": "string"},
+        "release_or_date": {"$ref": "#/$defs/nullableString"},
+        "content_digest": {"$ref": "#/$defs/nullableString"},
+        "authorized": {"type": "boolean"},
+        "retrieval_snapshot_digest": {"$ref": "#/$defs/nullableString"},
+        "independence_cluster": {"type": "string"}, "locator": {"type": "string"},
+        "access_class": {"enum": ["full_text", "abstract", "metadata", "snippet", "user_statement", "local_contract", "authenticated_run_artifact"]},
+        "asserted_predicate": {"type": "string"}, "applicable_claim_ids": {"$ref": "#/$defs/stringArray"},
+        "source_role": {"type": "string"},
+        "directness": {"enum": ["direct", "proof_derived", "distributed", "partial", "contradicted", "absent", "retrieval_only"]},
+        "authority_basis": {"type": "string"}, "extraction_mode": {"type": "string"},
+        "prompt_injection_quarantined": {"type": "boolean"},
+        "support_class": {"enum": ["direct", "proof_derived", "distributed", "partial", "contradicted", "absent", "retrieval_only"]},
+        "locator_valid": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "computationAtom": {
+      "type": "object",
+      "required": ["computation_id", "claim_id", "method_class", "assignment_reason", "provider_identity", "provider_version", "environment_digest", "permissions", "input_types", "output_type", "parameters", "seed", "numerical_tolerance", "determinism_class", "estimand", "assumptions", "invariants", "fixtures", "replication_rule", "provider_unavailable_behavior"],
+      "properties": {
+        "computation_id": {"type": "string"}, "claim_id": {"type": "string"},
+        "method_class": {"enum": ["exact", "symbolic", "statistical", "generative", "human"]},
+        "assignment_reason": {"type": "string"}, "provider_identity": {"type": "string"},
+        "provider_version": {"$ref": "#/$defs/nullableString"}, "environment_digest": {"$ref": "#/$defs/nullableString"},
+        "permissions": {"$ref": "#/$defs/stringArray"}, "input_types": {"$ref": "#/$defs/stringArray"},
+        "output_type": {"type": "string"}, "parameters": {"type": "object"},
+        "seed": {"type": ["integer", "null"]}, "numerical_tolerance": {"type": ["number", "null"]},
+        "determinism_class": {"enum": ["pure", "reproducible_seeded", "stochastic_estimated", "semantic_generative", "human"]},
+        "estimand": {"$ref": "#/$defs/nullableString"}, "assumptions": {"$ref": "#/$defs/stringArray"},
+        "invariants": {"$ref": "#/$defs/stringArray"}, "fixtures": {"$ref": "#/$defs/stringArray"},
+        "replication_rule": {"type": "string"}, "provider_unavailable_behavior": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "derivationEdge": {
+      "type": "object",
+      "required": ["edge_id", "input_evidence_ids", "input_claim_ids", "output_claim_id", "operation", "assumptions", "monotonic", "lossy", "verifier", "preserved_qualifiers"],
+      "properties": {
+        "edge_id": {"type": "string"}, "input_evidence_ids": {"$ref": "#/$defs/stringArray"},
+        "input_claim_ids": {"$ref": "#/$defs/stringArray"}, "output_claim_id": {"type": "string"},
+        "operation": {"enum": ["exact", "symbolic", "statistical", "generative", "human"]},
+        "assumptions": {"$ref": "#/$defs/stringArray"}, "monotonic": {"type": "boolean"},
+        "lossy": {"type": "boolean"}, "verifier": {"type": "string"},
+        "preserved_qualifiers": {"$ref": "#/$defs/stringArray"}
+      },
+      "additionalProperties": false
+    },
+    "symbolicConstraintContract": {
+      "type": "object",
+      "required": ["contract_id", "claim_id", "ontology_constraints", "namespace_constraints", "temporal_constraints", "protocol_constraints", "scope_constraints", "premises", "claim_ceiling", "closed_world_assumption", "failure_consequence"],
+      "properties": {
+        "contract_id": {"type": "string"}, "claim_id": {"type": "string"},
+        "ontology_constraints": {"$ref": "#/$defs/stringArray"},
+        "namespace_constraints": {"$ref": "#/$defs/stringArray"},
+        "temporal_constraints": {"$ref": "#/$defs/stringArray"},
+        "protocol_constraints": {"$ref": "#/$defs/stringArray"},
+        "scope_constraints": {"$ref": "#/$defs/stringArray"},
+        "premises": {"$ref": "#/$defs/stringArray"},
+        "claim_ceiling": {"type": "string"}, "closed_world_assumption": {"const": false},
+        "failure_consequence": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "deterministicAdapterContract": {
+      "type": "object",
+      "required": ["adapter_id", "kind", "semantics", "status", "fallback", "generative_substitution_allowed"],
+      "properties": {
+        "adapter_id": {"type": "string"},
+        "kind": {"enum": ["schema", "registry", "hash", "version", "identity", "join", "unit", "arithmetic", "set", "dag", "artifact", "extraction", "evidence_completeness"]},
+        "semantics": {"type": "string"},
+        "status": {"enum": ["checked", "planned_when_applicable"]},
+        "fallback": {"const": "not_applicable_or_explicit_unknown"},
+        "generative_substitution_allowed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "authorityProfile": {
+      "type": "object",
+      "required": ["profile_id", "claim_id", "assertion_category", "preferred_authority_classes", "inclusion_rules", "exclusion_rules", "required_source_roles", "directness_rule", "currency_rule", "conflict_search_rule", "stop_rule", "maximum_ceiling"],
+      "properties": {
+        "profile_id": {"type": "string"}, "claim_id": {"type": "string"},
+        "assertion_category": {"type": "string"}, "preferred_authority_classes": {"$ref": "#/$defs/stringArray"},
+        "inclusion_rules": {"$ref": "#/$defs/stringArray"}, "exclusion_rules": {"$ref": "#/$defs/stringArray"},
+        "required_source_roles": {"$ref": "#/$defs/stringArray"}, "directness_rule": {"type": "string"},
+        "currency_rule": {"type": "string"}, "conflict_search_rule": {"type": "string"},
+        "stop_rule": {"type": "string"}, "maximum_ceiling": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "uncertaintyVector": {
+      "type": "object",
+      "required": ["claim_id", "measurement", "sampling", "model", "stochastic", "source_disagreement", "applicability", "missing_evidence"],
+      "properties": {
+        "claim_id": {"type": "string"}, "measurement": {"type": "string"}, "sampling": {"type": "string"},
+        "model": {"type": "string"}, "stochastic": {"type": "string"}, "source_disagreement": {"type": "string"},
+        "applicability": {"type": "string"}, "missing_evidence": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "evidenceCluster": {
+      "type": "object",
+      "required": ["cluster_id", "evidence_ids", "support_classes", "contains_contradiction", "counts_as_independent_sources"],
+      "properties": {
+        "cluster_id": {"type": "string"}, "evidence_ids": {"$ref": "#/$defs/stringArray"},
+        "support_classes": {"$ref": "#/$defs/stringArray"}, "contains_contradiction": {"type": "boolean"},
+        "counts_as_independent_sources": {"const": 1}
+      },
+      "additionalProperties": false
+    },
+    "generativeEnvelope": {
+      "type": "object",
+      "required": ["claim_id", "allowed_evidence_ids", "allowed_operations", "prohibited_promotions", "output_schema_required", "abstention_required", "independent_fidelity_verifier", "producer_may_self_approve"],
+      "properties": {
+        "claim_id": {"type": "string"}, "allowed_evidence_ids": {"$ref": "#/$defs/stringArray"},
+        "allowed_operations": {"$ref": "#/$defs/stringArray"}, "prohibited_promotions": {"$ref": "#/$defs/stringArray"},
+        "output_schema_required": {"const": true}, "abstention_required": {"const": true},
+        "independent_fidelity_verifier": {"const": "claim-fidelity-verifier"},
+        "producer_may_self_approve": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "riskPolicy": {
+      "type": "object",
+      "required": ["severity_basis", "exploratory_template", "confirmatory_template", "citation_exemptions", "failure_propagation", "search_stop_rule"],
+      "properties": {
+        "severity_basis": {"$ref": "#/$defs/stringArray"}, "exploratory_template": {"type": "string"},
+        "confirmatory_template": {"type": "string"}, "citation_exemptions": {"$ref": "#/$defs/stringArray"},
+        "failure_propagation": {"type": "string"}, "search_stop_rule": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "methodAssignment": {
+      "type": "object",
+      "required": ["claim_id", "method_class", "reason", "least_flexible_adequate", "stricter_method_inapplicable_reason", "prohibited_fallbacks", "reuse_owner_skill"],
+      "properties": {
+        "claim_id": {"type": "string"}, "method_class": {"enum": ["exact", "symbolic", "statistical", "generative", "human"]},
+        "reason": {"type": "string"}, "least_flexible_adequate": {"const": true},
+        "stricter_method_inapplicable_reason": {"$ref": "#/$defs/nullableString"},
+        "prohibited_fallbacks": {"$ref": "#/$defs/stringArray"}, "reuse_owner_skill": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "obligation": {
+      "type": "object",
+      "required": ["obligation_id", "claim_id", "target", "method_class", "pass_condition", "required_evidence_ids", "severity", "failure_consequence", "reentry_owner", "invalidation_inputs", "producer_evaluator_separation_required"],
+      "properties": {
+        "obligation_id": {"type": "string"}, "claim_id": {"type": "string"}, "target": {"type": "string"},
+        "method_class": {"enum": ["exact", "symbolic", "statistical", "generative", "human"]},
+        "pass_condition": {"type": "string"}, "required_evidence_ids": {"$ref": "#/$defs/stringArray"},
+        "severity": {"enum": ["advisory", "repair", "block"]}, "failure_consequence": {"type": "string"},
+        "reentry_owner": {"type": "string"}, "invalidation_inputs": {"$ref": "#/$defs/stringArray"},
+        "producer_evaluator_separation_required": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "groundingRow": {
+      "type": "object",
+      "required": ["claim_id", "evidence_ids", "authority_profile_id", "method_class", "supported_ceiling", "requested_ceiling", "contradiction_present", "independence_clusters", "disposition", "rationale"],
+      "properties": {
+        "claim_id": {"type": "string"}, "evidence_ids": {"$ref": "#/$defs/stringArray"},
+        "authority_profile_id": {"type": "string"}, "method_class": {"enum": ["exact", "symbolic", "statistical", "generative", "human"]},
+        "supported_ceiling": {"type": "string"}, "requested_ceiling": {"type": "string"},
+        "contradiction_present": {"type": "boolean"}, "independence_clusters": {"$ref": "#/$defs/stringArray"},
+        "disposition": {"enum": ["pass", "pass_with_caveat", "revise_plan", "defer", "block", "inconclusive"]},
+        "rationale": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": ["check_id", "kind", "status", "target", "detail"],
+      "properties": {
+        "check_id": {"type": "string"}, "kind": {"type": "string"},
+        "status": {"enum": ["pass", "fail", "planned"]}, "target": {"type": "string"}, "detail": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "required": ["finding_id", "claim_id", "target", "severity", "disposition", "code", "message", "owner"],
+      "properties": {
+        "finding_id": {"type": "string"}, "claim_id": {"type": ["string", "null"]},
+        "target": {"type": "string"}, "severity": {"enum": ["advisory", "repair", "block"]},
+        "disposition": {"enum": ["pass", "pass_with_caveat", "revise_plan", "defer", "block", "inconclusive"]},
+        "code": {"type": "string"}, "message": {"type": "string"}, "owner": {"type": "string"},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "repair": {
+      "type": "object",
+      "required": ["repair_id", "finding_id", "operation", "target", "owner", "proposed_value", "mutates_base_plan", "done_when"],
+      "properties": {
+        "repair_id": {"type": "string"}, "finding_id": {"type": "string"}, "operation": {"type": "string"},
+        "target": {"type": "string"}, "owner": {"type": "string"}, "proposed_value": {"type": "object"},
+        "mutates_base_plan": {"const": false}, "done_when": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "summaryEvent": {
+      "type": "object",
+      "required": ["schema_version", "stage", "status", "action", "rationale_summary", "checked", "local_disposition_counts", "affected_plan_locations", "remaining_uncertainty", "next_action", "hidden_reasoning_exposed", "evidence_validated"],
+      "properties": {
+        "schema_version": {"const": "lunar.planner.reasoning-event/v1"}, "stage": {"type": "string"},
+        "status": {"type": "string"}, "action": {"type": "string"}, "rationale_summary": {"type": "string"},
+        "checked": {"$ref": "#/$defs/stringArray"}, "local_disposition_counts": {"type": "object"},
+        "affected_plan_locations": {"$ref": "#/$defs/stringArray"}, "remaining_uncertainty": {"type": "string"},
+        "next_action": {"type": "string"}, "hidden_reasoning_exposed": {"const": false}, "evidence_validated": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  }
+}

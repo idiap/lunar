@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for somatic variant evidence triage",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:6305fcd23ddad18124232f7702e2b3a3132da72204bbc265f0c8df68a10fc05e",
+  "family_id": "variant-evidence-triage",
+  "governing_boundary": "separate assay detection, biological interpretation, and clinical actionability",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "somatic variant evidence triage",
+  "snapshot_id": "snapshot-validation-variant-evidence-triage-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

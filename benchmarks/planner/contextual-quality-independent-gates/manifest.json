@@ -1,0 +1,31 @@
+{
+  "benchmark_id": "contextual-quality-independent-gates",
+  "certification_limitation": "The sealed rehearsal cases are committed and therefore not confidential. Results may validate harness behavior but are not a one-time sealed certification.",
+  "confidence_interval_method": "deterministic family-cluster bootstrap, 2000 resamples, percentile 95% interval",
+  "digest": "sha256:a9f561a4e7b5084e9e8307ddb6dde0f8fdd02eb71a848018b6b2214dc5991b6f",
+  "independence_contract": {
+    "development_sources_excluded": [
+      "melanoma",
+      "liver-metastasis-ecosystem"
+    ],
+    "family_atomic_partitioning": true,
+    "unique_mutation_template_per_case": true,
+    "unique_prompt_scaffold_per_case": true,
+    "unique_source_snapshot_per_family": true
+  },
+  "partitions": {
+    "sealed_rehearsal": {
+      "cases_digest": "sha256:06f18c4e12292dcd48cf6f56498200baa467704e1109919d8b7244e7bece8564",
+      "families": 10,
+      "requests": 50
+    },
+    "validation": {
+      "cases_digest": "sha256:8a098481ca15bf272e6f8a9a0fec096192266e7c8e3f1da804fe0fee97f3e6db",
+      "families": 5,
+      "requests": 25
+    }
+  },
+  "sample_size_rationale": "Five validation and ten rehearsal families, each with five behavior probes. Inference is clustered by family; cases within a family are not treated as independent.",
+  "schema_version": "bioagents.benchmark.independent-quality-manifest/v1",
+  "status": "validation_fixture_and_disclosed_sealed_rehearsal"
+}

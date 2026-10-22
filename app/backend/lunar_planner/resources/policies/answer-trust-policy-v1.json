@@ -1,0 +1,152 @@
+{
+  "schema_version": "lunar.planner.answer-trust-policy/v1",
+  "policy_id": "bioagents-default-answer-trust-v1",
+  "policy_version": "1.0.0",
+  "compatible_contract_majors": {
+    "answer_control_readiness": 1,
+    "answer_trust_assessment": 1,
+    "claim_trust_assessment": 1,
+    "generative_transformation_receipt": 1
+  },
+  "score_semantics": "evidence-and-control-posture-not-probability-of-truth",
+  "epsilon": 1e-12,
+  "dimension_weights": {
+    "external_grounding": 0.3,
+    "lineage_closure": 0.2,
+    "preservation_fidelity": 0.2,
+    "authority_directness_applicability": 0.15,
+    "generative_containment": 0.1,
+    "uncertainty_conflict_control": 0.05
+  },
+  "evidence_origin_grades": {
+    "authenticated_primary_data": 1.0,
+    "authoritative_primary_source": 0.95,
+    "independently_reproducible_derivation": 0.9,
+    "authoritative_secondary_source": 0.8,
+    "full_text": 0.75,
+    "abstract": 0.55,
+    "metadata": 0.35,
+    "snippet": 0.15,
+    "retrieval_hint": 0.0,
+    "model_memory": 0.0,
+    "generated_material": 0.0,
+    "planned_operation": 0.0
+  },
+  "claim_caps": {
+    "unverified_generative_edge": 25,
+    "missing_locator_or_content_digest": 40,
+    "unresolved_material_contradiction": 50,
+    "missing_high_impact_human_review": 60
+  },
+  "hard_gates": {
+    "fabricated_unresolvable_unauthorized_or_digest_mismatch": 0,
+    "memory_or_generated_only_material_fact": 0,
+    "citation_without_observed_lineage": 0,
+    "protected_field_contradiction": 0,
+    "claim_ceiling_exceeded": 0,
+    "planned_provenance_as_observed": null
+  },
+  "answer_aggregation": {
+    "method": "materiality-and-risk-weighted-harmonic-mean",
+    "coverage_multiplier": true,
+    "release_critical_ceiling": true,
+    "critical_claim_high_control_floor": 70,
+    "maximum_crisp_interval_width": 20
+  },
+  "tiers": [
+    {
+      "label": "high_control",
+      "minimum": 85,
+      "maximum": 100
+    },
+    {
+      "label": "substantiated",
+      "minimum": 70,
+      "maximum": 84.999999
+    },
+    {
+      "label": "guarded",
+      "minimum": 50,
+      "maximum": 69.999999
+    },
+    {
+      "label": "low",
+      "minimum": 25,
+      "maximum": 49.999999
+    },
+    {
+      "label": "blocked_untrusted",
+      "minimum": 0,
+      "maximum": 24.999999
+    }
+  ],
+  "non_evidence_origins": [
+    "model_memory",
+    "generated",
+    "generated_material",
+    "retrieval_hint",
+    "planned",
+    "inaccessible_link",
+    "planned_operation"
+  ],
+  "exempt_claim_classes": [
+    "unknown",
+    "user_constraint",
+    "prospective_action",
+    "method_description"
+  ],
+  "policy_precedence": [
+    "kernel",
+    "host",
+    "domain",
+    "request"
+  ],
+  "policy_precedence_rule": "later scopes may narrow but never raise a kernel or host ceiling",
+  "rollout": {
+    "states": [
+      "off",
+      "fixture",
+      "shadow",
+      "audit",
+      "advisory",
+      "enforcement"
+    ],
+    "default_state": "off",
+    "pinned_rollback_state": "off",
+    "readiness_enabled_states": [
+      "fixture",
+      "shadow",
+      "audit",
+      "advisory",
+      "enforcement"
+    ],
+    "assessment_enabled_states": [
+      "fixture",
+      "shadow",
+      "audit",
+      "advisory",
+      "enforcement"
+    ],
+    "user_visible_states": [
+      "advisory",
+      "enforcement"
+    ],
+    "release_effect_states": [
+      "enforcement"
+    ]
+  },
+  "promotion_gates": {
+    "fabricated_value_detection_rate": 1.0,
+    "citation_lineage_mismatch_detection_rate": 1.0,
+    "planned_as_observed_escape_count": 0,
+    "score_replay_mismatch_count": 0,
+    "legacy_compatibility_failure_count": 0,
+    "maximum_false_block_rate": 0.05,
+    "maximum_p95_latency_ms": 250,
+    "maximum_mean_artifact_bytes": 500000,
+    "minimum_human_review_capacity": 2
+  },
+  "executable_payloads_allowed": false,
+  "dynamic_imports_allowed": false,
+  "digest": "sha256:4cd4df25f242f9be3b3cacc177c182df0eedcccf2ac8a351abf8354db1e55a44"
+}

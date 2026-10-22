@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-contextual-outcome-quality-contract-v1.schema.json",
+  "title": "Contextual outcome quality contract v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_id",
+    "version",
+    "lifecycle",
+    "root_interaction_id",
+    "operation_role",
+    "parent_digest",
+    "principal",
+    "canonical_serialization",
+    "evidence_manifest_digest",
+    "requirement_ids",
+    "criteria",
+    "criterion_consumer_trace",
+    "evidence_whitelist",
+    "risk_tier",
+    "review_status",
+    "digest",
+    "presentable_as_user_answer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.contextual-outcome-quality-contract/v1"
+    },
+    "contract_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lifecycle": {
+      "enum": [
+        "provisional",
+        "frozen",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "root_interaction_id": {
+      "type": "string"
+    },
+    "operation_role": {
+      "const": "criterion_synthesis"
+    },
+    "parent_digest": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "principal": {
+      "type": "object"
+    },
+    "canonical_serialization": {
+      "const": "canonical-json-v1"
+    },
+    "evidence_manifest_digest": {
+      "type": "string"
+    },
+    "requirement_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "planner-contextual-quality-criterion-v1.schema.json"
+      }
+    },
+    "criterion_consumer_trace": {
+      "type": "object"
+    },
+    "evidence_whitelist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_tier": {
+      "enum": [
+        "control",
+        "ordinary",
+        "complex",
+        "human_authority"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "pending",
+        "passed",
+        "failed",
+        "inconclusive"
+      ]
+    },
+    "reviewed_plan_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "digest": {
+      "type": "string"
+    },
+    "presentable_as_user_answer": {
+      "const": false
+    },
+    "invalidated_by": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for trial eligibility evidence abstraction",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:9ce4372040836c15d5f48f4aa341769fa0a26ccad1041a8636e200ab098aa2ec",
+  "family_id": "trial-eligibility",
+  "governing_boundary": "quote eligibility facts without deciding enrollment",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "trial eligibility evidence abstraction",
+  "snapshot_id": "snapshot-sealed_rehearsal-trial-eligibility-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

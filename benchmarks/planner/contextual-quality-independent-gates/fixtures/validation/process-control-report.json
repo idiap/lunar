@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for pharmaceutical process control reporting",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:460500abbbdd933a4339628c1a0dd1d681fff92a1d4cfdadfac1e724752bbf0c",
+  "family_id": "process-control-report",
+  "governing_boundary": "connect each CQA to its evidence and do not invent release authority",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "pharmaceutical process control reporting",
+  "snapshot_id": "snapshot-validation-process-control-report-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.profile/v1
+source_archive_version: "1.1"
+workflow_id: direct_existing_capability_use
+kind: planner_profile
+status: planning_only_non_executing
+mode: direct_use
+catalog_scope: selected_package_skills_and_workflows
+surface_index: selected-package://surface
+root_inputs: [verbatim_request, desired_inputs, desired_outputs, supplied_inputs, authority_envelope, continuation]
+release_stage_id: delivery_handoff
+stages:
+  - id: candidate_gathering
+    owner_skill: skill-portfolio-navigator
+    owner_scope: planner
+    runtime_owner: lunar_planner.ports.resolve_intent
+    inputs: [verbatim_request, desired_inputs, desired_outputs]
+    outputs: [skill_portfolio_packet]
+    dependencies: []
+    rule: Scores and indexes nominate candidates only.
+  - id: semantic_reuse_review
+    owner_skill: skill-reuse-critical-reasoner
+    owner_scope: planner
+    inputs: [verbatim_request, skill_portfolio_packet]
+    outputs: [reuse_critical_packet]
+    dependencies: [candidate_gathering]
+    rule: Read complete candidate skill bodies before selection.
+  - id: contract_audit
+    owner_skill: skill-reuse-critical-reasoner
+    owner_scope: planner
+    inputs: [reuse_critical_packet, authority_envelope]
+    outputs: [skill_contract_audit]
+    dependencies: [semantic_reuse_review]
+    rule: Unavailable or instruction-only capabilities cannot advertise execution.
+  - id: invocation_plan
+    owner_skill: skill-portfolio-navigator
+    owner_scope: planner
+    runtime_owner: lunar_planner.ports.build_invocation_plan
+    inputs: [reuse_critical_packet, skill_contract_audit, authority_envelope]
+    outputs: [invocation_plan]
+    dependencies: [contract_audit]
+    rule: Return a dry run only; never invoke the selected skill or workflow.
+  - id: delivery_handoff
+    owner_skill: skill-portfolio-navigator
+    owner_scope: planner
+    runtime_owner: lunar_planner.staged_routing.plan_stages
+    inputs: [invocation_plan, authority_envelope]
+    outputs: [dialogue_state, requirement_ledger, workflow_draft, workflow_instantiation, proposed_skill_test_plans, workflow_refinement_cycle, delivery_handoff]
+    dependencies: [invocation_plan]
+    rule: Seal the selected route and binding, preserve a refinable caller-held dialogue state, gate workflow release on content-addressed execution-test evidence, and let a separate adapter own delivery.

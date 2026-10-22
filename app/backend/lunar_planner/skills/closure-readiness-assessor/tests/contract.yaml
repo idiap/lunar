@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: bioagents.skill-test-contract/v1
+skill_id: closure-readiness-assessor
+template_version: bioagents.skill-package-template/v1
+required_checks:
+- frontmatter_identity_matches_directory
+- skill_metadata_validates
+- references_index_is_current
+- source_posture_is_truthful
+- no_undeclared_runtime_claim
+source_posture: reviewed_owned_source
+runtime_tests_required: true
+status: behavior_tested

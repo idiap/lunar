@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Post Plan Evidence Grounding Verifier
+  short_description: Verify plan grounding without changing the plan
+  default_prompt: Use $post-plan-evidence-grounding-verifier to classify evidence
+    and verification obligations for this sealed plan without modifying or executing
+    it.

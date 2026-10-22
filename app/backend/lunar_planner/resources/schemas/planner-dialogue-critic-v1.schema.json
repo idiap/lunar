@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-dialogue-critic-v1.schema.json",
+  "title": "Lunar dialogue workflow benchmark critic v1",
+  "type": "object",
+  "required": ["schema_version", "case_id", "verdict", "biomedical_realism", "dialogue_fidelity", "planner_reuse", "workflow_correctness", "fatal_findings", "findings"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "lunar.planner.dialogue-critic/v1"},
+    "case_id": {"type": "string"},
+    "verdict": {"enum": ["pass", "fail", "inconclusive"]},
+    "biomedical_realism": {"type": "integer", "minimum": 0, "maximum": 3},
+    "dialogue_fidelity": {"type": "integer", "minimum": 0, "maximum": 3},
+    "planner_reuse": {"type": "integer", "minimum": 0, "maximum": 3},
+    "workflow_correctness": {"type": "integer", "minimum": 0, "maximum": 3},
+    "fatal_findings": {"type": "array", "items": {"type": "string"}},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion", "status", "evidence", "recommendation"],
+        "properties": {
+          "criterion": {"type": "string"},
+          "status": {"enum": ["pass", "fail", "inconclusive"]},
+          "evidence": {"type": "string"},
+          "recommendation": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

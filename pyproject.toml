@@ -1,0 +1,95 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+[project]
+name = "lunar-platform"
+version = "0.1.0"
+license = "Apache-2.0"
+description = "User-owned versioned domain packages, planning, and isolated execution."
+requires-python = ">=3.12,<3.14"
+dependencies = ["PyYAML>=6,<7", "jsonschema>=4.23,<5", "packaging>=24,<27"]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "jsonschema>=4.23,<5",
+    "packaging>=24,<27",
+    "ruff>=0.16.9",
+    "black>=26.5.1",
+    "pyright>=1.1.414",
+    "vulture>=2.16",
+    "reuse>=6.2.0",
+]
+mcp-backend = [
+  "ag-ui-protocol>=0.1.21,<0.2",
+  "alembic>=1.16,<2",
+  "asyncpg>=0.30,<1",
+  "beautifulsoup4>=4.12,<5",
+  "jsonschema>=4.23,<5",
+  "mcp>=1.26,<2",
+  "packaging>=24,<27",
+  "psycopg[binary]>=3.2,<4",
+  "pyyaml>=6,<7",
+  "resend>=2,<3",
+  "requests>=2.32,<3",
+  "starlette>=0.46,<2",
+  "uvicorn>=0.35,<1",
+  "playwright>=1.52,<2",
+  "prism-language",
+  "prism-runtime",
+  "prism-sdk[runtime]",
+  "prism-adapter-litellm",
+  "prism-stdlib",
+  "litellm>=1.80,<2",
+  "cryptography>=44,<49",
+  "httpx>=0.28,<1",
+  "python-multipart>=0.0.20,<1"
+]
+
+[tool.uv.sources]
+prism-language = { git = "https://github.com/idiap/prism.git", rev = "c0dc53bbcb07e4a672f713328002a8772dc7a1e1", subdirectory = "packages/prism-language" }
+prism-runtime = { git = "https://github.com/idiap/prism.git", rev = "c0dc53bbcb07e4a672f713328002a8772dc7a1e1", subdirectory = "packages/prism-runtime" }
+prism-sdk = { git = "https://github.com/idiap/prism.git", rev = "c0dc53bbcb07e4a672f713328002a8772dc7a1e1", subdirectory = "packages/prism-sdk" }
+prism-adapter-litellm = { git = "https://github.com/idiap/prism.git", rev = "c0dc53bbcb07e4a672f713328002a8772dc7a1e1", subdirectory = "packages/prism-adapter-litellm" }
+prism-stdlib = { git = "https://github.com/idiap/prism.git", rev = "c0dc53bbcb07e4a672f713328002a8772dc7a1e1", subdirectory = "libs/prism" }
+
+[tool.pytest.ini_options]
+pythonpath = [".", "app/backend"]
+testpaths = ["tests", "app/backend/tests"]
+norecursedirs = [".venv", "node_modules"]
+markers = [
+  "e2e: opt-in application end-to-end test requiring --run-e2e and isolated PostgreSQL",
+  "slow: test takes several seconds and is excluded from the default feedback loop",
+  "expensive: test performs heavyweight repository, benchmark, solver, or report work and requires --run-expensive",
+  "live: test requires explicitly enabled access to a live external service"
+]
+
+# Keep release checks independent of developer-wide tool configuration.
+[tool.ruff]
+target-version = "py312"
+exclude = [".venv", "node_modules", "artifacts", "storage", "var"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.black]
+target-version = ["py312"]
+extend-exclude = '/(node_modules|artifacts|storage|var)/'
+
+[tool.pyright]
+include = ["app/backend", "scripts", ".idiap-sd"]
+exclude = ["**/__pycache__", "**/node_modules", ".venv", "artifacts", "storage", "var"]
+extraPaths = ["app/backend", "."]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+
+[tool.vulture]
+exclude = [".venv/", "node_modules/", "artifacts/", "storage/", "var/"]

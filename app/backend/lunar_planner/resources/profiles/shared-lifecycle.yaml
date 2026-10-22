@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+schema_version: lunar.planner.lifecycle/v1
+source_archive_version: "1.2"
+contract_id: planner_profile_contract
+kind: planning_lifecycle
+status: planning_only_non_executing
+description: Shared rules for compact Lunar planner profiles.
+
+surface_scope:
+  index: selected-package://surface
+  skills: [scientific, planner]
+  workflows: [named_executable_workflow, reasoning_flow_registry, subworkflow_registry, planning_subworkflow]
+  authority: derived_navigation_only
+
+route_handoffs:
+  external_data_query: external-data-source-planning.yaml
+  direct_skill_use: direct-use.yaml
+  direct_workflow_run: direct-use.yaml
+  new_workflow: new-workflow.yaml
+  extend_existing_workflow: extend-workflow.yaml
+  refine_output_problem: refine-workflow.yaml
+  catalog_maintenance: project skill-governance stack
+  capability_help: generated descriptors and planner surface index
+  insufficient_context: stop with explicit missing inputs
+
+required_order:
+  - frame external data needs after problem framing and before capability design
+  - gather candidates from current Lunar surfaces
+  - inspect current run or artifact evidence when changing an existing workflow
+  - read complete relevant skill and workflow contracts
+  - classify direct composed partial and absent local coverage
+  - prefer existing named workflows and promoted subworkflows before new composition
+  - produce a planning artifact with assumptions inputs outputs tests blockers and done conditions
+  - bind post-plan evidence and determinism verification to the exact initial-plan digest for new extension and refinement journeys
+  - when explicitly enabled derive score-free answer control readiness from the sealed plan and post-plan verification before refinement
+  - when explicitly requested derive workflow economics from a sealed plan and output-equivalent comparator without changing routing or scientific controls
+  - apply project contract conversational workflow-health test and release review as applicable
+
+boundaries:
+  execution: forbidden
+  external_actions: forbidden
+  goal_creation: forbidden
+  canonical_skill_or_workflow_mutation: forbidden
+  archive_only_owner_binding: forbidden
+  lexical_selection_as_semantic_proof: forbidden
+  planned_relationship_as_observed_provenance: forbidden
+  verification_readiness_as_executed_evidence: forbidden
+  answer_control_readiness_as_realized_trust: forbidden
+  model_memory_or_generated_material_as_observed_evidence: forbidden
+  workflow_economics_estimate_as_observed_usage: forbidden
+  workflow_economics_as_scientific_release_authority: forbidden
+  post_plan_verifier_route_or_plan_mutation: forbidden
+
+promotion_requirements:
+  - all owners and runtime references resolve to current Lunar surfaces
+  - schemas validate profile stage handoff permission terminal and failure contracts
+  - a deterministic runtime exists under catalog.workflows dependencies
+  - run artifacts are confined to artifacts/runs/planner
+  - direct-use remains materially smaller than change planning
+  - post-plan verification is additive for new extension and refinement profiles and absent from direct-use
+  - verification findings remain local unless a route-critical dependency is affected
+  - realized answer trust is assessed only after authorized retrospective provenance and exact answer binding
+  - answer trust can narrow release but cannot override a must-pass quality failure or authorize execution
+  - workflow economics remains default-off advisory and preserves negative not-estimable and unpriced outcomes
+  - route-only and planning modes cannot silently execute
+  - matched adversarial and regression tests pass

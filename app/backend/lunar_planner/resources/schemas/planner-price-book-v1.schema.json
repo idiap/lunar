@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-price-book-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "retrieved_at", "rates", "digest"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.price-book/v1"},
+    "retrieved_at": {"type": "string", "format": "date-time"},
+    "rates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/rate"}},
+    "source_locator": {"type": "string"},
+    "authority": {"type": "string"},
+    "digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "rate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "service", "region", "tier", "resource_class", "unit", "currency", "effective_from", "rate_nano", "rate_unit"],
+      "properties": {
+        "provider": {"type": "string"}, "service": {"type": "string"}, "region": {"type": "string"}, "tier": {"type": "string"},
+        "resource_class": {"type": "string"}, "unit": {"type": "string"}, "currency": {"type": "string"},
+        "effective_from": {"type": "string", "format": "date-time"}, "effective_to": {"type": "string", "format": "date-time"},
+        "rate_nano": {"type": "integer", "minimum": 0}, "rate_unit": {"type": "integer", "minimum": 1},
+        "rounding": {"enum": ["ceiling", "half_even", "half_up"]}, "authority": {"type": "string"}
+      }
+    }
+  }
+}

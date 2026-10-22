@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lunar:domain-package:worker-result-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "status": {
+      "enum": [
+        "succeeded",
+        "failed",
+        "interrupted",
+        "unsupported"
+      ]
+    },
+    "prepared_input": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "entry_argument_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "object"
+            },
+            "request_digest": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "analysis_results": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "entry_argument_name",
+            "value",
+            "request_digest",
+            "analysis_results"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "markdown": {
+              "type": "string"
+            },
+            "structured_value": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "analysis_results": {
+              "type": "object"
+            },
+            "compact_prism_input": {
+              "type": "object"
+            },
+            "narrative_slots": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "report_verification": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "markdown",
+            "structured_value",
+            "analysis_results",
+            "compact_prism_input",
+            "narrative_slots",
+            "report_verification"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "kind": {
+            "enum": [
+              "stage",
+              "input",
+              "source",
+              "artifact",
+              "provenance",
+              "reasoning"
+            ]
+          },
+          "payload": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "sequence",
+          "kind",
+          "payload"
+        ]
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "media_type",
+          "sha256",
+          "size"
+        ]
+      }
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "stage",
+            "code",
+            "message"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "contract_version",
+    "request_id",
+    "status",
+    "prepared_input",
+    "result",
+    "events",
+    "artifacts",
+    "error"
+  ]
+}

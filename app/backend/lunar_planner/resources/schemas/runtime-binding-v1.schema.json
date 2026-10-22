@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bioagents.runtime-binding/v1",
+  "title": "RuntimeBinding/v1",
+  "type": "object",
+  "required": ["schema_version", "binding_id", "skill_id", "operation_id", "binding_kind", "entrypoint", "availability", "permissions", "privacy_boundary", "network_required", "reproducibility", "license", "fallback", "invalidation", "binding_digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.runtime-binding/v1"},
+    "binding_id": {"type": "string", "minLength": 1},
+    "skill_id": {"type": "string", "minLength": 1},
+    "operation_id": {"type": "string", "minLength": 1},
+    "binding_kind": {"enum": ["package_local", "shared_catalog_runtime", "workflow_local", "pinned_upstream", "external_provider", "instruction_only", "unavailable"]},
+    "entrypoint": {"type": ["object", "null"], "properties": {"protocol": {"enum": ["python", "command", "http", "mcp", "instruction", "none", "skill_source"]}, "locator": {"type": "string"}, "callable": {"type": "string"}, "source_root": {"type": "string"}, "module": {"type": "string"}, "shared_dependencies": {"type": "array", "items": {"$ref": "#/$defs/confinedPath"}, "uniqueItems": true}}, "required": ["protocol"], "additionalProperties": false},
+    "source_digest": {"$ref": "#/$defs/digest"},
+    "version": {"type": "string"},
+    "environment": {"type": "object"},
+    "availability": {"type": "object", "required": ["status", "checked", "reason"], "properties": {"status": {"enum": ["available", "unavailable", "unknown", "blocked"]}, "checked": {"type": "boolean"}, "reason": {"type": "string"}}, "additionalProperties": false},
+    "permissions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "privacy_boundary": {"enum": ["public", "repository", "private_workflow", "external", "unknown"]},
+    "network_required": {"type": "boolean"},
+    "reproducibility": {"type": "object", "required": ["execution_character"], "properties": {"execution_character": {"enum": ["exact_deterministic", "numerically_deterministic", "seeded_stochastic", "stochastic_estimated", "provider_opaque", "semantic_generative", "human_variable", "non_executing"]}, "seed": {"type": ["integer", "string", "null"]}, "tolerance": {"type": ["number", "null"], "minimum": 0}, "nondeterminism": {"type": "string"}}, "additionalProperties": false},
+    "license": {"type": "object", "required": ["spdx", "redistribution"], "properties": {"spdx": {"type": "string", "minLength": 1}, "redistribution": {"enum": ["allowed", "restricted", "unknown"]}}, "additionalProperties": false},
+    "fallback": {"type": "object", "required": ["mode"], "properties": {"mode": {"enum": ["none", "explicit_unavailable", "alternative_binding"]}, "binding_id": {"type": "string"}}, "additionalProperties": false},
+    "invalidation": {"type": "array", "items": {"type": "string"}},
+    "extensions": {"type": "object"},
+    "binding_digest": {"$ref": "#/$defs/digest"}
+  },
+  "additionalProperties": false,
+  "$defs": {"digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "confinedPath": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\u0000]+$"}}
+}

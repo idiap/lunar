@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: Completed Artifact Packager
+  short_description: Package completed outputs with provenance
+  default_prompt: Apply $completed-artifact-packager when a completed task requires
+    artifact delivery; assemble the generated files with integrity manifests and W3C
+    provenance descriptors.

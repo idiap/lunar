@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+FROM python:3.13-slim
+RUN apt-get update && apt-get install --yes --no-install-recommends ca-certificates git && rm -rf /var/lib/apt/lists/*
+RUN python -m pip install --no-cache-dir uv==0.11.14
+WORKDIR /opt/bootstrap
+COPY pyproject.toml uv.lock ./
+RUN uv sync --locked --no-dev --only-group mcp-backend
+ENV PATH="/opt/bootstrap/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1
+WORKDIR /output
+LABEL org.lunar.role="worker-base"

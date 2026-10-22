@@ -1,0 +1,990 @@
+{
+  "import": {
+    "adaptations": {
+      "canonical_name_aliases": {
+        "scientific-artifact-inspector": "artifact-inspector",
+        "scientific-plan-builder": "plan-builder",
+        "scientific-request-clarification": "request-clarification",
+        "scientific-request-intake": "request-intake",
+        "scientific-review-submitter": "review-submitter",
+        "scientific-run-controller": "run-controller",
+        "scientific-run-inspector": "run-inspector"
+      },
+      "manifest_resources": "Preserved and adapted scripts/run.py in every imported package; source and launcher digests are recorded per skill.",
+      "skill_instructions": "Replaced non-vendored-launcher notices with the restored skill-local launcher boundary; causal-lifecycle-hooks retains its Lunar-native lifecycle integration."
+    },
+    "execution_boundary": {
+      "catalog_packages_directly_executable": false,
+      "default": "Each package preserves an adapted launcher; execution requires the causal-agents runtime at the pinned commit.",
+      "native_exceptions": {
+        "causal-lifecycle-hooks": "catalog.workflows.public.dependencies.causal_lifecycle"
+      },
+      "skill_local_launchers_vendored": true,
+      "upstream_commit": "8da41fdc218ab341c76e7252b57aeb3350e42020",
+      "upstream_repository": "git@gitlab.idiap.ch:neurosymbolicai/causal-agents.git"
+    },
+    "mapping": {
+      "causal-identification": "reasoners/causal-and-symbolic-reasoning",
+      "causal-inference": "reasoners/causal-and-symbolic-reasoning",
+      "causal-reasoning": "reasoners/causal-and-symbolic-reasoning",
+      "evidence-verification": "reasoners/evidence-and-claims",
+      "experimental-design": "reasoners/validation-and-translation",
+      "optimization": "reasoners/optimization-and-decision",
+      "orchestration": "reasoners/orchestration",
+      "probability": "reasoners/probability-and-forecasting",
+      "simulation": "reasoners/mechanism-and-simulation",
+      "system-operations": "reasoners/runtime-and-governance"
+    },
+    "preserved_files": [
+      "SKILL.md",
+      "agents/openai.yaml",
+      "references/contract.md",
+      "skill.yaml",
+      "scripts/run.py"
+    ],
+    "script_policy": "Every upstream scripts/run.py is preserved in its mapped skill package and adapted for Lunar runtime resolution; the shared causal_agents runtime remains commit-pinned and external pending redistribution review.",
+    "skill_count": 115
+  },
+  "schema_version": "1.0.0",
+  "skills": [
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/analysis-modeling-and-inference/arbitrary-data-fusion",
+      "catalog_script_sha256": "sha256:40a1eba735b1aad99601659619ccbc9664eb227fca67171ff51af73f29401ae7",
+      "name": "arbitrary-data-fusion",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/arbitrary-data-fusion/scripts/run.py",
+      "source_script_sha256": "sha256:f6ba8993ad3039d73a656d8e29e34dac758157d5dbe385cb224116b9a9000071"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/analysis-modeling-and-inference/bound-inference-estimator",
+      "catalog_script_sha256": "sha256:085dacc8c055b0953b798dcf12f2e639f3a2a817c52e54510e6c3476a6bbe694",
+      "name": "bound-inference-estimator",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/bound-inference-estimator/scripts/run.py",
+      "source_script_sha256": "sha256:c8800f62c4920a758a4cef585ff92424abb40beab522ea024f0056f0b68751d6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/counterfactual-transport",
+      "catalog_script_sha256": "sha256:85dcf58f4d0149034d782b9a42833e3564071370b5ac404cbe2d700f478cb0e1",
+      "name": "counterfactual-transport",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/counterfactual-transport/scripts/run.py",
+      "source_script_sha256": "sha256:46759bd7d3e56670f19168285eaa2395ac4216f5f82bec7e7729e79b2d5c28e9"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/source-and-evidence-acquisition/meta-general-transport",
+      "catalog_script_sha256": "sha256:c0fe973079eeb5f907d970694cf12e4196df2f9a2a086723378eaafc87609c6e",
+      "name": "meta-general-transport",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/meta-general-transport/scripts/run.py",
+      "source_script_sha256": "sha256:f7be76fc70efed222e209356c494cd2605d741bd9bc49123be3d52aeb96e7dd2"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/source-and-evidence-acquisition/missing-data-identification",
+      "catalog_script_sha256": "sha256:b6d9c3db94f09e3c9c52910e64771bbeb85ca3f6fe36b05d67d5bcf25d47b173",
+      "name": "missing-data-identification",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/missing-data-identification/scripts/run.py",
+      "source_script_sha256": "sha256:5d6e21fe3005a2c7b44372d38aa1a6b999f424725ae869c5916f9cf74a752a11"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/source-and-evidence-acquisition/ordinary-transportability",
+      "catalog_script_sha256": "sha256:e6c52d233b4abb070a59e460872897b5fd0cff5950975a2b369df51d97ef56f6",
+      "name": "ordinary-transportability",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/ordinary-transportability/scripts/run.py",
+      "source_script_sha256": "sha256:be7fc4fffaa4aeefb5788343c97442ea54283a888b8f770b23c8140c7db3e611"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/policy-transport",
+      "catalog_script_sha256": "sha256:1f91fcbee9e29ccd5a0815c3f3712c511d13995f212f3d05b5968f27a254999a",
+      "name": "policy-transport",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/policy-transport/scripts/run.py",
+      "source_script_sha256": "sha256:83a613408df9581ade1db073d2c0cf0ec744725d7d10c10a6930ac7a1face134"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/analysis-modeling-and-inference/selection-bias-recovery",
+      "catalog_script_sha256": "sha256:27663e96d5637ec5bc01257129742355050257effbac9261aab89d833b2ba642",
+      "name": "selection-bias-recovery",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/selection-bias-recovery/scripts/run.py",
+      "source_script_sha256": "sha256:f3bd540149f0816caa3711c871a242165ab5692bb6ae611d005e606a3e20662a"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/data-preparation-and-representation/structural-causal-bounder",
+      "catalog_script_sha256": "sha256:16a0df605ce29cf8ec6a3e63219489b501fb8bec6e6821888b870438e0603857",
+      "name": "structural-causal-bounder",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/structural-causal-bounder/scripts/run.py",
+      "source_script_sha256": "sha256:ae57cf2036a96c2dbb140269d11d05936413d4d3e871000c13554488e6c04dfa"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/surrogate-experiments",
+      "catalog_script_sha256": "sha256:c4668fe08a880b7c9822b0dbb35b9e341399d096e5cd9e63578a1a7e7b94d31b",
+      "name": "surrogate-experiments",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/surrogate-experiments/scripts/run.py",
+      "source_script_sha256": "sha256:4628d986cab09fcfe3f500311b23e92f780150994ccbec7ddb1d2f6b6823df4a"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/z-identification",
+      "catalog_script_sha256": "sha256:491b1d68f80fedb4e51697748b3c658e739e57cb6854fdad98a5b3c0760531a8",
+      "name": "z-identification",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/z-identification/scripts/run.py",
+      "source_script_sha256": "sha256:793496bc6cf5d9e4ae1c91758f32ce48002e5d89c6c528142b1cc80025290768"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/z-transportability",
+      "catalog_script_sha256": "sha256:261e85c6fd30454b46cd5dbed4488cb4c5aa0c00bdb74f5838e4888e5f73c77b",
+      "name": "z-transportability",
+      "source_category": "causal-identification",
+      "source_script_path": "skills/causal-identification/z-transportability/scripts/run.py",
+      "source_script_sha256": "sha256:e1a0529b9b69ffee83d85dccfb9d55449136991eea5a8f8c3e4a33ca50f78c65"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/cross-sectional-discovery-router",
+      "catalog_script_sha256": "sha256:9f68e8f84dcc46e3475f0b18abad5ca46abfc55fb3d1c806622b0f908d3ed938",
+      "name": "cross-sectional-discovery-router",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/cross-sectional-discovery-router/scripts/run.py",
+      "source_script_sha256": "sha256:e21448efe09e4f7c12a7da9a333cf3c8f65aa5d0aebb4624bed0f4c38fa5bbfc"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/analysis-modeling-and-inference/dowhy-gcm-mechanisms",
+      "catalog_script_sha256": "sha256:956ca7a239b934be302995e9c542bf76ddcacf0f6a7cf9bac12dc47368908e8a",
+      "name": "dowhy-gcm-mechanisms",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/dowhy-gcm-mechanisms/scripts/run.py",
+      "source_script_sha256": "sha256:37c891717db4ba79619c25e6d490fc5a1856c8fbcdccad818460837a1be9a18b"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/dowhy-workflow-adapter",
+      "catalog_script_sha256": "sha256:97ac8165570ce51e6c9d3b8d1b305cd694aab3165e87219c028830697fbee9c2",
+      "name": "dowhy-workflow-adapter",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/dowhy-workflow-adapter/scripts/run.py",
+      "source_script_sha256": "sha256:69152efb25c9b12e6daacca923eb89ca6628c1d2ee041f76c0d06b0e4c81cddc"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/estimand-driven-estimation-router",
+      "catalog_script_sha256": "sha256:6119094b6242d708b63f1b02dfbb8c6f2dd9b087ca697738440325b4d91306bc",
+      "name": "estimand-driven-estimation-router",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/estimand-driven-estimation-router/scripts/run.py",
+      "source_script_sha256": "sha256:b2c3ad9033f81da4795a5f455a5b70dc8fd70c27e7ce23de58dd7567cd6cdd80"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/interventional-multidomain-discovery-router",
+      "catalog_script_sha256": "sha256:d0acaa9e7fa994ea021cc63d769976ed81a1d1da9d7d5efc36758c189468b852",
+      "name": "interventional-multidomain-discovery-router",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/interventional-multidomain-discovery-router/scripts/run.py",
+      "source_script_sha256": "sha256:971fb4d261fd6bd989557b0b75f92b090a660f3b8b8f8e7dde0fcdcec143df14"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/quasi-design-bayesian",
+      "catalog_script_sha256": "sha256:e23f0e07d5f49c6828d4bf77f5f61c77842066b72fd9a22d3ba24bd489914575",
+      "name": "quasi-design-bayesian",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/quasi-design-bayesian/scripts/run.py",
+      "source_script_sha256": "sha256:51a4eeb3d071bf18c43b2c7d39cc83b69315e9fe2deaf3babfd99aea837eb63f"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/quasi-design-econometric",
+      "catalog_script_sha256": "sha256:daabf96ea9e6f47a99fae41b4ab62dbc594ab7c8a7bc1d8316a8a13665352bc0",
+      "name": "quasi-design-econometric",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/quasi-design-econometric/scripts/run.py",
+      "source_script_sha256": "sha256:b2c5e1029312861f0becb8bf57b3ec24463b1224369dbbf897477582d992481a"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/quasi-design-orthogonal",
+      "catalog_script_sha256": "sha256:d7dc50016b0a5211ee00249f2ba0d15c02519a7d71f671a6499cfbc89c86dadf",
+      "name": "quasi-design-orthogonal",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/quasi-design-orthogonal/scripts/run.py",
+      "source_script_sha256": "sha256:af57ba96622cb821861814db75dec5559214916e7d95e0dd08cc33edee30d4a1"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/temporal-discovery-router",
+      "catalog_script_sha256": "sha256:2c5c45dff1d73b44a896ef6bf49179f0c4507bec804774f4c63931eaa0f58a05",
+      "name": "temporal-discovery-router",
+      "source_category": "causal-inference",
+      "source_script_path": "skills/causal-inference/temporal-discovery-router/scripts/run.py",
+      "source_script_sha256": "sha256:33ed5fb1d9295c210ff1eca7238f4b5c7aad456c48f38dc325a67b904f9ea631"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/data-preparation-and-representation/causal-abstraction-representation",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "causal-abstraction-representation",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/causal-abstraction-representation/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/causal-fairness-router",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "causal-fairness-router",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/causal-fairness-router/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/causal-policy-control-router",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "causal-policy-control-router",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/causal-policy-control-router/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/simulation-optimization-and-design/counterfactual-reasoning",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "counterfactual-reasoning",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/counterfactual-reasoning/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/orchestration-governance-and-control/influence-incentive-router",
+      "catalog_script_sha256": "sha256:4a57044f9dd56e1aa08b279f1a82766a7e983209345e96da14002c3ec2b0f767",
+      "name": "influence-incentive-router",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/influence-incentive-router/scripts/run.py",
+      "source_script_sha256": "sha256:944760a8cd61f1d926fc54529ee418bde2b922b56702ee648d256a9a36bb6964"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/causal-and-symbolic-reasoning/analysis-modeling-and-inference/neural-causal-model-router",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "neural-causal-model-router",
+      "source_category": "causal-reasoning",
+      "source_script_path": "skills/causal-reasoning/neural-causal-model-router/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/evidence-and-claims/source-and-evidence-acquisition/book-companion-evidence-intake",
+      "catalog_script_sha256": "sha256:2c5e9a52a1eee44ffbe58c91cc34bd7f8d56092bd6c1fbe6c778b62bb6d00e7e",
+      "name": "book-companion-evidence-intake",
+      "source_category": "evidence-verification",
+      "source_script_path": "skills/evidence-verification/book-companion-evidence-intake/scripts/run.py",
+      "source_script_sha256": "sha256:c8ab1d2d05b5cefecda8b9258f215772ebbb5606f9522a4cf1e1325e1099b3c1"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/evidence-and-claims/validation-audit-and-quality/discovery-equivalence-auditor",
+      "catalog_script_sha256": "sha256:b64b1b69690625dda16bd4ccef7fd37f239f8b1ac0e2206a916987711cb667a0",
+      "name": "discovery-equivalence-auditor",
+      "source_category": "evidence-verification",
+      "source_script_path": "skills/evidence-verification/discovery-equivalence-auditor/scripts/run.py",
+      "source_script_sha256": "sha256:48392bcdf262ea7f2f40dbdd8025e554526d0a682ba043275f4f94de3dfce792"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/evidence-and-claims/validation-audit-and-quality/non-equivalent-differential-verification",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "non-equivalent-differential-verification",
+      "source_category": "evidence-verification",
+      "source_script_path": "skills/evidence-verification/non-equivalent-differential-verification/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/evidence-and-claims/validation-audit-and-quality/project-data-ingestion",
+      "catalog_script_sha256": "sha256:8946435b659634ce6d4360797f4a0e7c6dc9c44a602cbccc06af17d31a19a70c",
+      "name": "project-data-ingestion",
+      "source_category": "evidence-verification",
+      "source_script_path": "skills/evidence-verification/project-data-ingestion/scripts/run.py",
+      "source_script_sha256": "sha256:31f4017afc950db616df151e4bb21068e9637bf070e49e2e57a31933ad78c68c"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/evidence-and-claims/validation-audit-and-quality/artifact-inspector",
+      "catalog_script_sha256": "sha256:f3787856e4581608deddbfaa084f9ced2b6741b89889dc2fa43731b2aa2349c9",
+      "name": "artifact-inspector",
+      "source_category": "evidence-verification",
+      "source_script_path": "skills/evidence-verification/scientific-artifact-inspector/scripts/run.py",
+      "source_script_sha256": "sha256:dfa97ae25519fd7dd55a1dd11eb6c9f75067d657fec5e8d52db22923c6c9a13d",
+      "upstream_name": "scientific-artifact-inspector"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/causal-experiment-designer",
+      "catalog_script_sha256": "sha256:f97140aefe04f71b59d3a9193472726b82f9c77708614705af6e02525504d61e",
+      "name": "causal-experiment-designer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/causal-experiment-designer/scripts/run.py",
+      "source_script_sha256": "sha256:191456bc55b6b3da1beda17ab3a240e661275d00170cde59de7393e4849f65c6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/closed-loop-experiment-governor",
+      "catalog_script_sha256": "sha256:857ad0f31c6876a96c171098f9870b77b1ae04bf860deb0791f5b74b174a3dfc",
+      "name": "closed-loop-experiment-governor",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/closed-loop-experiment-governor/scripts/run.py",
+      "source_script_sha256": "sha256:f31bb34e0cede60cd024396b891a103e75def7643f529e1ebc718d7ee2c5540f"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/design-family-router",
+      "catalog_script_sha256": "sha256:f28ff1da912fa37a41d9dfe6f651b4cff025162829f9012355764411c4652dbd",
+      "name": "design-family-router",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/design-family-router/scripts/run.py",
+      "source_script_sha256": "sha256:f1da38799cde68748ce6b2cffdd9202bf47660986ec75512d389d6349e9e22e1"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/design-simulation-diagnoser",
+      "catalog_script_sha256": "sha256:5675857a244dc17103e48e5cb5f90c3b1a0d0f96c43f84d3cbc890348b55747d",
+      "name": "design-simulation-diagnoser",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/design-simulation-diagnoser/scripts/run.py",
+      "source_script_sha256": "sha256:6aacb22ba97de86817b4e871835cb301fdbb327b432f6c171ca2967ebd30f260"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/analysis-modeling-and-inference/design-to-probability-update-bridge",
+      "catalog_script_sha256": "sha256:ddb2f5b6493409d2dac98d8f6c6eb8b9b45266b99855b8c0a75febddbb3adf07",
+      "name": "design-to-probability-update-bridge",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/design-to-probability-update-bridge/scripts/run.py",
+      "source_script_sha256": "sha256:eff56fbb32d22f4048a9202fc9df9055c2c9f75084a4d8162b77935b6b189364"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/experiment-intent-normalizer",
+      "catalog_script_sha256": "sha256:260ee228baf82c2c77fa0e2af40a96bb766cd8d9a5a383125ee67fb4f4c2cb04",
+      "name": "experiment-intent-normalizer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/experiment-intent-normalizer/scripts/run.py",
+      "source_script_sha256": "sha256:66870474587fffcb40d738396682f776f578025cf7505a67a18f82c1042f76f0"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/factorial-and-response-surface-designer",
+      "catalog_script_sha256": "sha256:64be6fc47854c4b09117d2f007207501abb7681bc223f2d20486efd1debe73bf",
+      "name": "factorial-and-response-surface-designer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/factorial-and-response-surface-designer/scripts/run.py",
+      "source_script_sha256": "sha256:2d5e3fe8481c9b8b9654b05cc0d9a2f22457a8ec93077600faaf62174cea9351"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/information-gain-designer",
+      "catalog_script_sha256": "sha256:82ac84f7370e6fd32d2d6ec505b2bce1846bca2cedf8d1ffac193692c9e27cb4",
+      "name": "information-gain-designer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/information-gain-designer/scripts/run.py",
+      "source_script_sha256": "sha256:cbf113e02f48d8fc9d183a949d9c14bdc45e917ebdcb732c43dfbdebc70fd929"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/optimal-design-generator",
+      "catalog_script_sha256": "sha256:822ada90cfdbd07cd1954e3411c7922ef24541b100a43bd1338988fb3571e25d",
+      "name": "optimal-design-generator",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/optimal-design-generator/scripts/run.py",
+      "source_script_sha256": "sha256:e7ef7c228f564441684dedb57c8df328908dceccfde3c393cb04f36f1a14bc03"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/orchestration-governance-and-control/power-and-sample-size-planner",
+      "catalog_script_sha256": "sha256:918f0f3953033d8bdd0e7744ef3197e8ad3ab6481f3839f2d294af11e21c1100",
+      "name": "power-and-sample-size-planner",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/power-and-sample-size-planner/scripts/run.py",
+      "source_script_sha256": "sha256:cf9285826081c734083997aca68d0c4da3e109de4122c62bc6b2792e92e6fb9b"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/probability-to-design-bridge",
+      "catalog_script_sha256": "sha256:f163551930d7c17130ff4d15113410abb61c82f242c88b858013b4adbdcd7512",
+      "name": "probability-to-design-bridge",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/probability-to-design-bridge/scripts/run.py",
+      "source_script_sha256": "sha256:a7e7da176c5e5b8f14620a583765d121d9bdfe720cee1446a7c55fd04be40033"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/randomization-and-allocation-designer",
+      "catalog_script_sha256": "sha256:07557397bfb6c11a578f3e01b152dc0322f0c6d2631fd91de6989290e25df7cf",
+      "name": "randomization-and-allocation-designer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/randomization-and-allocation-designer/scripts/run.py",
+      "source_script_sha256": "sha256:75d9c9974903d2faa53ea27f7138d22dd8d5ffbc9967935339d2ac1af5b2b10f"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/orchestration-governance-and-control/sequential-and-adaptive-design-planner",
+      "catalog_script_sha256": "sha256:69fdaa9c9cb62ea1a3139f5792fb3d946fe265b8c17c2b2489d000e84bd20b38",
+      "name": "sequential-and-adaptive-design-planner",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/sequential-and-adaptive-design-planner/scripts/run.py",
+      "source_script_sha256": "sha256:4fc6445976fbca5568957b7145ba1944208d3dda44bcf3aa8276ad0043051010"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/validation-and-translation/simulation-optimization-and-design/space-filling-computational-designer",
+      "catalog_script_sha256": "sha256:e77b74697277e1e840ca9d4d0020886a6fcb7ccc434650a27bf7bb4c8dc6c217",
+      "name": "space-filling-computational-designer",
+      "source_category": "experimental-design",
+      "source_script_path": "skills/experimental-design/space-filling-computational-designer/scripts/run.py",
+      "source_script_sha256": "sha256:9abf4c61ee7c63aca36c9759c2e50438614c580bf54ade994b13ff5dac34d219"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/bayesian-optimization-adapter",
+      "catalog_script_sha256": "sha256:64a38c585cffae2502c5ca1cbfc84c8cca63ecb4470ffbffd2104e540ff632a2",
+      "name": "bayesian-optimization-adapter",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/bayesian-optimization-adapter/scripts/run.py",
+      "source_script_sha256": "sha256:ba7dd9f176f47db7ed746efa90bed0f4b67558df94308000efd5640bc3c7d58e"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/multi-objective-optimizer",
+      "catalog_script_sha256": "sha256:2c792e742d550ea1d973b4a99b7306483fe748fa07aa2b4a0f0f90cd4af36789",
+      "name": "multi-objective-optimizer",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/multi-objective-optimizer/scripts/run.py",
+      "source_script_sha256": "sha256:a08ba44db6f313f166c436ff3d0d74aaa9aba27433e39fed050a3cbd9eaa5489"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/optimization-intent-normalizer",
+      "catalog_script_sha256": "sha256:97c6e777b3af43ed817e82414c5da3b86b973bebdde0128f6c676adafa12d292",
+      "name": "optimization-intent-normalizer",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/optimization-intent-normalizer/scripts/run.py",
+      "source_script_sha256": "sha256:8b1069838b373f44b8b7ce94c9b9364986c5becf8dd47351376a8e5863c3c1cb"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/validation-audit-and-quality/optimization-sensitivity-and-certifier",
+      "catalog_script_sha256": "sha256:75010735e39d49ec3ddee6a9b34ba3a92d4b07124ce4c622d19b3cdcd903f2e5",
+      "name": "optimization-sensitivity-and-certifier",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/optimization-sensitivity-and-certifier/scripts/run.py",
+      "source_script_sha256": "sha256:290ff82f70fb9ccbbb4a88145863c368d5bff95b53cd656b6bd351fad30a08ef"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/optimizer-router",
+      "catalog_script_sha256": "sha256:9b7279ecd68ee222d09a3532f39d6f30f566adf9aaf4de783bb7528dbd9782fa",
+      "name": "optimizer-router",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/optimizer-router/scripts/run.py",
+      "source_script_sha256": "sha256:c6b69c5cee90841717b3eb7615806cb80a605a933ff77fbe00ace440575519ee"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/optuna-study-adapter",
+      "catalog_script_sha256": "sha256:f0aa99458cb1b7e64194c3669519181570cce2d6da6dbd82df1abfce6ebd61a7",
+      "name": "optuna-study-adapter",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/optuna-study-adapter/scripts/run.py",
+      "source_script_sha256": "sha256:ef89eb58fe3b59f23ac80a405236dadf22a0d836ed790906488f5cac6a8519ee"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/ortools-discrete-optimizer",
+      "catalog_script_sha256": "sha256:c64f82dab9acbfb3172352764c085afc801769bd918664e108f6c5ef8435f369",
+      "name": "ortools-discrete-optimizer",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/ortools-discrete-optimizer/scripts/run.py",
+      "source_script_sha256": "sha256:ed9ae9f284e0a3c975da7fb429169901ed818c601d50199562b968a578fe513a"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/robust-and-risk-aware-optimizer",
+      "catalog_script_sha256": "sha256:d65cea142bc25448faaf71fd7e82224aedd97f3643585135898bbaa9f26f1306",
+      "name": "robust-and-risk-aware-optimizer",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/robust-and-risk-aware-optimizer/scripts/run.py",
+      "source_script_sha256": "sha256:f1fd5edf9ad233d8ec9c5af4be2c57a1b96658f2c50ab3c41bd17ab2a8e7499e"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/optimization-and-decision/simulation-optimization-and-design/scipy-optimization-adapter",
+      "catalog_script_sha256": "sha256:f3c5a06b2e5197dd4165169e8976577ffa45b778c100b2743235efbfb38125e9",
+      "name": "scipy-optimization-adapter",
+      "source_category": "optimization",
+      "source_script_path": "skills/optimization/scipy-optimization-adapter/scripts/run.py",
+      "source_script_sha256": "sha256:02095490464847e97bfc16524229d5801b41bb61b14399dde23a9505e6763150"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/analysis-modeling-and-inference/causal-assumption-dialogue",
+      "catalog_script_sha256": "sha256:025401dac7ded7e99e6ce6383659fda02c6571a43e74b4810639bd830597edc8",
+      "name": "causal-assumption-dialogue",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-assumption-dialogue/scripts/run.py",
+      "source_script_sha256": "sha256:26a27a0e381eeffa0f23c78f9bd4d3758224c9aad1d9325ba9dccd6f6e804e12"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/orchestration-governance-and-control/causal-capability-router",
+      "catalog_script_sha256": "sha256:6662577afddc72a566d750f9f78fa4d1cae97829582d4a778eec15d272bc7224",
+      "name": "causal-capability-router",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-capability-router/scripts/run.py",
+      "source_script_sha256": "sha256:d3e25a220a4a355a57dee15cefcfe1b1678343b9d07de97ce6b2624429800e22"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/validation-audit-and-quality/causal-codex-exec-bridge",
+      "catalog_script_sha256": "sha256:2f02488b570082ee5c5934f3e08039c756c38c9c17f9e27c26f4a391f577e8f2",
+      "name": "causal-codex-exec-bridge",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-codex-exec-bridge/scripts/run.py",
+      "source_script_sha256": "sha256:7ab03552fca0d0e5df54bceb53c4294ca0a65177d6c1c7840f6717879140fb6c"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/orchestration-governance-and-control/causal-lifecycle-hooks",
+      "catalog_script_sha256": "sha256:0427212d2367cbe592db13ac92ce5de38fe28d56bed0dfdfd2b8a36251028eba",
+      "name": "causal-lifecycle-hooks",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-lifecycle-hooks/scripts/run.py",
+      "source_script_sha256": "sha256:34485b9856da0e19722b52960b554f4d36ea8f040f313a4c14757621d6d2e610"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/analysis-modeling-and-inference/causal-request-interpreter",
+      "catalog_script_sha256": "sha256:c02f6fbe545526eb975839e445ddb4dae55401fbeef074530b61a37f43740269",
+      "name": "causal-request-interpreter",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-request-interpreter/scripts/run.py",
+      "source_script_sha256": "sha256:1b72cb9a81042677f83393590e0a69d992c352a534f0ff679d5fa3a2b22a93bf"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/reporting-visualization-and-packaging/causal-result-explainer",
+      "catalog_script_sha256": "sha256:729bb64e40c9c4c560fa71b2ebb2a14a2642a6f27a79686963db3c28cd0ce6c8",
+      "name": "causal-result-explainer",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/causal-result-explainer/scripts/run.py",
+      "source_script_sha256": "sha256:4e763cfb22dc61a97b5983e97cde9f736043cc1f3d67fe0100b426ed95a1de58"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/source-and-evidence-acquisition/isolated-backend-boundary",
+      "catalog_script_sha256": "sha256:632e4766861c740c09a7833e62afc12afd8efd66ad3338198fd0a8dcfff45c6b",
+      "name": "isolated-backend-boundary",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/isolated-backend-boundary/scripts/run.py",
+      "source_script_sha256": "sha256:22f894c5dee1fc5e4c95dfcb73448df69b7f3a2cd8726e7a0183fdc1bf3983bc"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/reporting-visualization-and-packaging/render-causal-output",
+      "catalog_script_sha256": "sha256:8d6996c446e309cbcb097f20d83f3966af2831c085e687ee0067df2f6f14c345",
+      "name": "render-causal-output",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/render-causal-output/scripts/run.py",
+      "source_script_sha256": "sha256:12a9bfd6c8413f20fc0b4d4354acb5918c4c297ce17c73faf3370a5949dd32ed"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/validation-audit-and-quality/run-reviewed-nl-scenario",
+      "catalog_script_sha256": "sha256:ae19269c2d9b246175d1b3e3fad88a98c5fae10c9d81071f17a37d12c6b093a6",
+      "name": "run-reviewed-nl-scenario",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/run-reviewed-nl-scenario/scripts/run.py",
+      "source_script_sha256": "sha256:d9c1d067ef2b53a7cfaee395ea77d3973683fd33457160b239cafd00316b21c4"
+    },
+    {
+      "catalog_path": "app/backend/lunar_planner/skills/plan-builder",
+      "catalog_script_sha256": "sha256:ff543678a13ea40470e804dc17b613c76d0150fc0c373f60f427b29e5f151c6d",
+      "name": "plan-builder",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-plan-builder/scripts/run.py",
+      "source_script_sha256": "sha256:381dcb41d4e65d4efa4460f076a2910e59b9c3729e577af216f60416d177b5bb",
+      "upstream_name": "scientific-plan-builder"
+    },
+    {
+      "catalog_path": "app/backend/lunar_planner/skills/request-clarification",
+      "catalog_script_sha256": "sha256:d8d7af0ecaa3bd90a532214a877796384234e840acece1ca8dc33c4599be6225",
+      "name": "request-clarification",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-request-clarification/scripts/run.py",
+      "source_script_sha256": "sha256:e8426fab8118a877da4f07961b9439c05c1a5701769dc97c9c9d9d8d5ac65cfc",
+      "upstream_name": "scientific-request-clarification"
+    },
+    {
+      "catalog_path": "app/backend/lunar_planner/skills/request-intake",
+      "catalog_script_sha256": "sha256:5afaeee126977fa9ed7b8180ad4df7c4177a22ff68d26c0c565ad40c55d86bc6",
+      "name": "request-intake",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-request-intake/scripts/run.py",
+      "source_script_sha256": "sha256:f16d138566d196e3d0cdde6f98c44144a72fe82650ba1ccf9513bcd4963beab2",
+      "upstream_name": "scientific-request-intake"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/validation-audit-and-quality/review-submitter",
+      "catalog_script_sha256": "sha256:9dc39bff42d76cbad8aa62b1e461f8d591b8d30d8dd70a103348dde4bd868408",
+      "name": "review-submitter",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-review-submitter/scripts/run.py",
+      "source_script_sha256": "sha256:5f85b7542d6cc97717d90fa3c9df48d602709ddf1cc23d20c3fc883805305124",
+      "upstream_name": "scientific-review-submitter"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/orchestration/orchestration-governance-and-control/run-controller",
+      "catalog_script_sha256": "sha256:b5b4791855138b1c82cb2a558d3f11f4a2c8f5c4440d4b76ec9c04070048d8a0",
+      "name": "run-controller",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-run-controller/scripts/run.py",
+      "source_script_sha256": "sha256:ea906aab7770161040f8db0d5fa3dd64702c3e912e415501fbcb82bf9bb54dd0",
+      "upstream_name": "scientific-run-controller"
+    },
+    {
+      "catalog_path": "app/backend/lunar_planner/skills/run-inspector",
+      "catalog_script_sha256": "sha256:1846bac5a83b5c411cdb3574bb5acabc7a3b67dd844cd9ed8be29d93979e948d",
+      "name": "run-inspector",
+      "source_category": "orchestration",
+      "source_script_path": "skills/orchestration/scientific-run-inspector/scripts/run.py",
+      "source_script_sha256": "sha256:693d3f85fd1fd92064a0582519bc464684c8e8e30bd7c70c0894610725df5944",
+      "upstream_name": "scientific-run-inspector"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/validation-audit-and-quality/argument-dependence-auditor",
+      "catalog_script_sha256": "sha256:b91cc019e6b387a2300c0512a68e3d091ce7ffe90d3b7a9145f958c4fc621f1b",
+      "name": "argument-dependence-auditor",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/argument-dependence-auditor/scripts/run.py",
+      "source_script_sha256": "sha256:d8f5141306312c6da208ef80bb21ebd4d6177935a7e8997677ef60d4f40596a3"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/data-preparation-and-representation/argument-map-extractor",
+      "catalog_script_sha256": "sha256:c814358fb398df292e2c917f80632a10cfbe6ddcdd9b1ded4407c96cdb9b6c44",
+      "name": "argument-map-extractor",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/argument-map-extractor/scripts/run.py",
+      "source_script_sha256": "sha256:92a5407e4c6588be1084d8cdb5e82612d2e754e2e22df8387590f8d7c44cc692"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/base-rate-estimator",
+      "catalog_script_sha256": "sha256:2c2ddd8c685f36adeb36a39dfeb2a1aa48da98bf0f3a3a309366d547f016da84",
+      "name": "base-rate-estimator",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/base-rate-estimator/scripts/run.py",
+      "source_script_sha256": "sha256:28a4362b340b6412b8098e3186a20edadcfaec661707bc5ed9cd176bf59e93e6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/bayesian-probability-modeler",
+      "catalog_script_sha256": "sha256:2668f93673a2f18348b27609071cec6eb9c4618282be92c6bb4089087de597aa",
+      "name": "bayesian-probability-modeler",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/bayesian-probability-modeler/scripts/run.py",
+      "source_script_sha256": "sha256:9daaaf280a979d7eadc05d93aae029261319084154d088d3b8db4a850d999d1f"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/elicited-distribution-fitter",
+      "catalog_script_sha256": "sha256:37d94e9e51b03e0158b391d7fe293cacd1915f30396a9858cd98fb20fb0dfbf8",
+      "name": "elicited-distribution-fitter",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/elicited-distribution-fitter/scripts/run.py",
+      "source_script_sha256": "sha256:fc8132328be9c2567e06814e4de12083c31eecbb0601457e82519e4ccb22cf24"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/data-preparation-and-representation/event-resolution-specifier",
+      "catalog_script_sha256": "sha256:65c1835feea1a00afb7d0feb7b72abd2aed2d2b35aed6c93817f8027e5bdbb01",
+      "name": "event-resolution-specifier",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/event-resolution-specifier/scripts/run.py",
+      "source_script_sha256": "sha256:13519310cb523adaa5ebbe35a8deb1c4be4182668446e3372b22b1b4f3329c14"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/orchestration-governance-and-control/expert-elicitation-planner",
+      "catalog_script_sha256": "sha256:6d81908297b77176010dc054b92065bb2d5d249c3656b5d1724f1c0c5a41bc2b",
+      "name": "expert-elicitation-planner",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/expert-elicitation-planner/scripts/run.py",
+      "source_script_sha256": "sha256:bac60909dec70fef1a4d736fe8358041a3ddb40cae6b1eaf45d8a2ba4e76e728"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/fermi-decomposition-estimator",
+      "catalog_script_sha256": "sha256:d890b409e399cf0da3a6d79095af06db311701e20aca84e9528c164692332251",
+      "name": "fermi-decomposition-estimator",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/fermi-decomposition-estimator/scripts/run.py",
+      "source_script_sha256": "sha256:aa8c9cbaeaca387165e9a54b0aad4e6367d792e3bee56fb6b0b681a842ba9e92"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/validation-audit-and-quality/forecast-update-auditor",
+      "catalog_script_sha256": "sha256:50f62652e1bd6ccc14d67a31e5cdb4896c374b6c659bbeafd74fa534d5100bac",
+      "name": "forecast-update-auditor",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/forecast-update-auditor/scripts/run.py",
+      "source_script_sha256": "sha256:40da30e7d088a218be4f07d9295e1c54ac6ba9e38eac37bf39003badb3fe7ac6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/imprecise-probability-and-bounds",
+      "catalog_script_sha256": "sha256:fe363652f04100a3b9ba18ee4d6bca8007faec1234d4b0976e8b6ec26febb891",
+      "name": "imprecise-probability-and-bounds",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/imprecise-probability-and-bounds/scripts/run.py",
+      "source_script_sha256": "sha256:5deb8d9a89c3cf499bb7675787f30549ba6a52188f89d5ccd3e1c021ddbd64ac"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/multi-source-probability-combiner",
+      "catalog_script_sha256": "sha256:c79f87e617b7d0b8a439e833dc03afddeeb7749c753a85e2992574f859f511a6",
+      "name": "multi-source-probability-combiner",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/multi-source-probability-combiner/scripts/run.py",
+      "source_script_sha256": "sha256:2de54641312561953e508e4c1178581f7e4f53762df52ab9e97e7cca86ca9265"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/odds-and-likelihood-updater",
+      "catalog_script_sha256": "sha256:f9f7377294a6e5c1af929e735ac11343da98d9b9acab8db6aaabe555867ac087",
+      "name": "odds-and-likelihood-updater",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/odds-and-likelihood-updater/scripts/run.py",
+      "source_script_sha256": "sha256:f48a5a12fee6e850a0ef827765b4e2fefdd2cb24727d390db62d515ef86dfb22"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/data-preparation-and-representation/probabilistic-graph-compiler",
+      "catalog_script_sha256": "sha256:7ff38788c69566e5ac2d626565a71f9217f8dc233fa49ec362e3be4452247f61",
+      "name": "probabilistic-graph-compiler",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probabilistic-graph-compiler/scripts/run.py",
+      "source_script_sha256": "sha256:72cccb27a9615f86aaedabeba4715bd531008ffe3ec7b257235b403daf762df3"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/validation-audit-and-quality/probability-calibration-evaluator",
+      "catalog_script_sha256": "sha256:f39aaef4e7e6915d6e25da991d813aa9435090a337c41737dfb269017fd1d1cb",
+      "name": "probability-calibration-evaluator",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probability-calibration-evaluator/scripts/run.py",
+      "source_script_sha256": "sha256:2ac76e9e35aab207a2fe64361ffc5deeea18e8b3e0f2e42122159fdcf014485f"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/validation-audit-and-quality/probability-coherence-auditor",
+      "catalog_script_sha256": "sha256:7064dce5c0a3a00bcd10f7621caebcdbac5be03c34a06ec465a55fb2b2c252d7",
+      "name": "probability-coherence-auditor",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probability-coherence-auditor/scripts/run.py",
+      "source_script_sha256": "sha256:343e936d12a2250272647daa84e7c2c4120ffd2b0dfd17c77bd4e9638bd5f9f4"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/data-preparation-and-representation/probability-question-normalizer",
+      "catalog_script_sha256": "sha256:d48ee7c9dc1615761362cfe15cb8ed67d2cafa3169ccdde34afafd5498a45870",
+      "name": "probability-question-normalizer",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probability-question-normalizer/scripts/run.py",
+      "source_script_sha256": "sha256:95ff58c69c1d72e6738e9d80c9fb37a9fa6fc5231a4fbb44cb5f2a3f7d83648c"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/reporting-visualization-and-packaging/probability-report-generator",
+      "catalog_script_sha256": "sha256:08e756947090f87b82be9a2fa4808f62b80df9d3bcbcdd67cf01ad688c4566fb",
+      "name": "probability-report-generator",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probability-report-generator/scripts/run.py",
+      "source_script_sha256": "sha256:66220db7541f8981c8595c0f52150cbb1ac476b74307369557a6385b5c8950c6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/validation-audit-and-quality/probability-sensitivity-analyzer",
+      "catalog_script_sha256": "sha256:88a12a7ab64076699739e50d672aa70d5dadc86babbd424833c040456040dbc6",
+      "name": "probability-sensitivity-analyzer",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/probability-sensitivity-analyzer/scripts/run.py",
+      "source_script_sha256": "sha256:bc4881cfbeaf8734093f0d29d40eff83cd8a3721fe5d720207814ad304d555a5"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/source-and-evidence-acquisition/reference-class-finder",
+      "catalog_script_sha256": "sha256:8d6f08f42f288fc684ce5480906925105187178f9bbf58062748c2681c6ec304",
+      "name": "reference-class-finder",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/reference-class-finder/scripts/run.py",
+      "source_script_sha256": "sha256:2e6b72359e51f007a30830c2164fba961691f2f25c4e3595219c44fbae020693"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/probability-and-forecasting/analysis-modeling-and-inference/scenario-mixture-estimator",
+      "catalog_script_sha256": "sha256:de08af56d7ad973eb05f0de9c4b637596e4b04681e29e418c40f93c171bf848b",
+      "name": "scenario-mixture-estimator",
+      "source_category": "probability",
+      "source_script_path": "skills/probability/scenario-mixture-estimator/scripts/run.py",
+      "source_script_sha256": "sha256:d3ad197fefaf0f82a27d3419ed40a41e326eecb679fae34cd2417b527a216bcd"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/digital-twin-counterfactual",
+      "catalog_script_sha256": "sha256:2ef92678156bdcab2cea53408dd2f550bb44d252a523360bb964199e0f16a343",
+      "name": "digital-twin-counterfactual",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/digital-twin-counterfactual/scripts/run.py",
+      "source_script_sha256": "sha256:87ebbdee17e640ac68f18d26d8848c11b26da0b1856fd5a85805e5f24d2acff4"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/dynamic-policy-experiment-designer",
+      "catalog_script_sha256": "sha256:82f535a3ed52c5293cb61d020b7128b2cc09c8234ff5b4943f8c3cb05a0a90eb",
+      "name": "dynamic-policy-experiment-designer",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/dynamic-policy-experiment-designer/scripts/run.py",
+      "source_script_sha256": "sha256:b1673ab78bdd4185ca06a245b143e30aaff8bfcf022e35335f93b6131194c185"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/event-agent-simulator",
+      "catalog_script_sha256": "sha256:bca2baae0172510995b1a6a17b39620ea86cc3a86d6716f2085e392e9511a5d6",
+      "name": "event-agent-simulator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/event-agent-simulator/scripts/run.py",
+      "source_script_sha256": "sha256:9859d1ead20f057412e97fa3eeccd6b3c1a3f70efe45fd927d5c45d61b97dde5"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/likelihood-free-simulator-inference",
+      "catalog_script_sha256": "sha256:9f5b1783f5aa467531f234923b433d4687bb6e41a1ada082c0c74e3d2335300d",
+      "name": "likelihood-free-simulator-inference",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/likelihood-free-simulator-inference/scripts/run.py",
+      "source_script_sha256": "sha256:bc2948a24137f4cfb9237c2b708d6c9d42b966e8c73f3af4500303f0155e4a1d"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/validation-audit-and-quality/mechanistic-calibration",
+      "catalog_script_sha256": "sha256:c0d35036f0b0724bd8f81cc2a4b9948d6d33eb983f1ec4e34f6e1ef65f1ddd6f",
+      "name": "mechanistic-calibration",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/mechanistic-calibration/scripts/run.py",
+      "source_script_sha256": "sha256:5bec0bbd584ba9732bdcdba84f5b0c9cac437dbfa38de3bcb3fa5cb180f0e132"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/numerical-dynamics-simulator",
+      "catalog_script_sha256": "sha256:b96399fca1b58a9cb91819447cb2d41401b84d31adcf9395d79f3b1603b20fb7",
+      "name": "numerical-dynamics-simulator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/numerical-dynamics-simulator/scripts/run.py",
+      "source_script_sha256": "sha256:3d596446ea23b4bc23037c068b13681e2995ef15c48e7730491fd45fb1a2a5f4"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/posterior-intervention-simulator",
+      "catalog_script_sha256": "sha256:86fd8bea33e20a3648324bdd821baadc8653dd6a9aee33d5d2f6e70db46d98a9",
+      "name": "posterior-intervention-simulator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/posterior-intervention-simulator/scripts/run.py",
+      "source_script_sha256": "sha256:233572be87cd923a7126c398acd66a6a46ab042da5ff736c676d7649db46d55a"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/simulator-causal-mapper",
+      "catalog_script_sha256": "sha256:2244fb009f7fa1c61cccce1819e7c4a2f629d3b92ab08888b6fee6a946d3a749",
+      "name": "simulator-causal-mapper",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-causal-mapper/scripts/run.py",
+      "source_script_sha256": "sha256:36f31ec97edf13d424c5b0d7962d0b8b18d050222331b71f2ced166a6c7d3f40"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/validation-audit-and-quality/simulator-contract-validator",
+      "catalog_script_sha256": "sha256:c4a55e67487a532e4bda29ec38be657dcc5cdd0f479c271945c30e1956e82491",
+      "name": "simulator-contract-validator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-contract-validator/scripts/run.py",
+      "source_script_sha256": "sha256:3207a5cdb9c6ba1d43fe3f1a12b2703381e159d947ffc947e23dcb9efbf77247"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/simulator-discrepancy-analyzer",
+      "catalog_script_sha256": "sha256:397d90fdd123ecba1d75ee1283d9581285368522e92d2dd9a39b270a660cc664",
+      "name": "simulator-discrepancy-analyzer",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-discrepancy-analyzer/scripts/run.py",
+      "source_script_sha256": "sha256:8046008d70c6edfff01be47b2c006ef3c740e622f09d97656ab84af285908b00"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/simulator-emulator-validator",
+      "catalog_script_sha256": "sha256:313ec6c933152c447a804ba2e73883665a80ef15d8c272b01bcf92b921d08497",
+      "name": "simulator-emulator-validator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-emulator-validator/scripts/run.py",
+      "source_script_sha256": "sha256:5be258caac0267a6025652cd95219cf82bb9d791489370d7724a736306c32a60"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/validation-audit-and-quality/simulator-identifiability-auditor",
+      "catalog_script_sha256": "sha256:fd856e39479fb2b79d96aef0e7e4cacb069799e4f856e0df6ee63743f4ba6346",
+      "name": "simulator-identifiability-auditor",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-identifiability-auditor/scripts/run.py",
+      "source_script_sha256": "sha256:f6edad533939c6157f44286544c88354967b7e3cc5de1b56ee41e2b773f363aa"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/validation-audit-and-quality/simulator-identification-gate",
+      "catalog_script_sha256": "sha256:f742657211a1dc9000c1ab0fd18a4caa306b33ed146c1fc970b7c23e08460698",
+      "name": "simulator-identification-gate",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-identification-gate/scripts/run.py",
+      "source_script_sha256": "sha256:6bfc92e2d37270ef389d624b3af3df0bceacb2a28c4d2ab9a4e55c902d3792de"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/simulator-intervention-compiler",
+      "catalog_script_sha256": "sha256:ac4e1df039e670f27635f7e6f79d4b1473852eff0213bd59010bb4876fb1256c",
+      "name": "simulator-intervention-compiler",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-intervention-compiler/scripts/run.py",
+      "source_script_sha256": "sha256:4d01c2db660791f9e3e4e8a0c73190f182b23135a1d97d83a268cd793e380356"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/simulation-optimization-and-design/simulator-observation-operator",
+      "catalog_script_sha256": "sha256:87fb19618b7fba9113867cbbb0dfd44f9395bb6730724c2a150142dca719d9b4",
+      "name": "simulator-observation-operator",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-observation-operator/scripts/run.py",
+      "source_script_sha256": "sha256:dcff87fc715d703ae99534913081002e8f6b054082ebbffa691a5d20b569e3a5"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/mechanism-and-simulation/orchestration-governance-and-control/simulator-runtime-controller",
+      "catalog_script_sha256": "sha256:8488c61d4ab7800c86dcf4a4e228756b85a7ec492f519b590a3faed06c6fd573",
+      "name": "simulator-runtime-controller",
+      "source_category": "simulation",
+      "source_script_path": "skills/simulation/simulator-runtime-controller/scripts/run.py",
+      "source_script_sha256": "sha256:555861b1bee23e9c4d404501857810f73c2403d8176eefce3e9a3d1acfbb8b14"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/validation-audit-and-quality/bootstrap-local-runtime",
+      "catalog_script_sha256": "sha256:c5ce5a21a045c88b7175035583eef7c57f0d8109806028adf2dcac1e32afb2dd",
+      "name": "bootstrap-local-runtime",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/bootstrap-local-runtime/scripts/run.py",
+      "source_script_sha256": "sha256:b6651ee1fac1a289932f3c9af7d272ea961c59f4adddc871c60ee19b40b5ba11"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/validation-audit-and-quality/deployment-configuration-validator",
+      "catalog_script_sha256": "sha256:fbad08ab893728c8be4d28e2e292e257eacba434d8945575cc8e707e82479065",
+      "name": "deployment-configuration-validator",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/deployment-configuration-validator/scripts/run.py",
+      "source_script_sha256": "sha256:bd6f08187711f1e30bb67dc78fe9118925ede1949a982607f7378089ff3d3094"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/orchestration-governance-and-control/external-action-governor",
+      "catalog_script_sha256": "sha256:f87dd82e26ee9fe17bc6120544ee1f84a5bd5ffd1155c89f9b00e08014f189ea",
+      "name": "external-action-governor",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/external-action-governor/scripts/run.py",
+      "source_script_sha256": "sha256:b3ae348f43c498c68f3d4ac63725fb2cc644afcb9006c799fbd35a47cd09a0fb"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/orchestration-governance-and-control/inspect-system-contract",
+      "catalog_script_sha256": "sha256:fffa8aa4a66db087dc1cf37c6dd644dde964dbab2cbab8bc2940d942bf3effe1",
+      "name": "inspect-system-contract",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/inspect-system-contract/scripts/run.py",
+      "source_script_sha256": "sha256:76cdf0be6530f11b6cd326d7dee210fd6641d2428736ce6614ad83240eee7f55"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/validation-audit-and-quality/probe-local-runtime",
+      "catalog_script_sha256": "sha256:92a36753f1bf1a25e0901fee02cfaa349fc0c32f692601af7a42cc5210ee22ea",
+      "name": "probe-local-runtime",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/probe-local-runtime/scripts/run.py",
+      "source_script_sha256": "sha256:e3b5faffe14104d647e3537805cab6bf90457bf838093816836d020be24729ce"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/orchestration-governance-and-control/production-operations-control",
+      "catalog_script_sha256": "sha256:6eeb9c1fb6ed854abefe7c99cb2b6000b4460957bd540bbd4245347e4f5d7dd3",
+      "name": "production-operations-control",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/production-operations-control/scripts/run.py",
+      "source_script_sha256": "sha256:c9ff43712b4b74e71ac38a31b9f3382a6878e0bb6cea3271aa95b8b7208653d3"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/validation-audit-and-quality/production-validation-evaluator",
+      "catalog_script_sha256": "sha256:10193276aff0512394004e6775be8e46073f88f2c886ab33465ebee38cb1c9e5",
+      "name": "production-validation-evaluator",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/production-validation-evaluator/scripts/run.py",
+      "source_script_sha256": "sha256:92fb58b43916f46e4e34d45f5bfa15114292a494107f43205589e8d6908588e9"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/orchestration-governance-and-control/security-lifecycle-inspector",
+      "catalog_script_sha256": "sha256:5c0824b58c565da94651debd7c4277bce36c8f22b970d36071efa412e5230f88",
+      "name": "security-lifecycle-inspector",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/security-lifecycle-inspector/scripts/run.py",
+      "source_script_sha256": "sha256:056f01dc3a94fee705174aa0154c667f95fc29a6ee3f7e8d0cfd3e250fe18fc6"
+    },
+    {
+      "catalog_path": "catalog/agents/reasoners/runtime-and-governance/orchestration-governance-and-control/system-stage-readiness-inspector",
+      "catalog_script_sha256": "sha256:240e14875ccd669dd289e96b647197c432c85efa184b958fc51b73e281e39c5f",
+      "name": "system-stage-readiness-inspector",
+      "source_category": "system-operations",
+      "source_script_path": "skills/system-operations/system-stage-readiness-inspector/scripts/run.py",
+      "source_script_sha256": "sha256:45b75b164763d50530da743da9cc1ebce780441518d3d0261a4982b0b2544385"
+    }
+  ],
+  "upstream": {
+    "commit": "8da41fdc218ab341c76e7252b57aeb3350e42020",
+    "commit_date": "2026-08-18T19:24:00+02:00",
+    "imported_on": "2026-08-27",
+    "license": {
+      "evidence": "pyproject.toml declares MIT, but no LICENSE, LICENCE, COPYING, or equivalent repository-level license file exists at the imported commit; the upstream README contains only a license-section placeholder.",
+      "redistribution_review": "required",
+      "review_required": true,
+      "status": "declared-mit-without-license-file"
+    },
+    "repository": "git@gitlab.idiap.ch:neurosymbolicai/causal-agents.git"
+  }
+}

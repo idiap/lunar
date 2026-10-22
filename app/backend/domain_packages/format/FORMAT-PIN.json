@@ -1,0 +1,18 @@
+{
+  "format_version": 1,
+  "canonical_owner": "Lunar Platform",
+  "canonical_path": "app/backend/domain_packages/format",
+  "files": {
+    "__init__.py": "02e13f0d7c73ce9fe71d38f72d5712cade95dc9595644a0cd3ed0925d2643a59",
+    "contract.py": "dcab25829c19ac612c72ce17d8975393cf78561d2aeb4341b2c9404b8d1b640c",
+    "data-sources-v1.schema.json": "9845ce562da65ba1f8fffcc554d2c1566134f50fc2657383eca81d17c241034c",
+    "manifest-v1.schema.json": "9a8211a222409764570e461ab979933c5f776739179f364bfd4b88608ea8037e",
+    "reports-v1.schema.json": "ffb553fd668cd4b2d3f467ea2b736f06569f7d821017ebd5478e0b772094a310",
+    "repository-v1.schema.json": "efa32e1f34f71921f7bca25cef9372e95914cedcf3a71257bf5e7d29a792c1f2",
+    "skills-v1.schema.json": "b08e1526a87ea446c31d2ca0ee07fc670c7913f3c60a8a25ca297cfc12dbd0d2",
+    "worker-request-v1.schema.json": "496dbca1f2888b5922794edf9f12e4507288b09dedf59101929621f85ca2eb5b",
+    "worker-result-v1.schema.json": "921d63c1dee3aba2d291e42d7a5437fcdebbc91c5f0407e0f2e3f9df3c4a0e72",
+    "viewer-v1.schema.json": "0472a33094571b176aa0fcf24a71d0163484576466042df6fb03d701e5f8305f",
+    "source_workflows.py": "bd8310e76ec5cbaa5ba55093253a7ebcba0d365d10f2263af2a7d95f1961091a"
+  }
+}

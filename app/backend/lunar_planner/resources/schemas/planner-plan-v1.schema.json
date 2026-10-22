@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-plan-v1.schema.json",
+  "title": "Lunar versioned planner plan v1",
+  "type": "object",
+  "required": ["schema_version", "plan_id", "version", "request_id", "digest", "previous_digest", "invocation_plan", "components", "todos", "authority"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.plan/v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "previous_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "invocation_plan": {"$ref": "https://bioagents.local/schemas/invocation-plan-v1.schema.json"},
+    "components": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"$ref": "https://bioagents.local/schemas/skill-descriptor-v1.schema.json"},
+          {"$ref": "https://bioagents.local/schemas/subworkflow-manifest-v1.json"}
+        ]
+      }
+    },
+    "todos": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "external_source_plan": {"oneOf": [{"$ref": "https://bioagents.local/schemas/planner-external-source-plan-v1.schema.json"}, {"type": "null"}]},
+    "authority": {"const": "planning_only"}
+  },
+  "additionalProperties": false
+}

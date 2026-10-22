@@ -1,0 +1,170 @@
+{
+  "schema_version": "lunar.planner-reuse-map/v1",
+  "status": "design_non_executable",
+  "authority": "advisory_mapping_only",
+  "selection_boundary": "Mappings nominate reusable surfaces. Complete skill bodies and contracts still require semantic review before binding.",
+  "canonical_surfaces": {
+    "skill_contracts": "catalog/registry/skill_descriptor.py",
+    "conversational_routing": "catalog/integrations/planner/routing.py",
+    "subworkflow_composition": "catalog/workflows/public/subworkflows/planner.py",
+    "run_output_root": "artifacts/runs/planner",
+    "generated_workflow_root": "artifacts/workflows"
+  },
+  "owner_resolution_groups": [
+    {
+      "imported_owners": [
+        "planner-intent-router",
+        "meta-framework-intent-router"
+      ],
+      "coverage": "composed_reuse",
+      "reuse_surfaces": [
+        "catalog/integrations/planner/routing.py",
+        "pipeline-design-refinement-planner",
+        "skill-portfolio-navigator",
+        "skill-reuse-critical-reasoner"
+      ],
+      "residual_gap": "durable route-state and acceptance semantics",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "artifact-contract-validator",
+        "report-evidence-trace-auditor"
+      ],
+      "coverage": "composed_reuse",
+      "reuse_surfaces": [
+        "skill-contract-auditor",
+        "artifact-inspector",
+        "methods-provenance-auditor",
+        "skill-surface-release-gate"
+      ],
+      "residual_gap": "planner-specific component selector and reconciliation contract",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "composition-path-ranker",
+        "skill-composition-executor-planner",
+        "meta-epistemic-workflow-decomposer",
+        "meta-skillset-todo-planner",
+        "meta-workflow-hook-planner"
+      ],
+      "coverage": "composed_reuse",
+      "reuse_surfaces": [
+        "workflow-skill-gap-planner",
+        "agentic-workflow-designer",
+        "catalog/workflows/public/subworkflows/planner.py"
+      ],
+      "residual_gap": "persistent planner TODO and generic hook state",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "meta-existing-skill-sufficiency-auditor",
+        "meta-workflow-novelty-classifier",
+        "skill-monotonic-extension-guard"
+      ],
+      "coverage": "composed_reuse",
+      "reuse_surfaces": [
+        "skill-reuse-critical-reasoner",
+        "workflow-skill-gap-planner",
+        "skill-contract-auditor",
+        "skill-surface-release-gate"
+      ],
+      "residual_gap": "generic matched before/after monotonicity record",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "external-framework-capability-reuse-auditor",
+        "external-framework-environment-specifier",
+        "source-connector-gap-planner",
+        "meta-external-knowledge-search-router"
+      ],
+      "coverage": "composed_reuse",
+      "reuse_surfaces": [
+        "external-analysis-scout",
+        "bioconductor-package-selector",
+        "bioconda-package-index",
+        "biomni-local-wrapper",
+        "ordinary-claude-skills-wrapper",
+        "biomedical-source-adapter-framework",
+        "isolated-backend-boundary"
+      ],
+      "residual_gap": "normalized environment specification and permission-gated installer",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "workflow-output-lineage-tracer",
+        "workflow-output-root-cause-diagnoser",
+        "workflow-change-differential-validator",
+        "workflow-representation-compatibility-auditor",
+        "workflow-representation-change-planner"
+      ],
+      "coverage": "partial_reuse",
+      "reuse_surfaces": [
+        "run-inspector",
+        "artifact-inspector",
+        "workflow-health-audit-orchestrator",
+        "workflow-test-coverage-auditor",
+        "catalog/workflows/public/subworkflows/manifest.schema.json"
+      ],
+      "residual_gap": "generic earliest-source diagnosis, representation migration, and matched differential contract",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "meta-feedback-necessity-assessor",
+        "meta-feedback-skill-specifier",
+        "meta-reflective-refinement-orchestrator",
+        "meta-outcome-abduction-interpreter"
+      ],
+      "coverage": "partial_reuse",
+      "reuse_surfaces": [
+        "pipeline-design-refinement-planner",
+        "workflow-skill-gap-planner",
+        "discovery-report-critic",
+        "run-inspector"
+      ],
+      "residual_gap": "generic output-symptom-to-earliest-source refinement loop",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "meta-success-criteria-elicitor",
+        "meta-test-strategy-architect",
+        "meta-generative-validation-runner",
+        "meta-implementation-reviewer",
+        "meta-goal-loop-closure-auditor"
+      ],
+      "coverage": "partial_reuse",
+      "reuse_surfaces": [
+        "production-validation-evaluator",
+        "skill-surface-release-gate",
+        "workflow-test-coverage-auditor",
+        "discovery-report-critic"
+      ],
+      "residual_gap": "versioned criterion store and generic planner closure contract",
+      "invocable": false
+    },
+    {
+      "imported_owners": [
+        "composite-workflow-hook-orchestrator",
+        "meta-todo-implementation-driver"
+      ],
+      "coverage": "no_local_match",
+      "reuse_surfaces": [
+        "catalog/workflows/public/subworkflows/planner.py",
+        "run-controller"
+      ],
+      "residual_gap": "generic durable hook/TODO dispatcher with transitive invalidation",
+      "invocable": false
+    }
+  ],
+  "creator_context_policy": {
+    "status": "omitted_from_adapted_tree",
+    "invocable": false,
+    "required_gate": "fresh skill-reuse-critical review followed by explicit skill-creator admission"
+  }
+}

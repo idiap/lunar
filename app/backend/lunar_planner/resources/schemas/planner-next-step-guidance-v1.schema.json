@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-next-step-guidance-v1.schema.json",
+  "title": "Lunar closure-oriented next-step guidance v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "closure_state",
+    "disposition",
+    "reason",
+    "source_state_digest",
+    "skill_route",
+    "suggestions",
+    "digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.next-step-guidance/v1"
+    },
+    "closure_state": {
+      "enum": [
+        "closed",
+        "non_planning_control",
+        "blocked",
+        "awaiting_input",
+        "awaiting_review",
+        "repair_required",
+        "ready_for_acceptance",
+        "ready_for_host_continuation",
+        "gap_review_required",
+        "open_without_actionable_target"
+      ]
+    },
+    "disposition": {
+      "enum": ["suggest", "omit"]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_state_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "skill_route": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": {
+        "enum": ["closure-readiness-assessor", "concrete-next-step-advisor"]
+      },
+      "uniqueItems": true
+    },
+    "suggestions": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "$ref": "#/$defs/suggestion"
+      }
+    },
+    "digest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"disposition": {"const": "omit"}}
+      },
+      "then": {
+        "properties": {
+          "suggestions": {"maxItems": 0},
+          "skill_route": {
+            "const": ["closure-readiness-assessor"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"disposition": {"const": "suggest"}}
+      },
+      "then": {
+        "properties": {
+          "suggestions": {"minItems": 1, "maxItems": 1},
+          "skill_route": {
+            "const": ["closure-readiness-assessor", "concrete-next-step-advisor"]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "suggestion": {
+      "type": "object",
+      "required": [
+        "suggestion_id",
+        "priority",
+        "action",
+        "why_now",
+        "target_ids",
+        "required_input",
+        "expected_artifact",
+        "completion_criterion",
+        "closes",
+        "authority"
+      ],
+      "properties": {
+        "suggestion_id": {
+          "type": "string",
+          "pattern": "^next-step-[0-9a-f]{16}$"
+        },
+        "priority": {"const": 1},
+        "action": {"type": "string", "minLength": 1},
+        "why_now": {"type": "string", "minLength": 1},
+        "target_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "required_input": {"type": "string", "minLength": 1},
+        "expected_artifact": {"type": "string", "minLength": 1},
+        "completion_criterion": {"type": "string", "minLength": 1},
+        "closes": {"type": "string", "minLength": 1},
+        "authority": {
+          "type": "object",
+          "required": ["required", "side_effects"],
+          "properties": {
+            "required": {"type": "string", "minLength": 1},
+            "side_effects": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          },
+          "additionalProperties": false
+        },
+        "planner_operation": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  }
+}

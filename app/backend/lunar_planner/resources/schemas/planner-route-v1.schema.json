@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-route-v1.schema.json",
+  "title": "Lunar planner route v1",
+  "type": "object",
+  "required": ["schema_version", "route_id", "request_id", "profile", "invocation_plan", "authority"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.route/v1"},
+    "route_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "profile": {"enum": ["direct_use", "new_workflow", "extend_existing_workflow", "refine_output_problem"]},
+    "invocation_plan": {"$ref": "https://bioagents.local/schemas/invocation-plan-v1.schema.json"},
+    "authority": {"const": "planning_only"}
+  },
+  "additionalProperties": false
+}

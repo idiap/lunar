@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: Copyright © 2026 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Danilo Gusicuma <danilo.gusicuma@idiap.ch>
+# Neuro-symbolic AI Group
+#
+# SPDX-License-Identifier: Apache-2.0
+interface:
+  display_name: "TODO Planner"
+  short_description: "Create verifiable dependency-ordered TODO plans"
+  default_prompt: "Use $todo-planner to inspect this repository and write a concise, implementation-ready TODO.md without implementing the change."

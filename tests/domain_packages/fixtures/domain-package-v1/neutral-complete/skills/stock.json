@@ -1,0 +1,1 @@
+{"id": "stock", "name": "Stock summary", "instructions": "Summarize item counts.", "capabilities": [{"operation": "summarize"}], "invocation": {"mode": "planning"}, "groups": [], "metadata": {}}

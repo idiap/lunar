@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.dev/schemas/independent-quality-case-v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "case_id", "partition", "family_id", "behavior", "request", "source_snapshot_id", "source_snapshot_digest", "prompt_scaffold_id", "mutation_template_id", "expected", "digest"],
+  "properties": {
+    "schema_version": {"const": "bioagents.benchmark.independent-quality-case/v1"},
+    "case_id": {"type": "string", "minLength": 1},
+    "partition": {"enum": ["validation", "sealed_rehearsal"]},
+    "family_id": {"type": "string", "minLength": 1},
+    "behavior": {"enum": ["direct", "composed", "ambiguous", "blocked", "correction"]},
+    "request": {"type": "string", "minLength": 20},
+    "references": {"type": "array", "items": {"type": "string"}},
+    "desired_outputs": {"type": "array", "items": {"type": "string"}},
+    "source_snapshot_id": {"type": "string"},
+    "source_snapshot_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "prompt_scaffold_id": {"type": "string"},
+    "mutation_template_id": {"type": "string"},
+    "expected": {"type": "object"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

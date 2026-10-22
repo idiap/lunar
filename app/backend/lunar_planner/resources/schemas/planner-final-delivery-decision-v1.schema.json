@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-final-delivery-decision-v1.schema.json",
+  "title": "Final delivery decision v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_id",
+    "root_interaction_id",
+    "operation_role",
+    "parent_digest",
+    "principal",
+    "canonical_serialization",
+    "evidence_manifest_digest",
+    "quality_plan_digest",
+    "assessment_digest",
+    "artifact_digest",
+    "decision",
+    "reasons",
+    "next_action",
+    "digest",
+    "presentable_as_user_answer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "lunar.planner.final-delivery-decision/v1"
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "root_interaction_id": {
+      "type": "string"
+    },
+    "operation_role": {
+      "const": "final_delivery"
+    },
+    "parent_digest": {
+      "type": "string"
+    },
+    "principal": {
+      "type": "object"
+    },
+    "canonical_serialization": {
+      "const": "canonical-json-v1"
+    },
+    "evidence_manifest_digest": {
+      "type": "string"
+    },
+    "quality_plan_digest": {
+      "type": "string"
+    },
+    "assessment_digest": {
+      "type": "string"
+    },
+    "artifact_digest": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "release",
+        "revise",
+        "needs_input",
+        "inconclusive",
+        "block"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "digest": {
+      "type": "string"
+    },
+    "presentable_as_user_answer": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

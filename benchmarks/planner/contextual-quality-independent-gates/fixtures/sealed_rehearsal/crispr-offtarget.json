@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for CRISPR guide evidence review",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:4c56671230975f2ca0caf408c01e391f5f21281433a6906c8c634b1ac52527fa",
+  "family_id": "crispr-offtarget",
+  "governing_boundary": "separate predicted off-targets from experimentally observed edits",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "CRISPR guide evidence review",
+  "snapshot_id": "snapshot-sealed_rehearsal-crispr-offtarget-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bioagents.local/schemas/planner-run-manifest-v1.schema.json",
+  "title": "Lunar planner run manifest v1",
+  "type": "object",
+  "required": ["schema_version", "run_id", "request_id", "route_id", "status", "authority", "artifacts", "created_at"],
+  "properties": {
+    "schema_version": {"const": "lunar.planner.run-manifest/v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "route_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["planning", "blocked", "ready_for_acceptance", "accepted", "rejected"]},
+    "authority": {"const": "planning_only"},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "path", "digest"],
+        "properties": {
+          "kind": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "pattern": "^artifacts/runs/planner/"},
+          "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "external_source_plan": {"oneOf": [{"$ref": "https://bioagents.local/schemas/planner-external-source-plan-v1.schema.json"}, {"type": "null"}]}
+  },
+  "additionalProperties": false
+}

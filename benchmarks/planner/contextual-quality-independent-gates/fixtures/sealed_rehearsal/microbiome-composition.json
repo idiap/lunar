@@ -1,0 +1,19 @@
+{
+  "admitted_evidence": [
+    "bounded observation for microbiome compositional analysis",
+    "declared analysis metadata",
+    "expert-supplied scope"
+  ],
+  "authority": "planning and scientific decision support only",
+  "digest": "sha256:eeda95e7cd92832b1e7c6130b012245461602d6a5c91e2c5e224c5c4c8fb8dc9",
+  "family_id": "microbiome-composition",
+  "governing_boundary": "avoid interpreting relative abundance as absolute load",
+  "schema_version": "bioagents.benchmark.quality-source-snapshot/v1",
+  "scientific_task": "microbiome compositional analysis",
+  "snapshot_id": "snapshot-sealed_rehearsal-microbiome-composition-v1",
+  "unavailable_evidence": [
+    "patient-level causal proof",
+    "unrecorded measurements",
+    "undeclared external retrieval"
+  ]
+}
